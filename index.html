@@ -434,6 +434,104 @@ secondValue:(AnotherType)info2;
 
 
   
+    <article id="post-Oracle学习之DCL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/17/Oracle学习之DCL/">Oracle学习之DCL</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/17/Oracle学习之DCL/" class="archive-article-date">
+  	<time datetime="2015-01-17T05:24:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-oracle常用的用户："><a href="#1-oracle常用的用户：" class="headerlink" title="1.oracle常用的用户："></a>1.oracle常用的用户：</h1><pre><code>Sys：    系统管理员    创建数据库，启动数据库，关闭数据库
+System：    数据库管理员    数据库启动后，可以使用数据库的任何权限
+scott：    示例用户    
+</code></pre><h1 id="2-创建用户："><a href="#2-创建用户：" class="headerlink" title="2.创建用户："></a>2.创建用户：</h1><pre><code>Create user USER_NAME identified by PASSWORD;
+</code></pre><h1 id="3-oracle中权限的分类："><a href="#3-oracle中权限的分类：" class="headerlink" title="3.oracle中权限的分类："></a>3.oracle中权限的分类：</h1><pre><code>系统权限：    用户使用系统资源的权限，例如：登陆，创建表，修改表，创建函数等
+对象权限：    一个用户使用其他用户的资源，例如：利用scott来查询student用户的表
+</code></pre><h1 id="4-授权："><a href="#4-授权：" class="headerlink" title="4.授权："></a>4.授权：</h1><pre><code>Grant 权限 to 用户;
+Grant create session to student;
+</code></pre><h1 id="5-角色："><a href="#5-角色：" class="headerlink" title="5.角色："></a>5.角色：</h1><pre><code>即权限的组合（集合）
+常用的角色：
+    Connect    登陆
+    Resource    普通用户的常用权限的集合
+    dba    数据库管理员
+</code></pre><h1 id="6-撤销权限："><a href="#6-撤销权限：" class="headerlink" title="6.撤销权限："></a>6.撤销权限：</h1><pre><code>Revoke 权限 from 用户
+</code></pre><h1 id="7-对象权限："><a href="#7-对象权限：" class="headerlink" title="7.对象权限："></a>7.对象权限：</h1><pre><code>例如：
+    student能否删除，修改，查询scott.emp表
+Grant select/insert/all on emp to student;
+Revokde select/insert/all on emp from student;
+</code></pre><h1 id="8-事务："><a href="#8-事务：" class="headerlink" title="8.事务："></a>8.事务：</h1><pre><code>Transaction
+是用户自定义的一个操作序列，这个操作序列式一个最小的执行单元
+也就是说，要么全做，要么一个都不执行
+事务的四个特性：ACID
+原子性    最小的执行单位，不能再分
+一致性    执行前后，应该保持一致状态
+隔离性    多个事务之间，互不干扰
+持久性    一旦事务提交，不能回退
+</code></pre><h1 id="9-事务控制语句："><a href="#9-事务控制语句：" class="headerlink" title="9.事务控制语句："></a>9.事务控制语句：</h1><pre><code>Commit    提交
+Rollback    回退
+savepoint    设置保存点
+</code></pre><h1 id="10-事务所涉及的操作："><a href="#10-事务所涉及的操作：" class="headerlink" title="10.事务所涉及的操作："></a>10.事务所涉及的操作：</h1><pre><code>Update    
+Delete    
+Insert    
+</code></pre><h1 id="11-以下情况会提交事务："><a href="#11-以下情况会提交事务：" class="headerlink" title="11.以下情况会提交事务："></a>11.以下情况会提交事务：</h1><pre><code>手动commit提交
+正常退出sqlplus环境
+执行DDL语句
+执行DCL语句
+</code></pre><h1 id="12-解锁用户："><a href="#12-解锁用户：" class="headerlink" title="12.解锁用户："></a>12.解锁用户：</h1><pre><code>Alter user username account unlock;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/17/Oracle学习之DCL/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Oracle学习之常用函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
