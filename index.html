@@ -434,6 +434,329 @@ secondValue:(AnotherType)info2;
 
 
   
+    <article id="post-Oracle学习之JDBC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/22/Oracle学习之JDBC/">Oracle学习之JDBC</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/22/Oracle学习之JDBC/" class="archive-article-date">
+  	<time datetime="2015-01-22T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-JDBC："><a href="#1-JDBC：" class="headerlink" title="1.JDBC："></a>1.JDBC：</h1><pre><code>Java Database Connectivity
+在java中访问各种关系型数据库的一些API
+</code></pre><h1 id="2-JDBC所在的包："><a href="#2-JDBC所在的包：" class="headerlink" title="2.JDBC所在的包："></a>2.JDBC所在的包：</h1><pre><code>Java.sql.*;
+</code></pre><h1 id="3-常用的类和接口："><a href="#3-常用的类和接口：" class="headerlink" title="3.常用的类和接口："></a>3.常用的类和接口：</h1><pre><code>DriverManager    程序驱动管理器（类）
+Connection    代表数据库连接（接口）
+Statement    声明，可以用来发送sql语句（接口）
+            Boolean excute
+            ResultSet excuteQuery
+            Int executeUpdate
+            Int[] executeUpdate
+resultSet    结果集（接口），代表查询结果
+</code></pre><h1 id="4-利用JDBC访问数据库的原理："><a href="#4-利用JDBC访问数据库的原理：" class="headerlink" title="4.利用JDBC访问数据库的原理："></a>4.利用JDBC访问数据库的原理：</h1><pre><code>//连接数据库，并向dept表中插一条记录：
+        //1.加载驱动（按需访问）
+            Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);
+        //2.获得连接
+        String url=&quot;jdbc:oracle:thin:@localhost:1521:orcl&quot;;
+        String userName=&quot;c##scott&quot;;
+        String password=&quot;tiger&quot;;
+        Connection conn =
+         DriverManager.getConnection(url,userName,password);
+                System.out.println(&quot;连接成功&quot;);
+        ;//代表连接
+        //3.获得声明
+        Statement st = null;//声明
+               //创建一个与conn关联的声明
+            st = conn.createStatement();
+            //4.发送sql
+            st.execute(&quot;insert into dept values(45,&apos;开发部&apos;,&apos;哈尔滨&apos;)&quot;);
+         //5.关闭资源
+        st.close();
+        conn.close();
+</code></pre><h1 id="5-Statement的三个常用方法的区别："><a href="#5-Statement的三个常用方法的区别：" class="headerlink" title="5.Statement的三个常用方法的区别："></a>5.Statement的三个常用方法的区别：</h1><pre><code>boolean execute：可以执行任何sql语句，如果此sql语句有查询结果，返回true，否则，false
+ResultSet getResultSet：获得查询结果集
+int executeUpdate：执行DML和DDL，返回影响的记录的条数，如果是DDL，返回0
+ResultSet executeQuery：专门执行select语句的方法，返回查询结果集
+</code></pre><h1 id="6-ResultSet的用法："><a href="#6-ResultSet的用法：" class="headerlink" title="6.ResultSet的用法："></a>6.ResultSet的用法：</h1><pre><code>代表查询语句的结果集；
+    两个重要的方法
+    .next()：移动记录的指针
+    .getXXX()：获取当前行的某个字段的值
+    rs = st.executeQuery(&quot;select * from dept&quot;);
+                //遍历结果集
+                //是否存在下一条记录
+                while(rs.next()){
+                    //取每一个字段值
+                    int deptno = rs.getInt(1);
+                    String dname = rs.getString(&quot;dname&quot;);
+                    String loc = rs.getString(&quot;loc&quot;);
+                    System.out.println(deptno+&quot;\t&quot;+dname+&quot;\t&quot;+loc);
+    }
+</code></pre><h1 id="7-DAO"><a href="#7-DAO" class="headerlink" title="7.DAO:"></a>7.DAO:</h1><pre><code>Data Access Object;
+对数据操作的封装
+DeptDao{
+    insert(Dept dept);
+    update(Dept dept);
+}
+VO:Value Object
+    java中我们使用的类
+    数据库中我们使用的表
+</code></pre><h1 id="8-PreparedStatement："><a href="#8-PreparedStatement：" class="headerlink" title="8.PreparedStatement："></a>8.PreparedStatement：</h1><pre><code>这是Statement的子接口，是预编译的Statement，与Statement相比，PreparedStatement在多次执行同一类语句性能更好；同时可以解决sql注入的问题
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/22/Oracle学习之JDBC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-Oracle学习之E-R图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/20/Oracle学习之E-R图/">Oracle学习之E-R图</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/20/Oracle学习之E-R图/" class="archive-article-date">
+  	<time datetime="2015-01-20T07:23:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="软件开发生命周期："><a href="#软件开发生命周期：" class="headerlink" title="软件开发生命周期："></a>软件开发生命周期：</h1><pre><code>1.可行性分析：做还是不做
+2.需求分析：做什么
+3.概要设计
+4.系统实现
+5.测试：单元测试，黑盒，白盒，集成测试，性能测试（压力测试）
+6.运行维护：（运维人员）
+</code></pre><h1 id="1-建模："><a href="#1-建模：" class="headerlink" title="1.建模："></a>1.建模：</h1><pre><code>E-R图：
+实体，关系图：
+    三要素：
+        实体：表
+        属性：列
+        关系：一对一，一对多，多对多
+</code></pre><h1 id="2-PowerDesinger"><a href="#2-PowerDesinger" class="headerlink" title="2.PowerDesinger"></a>2.PowerDesinger</h1><pre><code>简称：PD
+是一个建模工具软件，可以利用这个软件绘制E-R图
+</code></pre><h1 id="3-使用PD创建E-R图的步骤："><a href="#3-使用PD创建E-R图的步骤：" class="headerlink" title="3.使用PD创建E-R图的步骤："></a>3.使用PD创建E-R图的步骤：</h1><pre><code>1.新建一个概念E-R图
+2.创建实例，属性，并建立关系，如果是一对多，不要在多的那个实体中自定义外键列，
+只需要建立一对多关系即可，外键会自动生成
+3.将概念E-R图转换成Oracle的物理E-R图
+4.生成建表的sql语句
+
+思路：概念-&gt;物理-&gt;语句
+</code></pre><h1 id="4-多对多的实现方式："><a href="#4-多对多的实现方式：" class="headerlink" title="4.多对多的实现方式："></a>4.多对多的实现方式：</h1><pre><code>学生表                         科目表
+          中间表
+</code></pre><h1 id="5-一对一："><a href="#5-一对一：" class="headerlink" title="5.一对一："></a>5.一对一：</h1><pre><code>唯一外键：
+    是一对多的一个特例，在外键列上再增加一个unique约束即可；
+相同主键：
+    两个表的主键是一个列，从表的主键列还是外键
+</code></pre><h1 id="6-范式："><a href="#6-范式：" class="headerlink" title="6.范式："></a>6.范式：</h1><pre><code>1NF：主键，列的值不能为一组值（集合）
+2NF：满足1NF，消除部分依赖
+3NF：满足2NF，消除传递依赖
+BCNF
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/20/Oracle学习之E-R图/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-Oracle学习之数据库对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/18/Oracle学习之数据库对象/">Oracle学习之数据库对象</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/18/Oracle学习之数据库对象/" class="archive-article-date">
+  	<time datetime="2015-01-18T06:35:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-数据库对象："><a href="#1-数据库对象：" class="headerlink" title="1.数据库对象："></a>1.数据库对象：</h1><pre><code>表是最基本的数据库对象，作用是用来存储数据
+</code></pre><h1 id="2-其它常用的数据库对象："><a href="#2-其它常用的数据库对象：" class="headerlink" title="2.其它常用的数据库对象："></a>2.其它常用的数据库对象：</h1><pre><code>同义词：
+序列：
+视图：
+索引：
+函数：
+存储过程：
+触发器：
+</code></pre><h1 id="3-序列："><a href="#3-序列：" class="headerlink" title="3.序列："></a>3.序列：</h1><pre><code>用来产生唯一，连续的序号；
+生成主键；
+Create sequence 序列名
+    Start with
+    Increment by：增量
+    Maxvalue：最大值
+    Minvalue：最小值
+    Cycle | nocycle：是否循环
+    cache：缓存
+
+如何使用序列：
+    一定要在sql语句中使用；
+    序列名.nextVal：下一个值
+    序列名.currVal：当前值
+</code></pre><h1 id="4-分析函数："><a href="#4-分析函数：" class="headerlink" title="4.分析函数："></a>4.分析函数：</h1><pre><code>Rank() over() 一起使用
+Rank()：生成序号，如果比较大小时相同，则序号相同，下一个序列会空出来，的例如 1 1 3
+Dense_rank()：生成序号，与rank相比，值相同，序号相同，但不同有空余的序号 1 1 2
+Row_number()：函数与rownum伪列相同
+
+Select rank() over(order by sal),emp.* from emp;
+</code></pre><h1 id="5-视图："><a href="#5-视图：" class="headerlink" title="5.视图："></a>5.视图：</h1><pre><code>一个命名的查询语句，也可称为虚拟表
+优点：
+    安全
+    隔离基表的改变
+
+创建视图：
+    Create view view_name as 查询语句;
+创建一个只读视图：
+    Create view view_name as 查询语句 with read only;
+对视图中的字段进行重命名：
+    Create view view_name(新名) as 查询语句
+对视图进行删除，插入，修改的操作：
+    如果对视图进行以上操作，实际上是对视图所关联的表进行操作，并不是所有的视图都可以做以上操作；
+    视图中的数据中的数据必须来自表中的真实数据才可以
+</code></pre><h1 id="6-索引："><a href="#6-索引：" class="headerlink" title="6.索引："></a>6.索引：</h1><pre><code>用来提高查询速度的一个对象：
+    Create index 索引名 on 表名（列名）
+</code></pre><h1 id="7-数据库备份："><a href="#7-数据库备份：" class="headerlink" title="7.数据库备份："></a>7.数据库备份：</h1><pre><code>dos下直接输入两个命令
+导入：    Imp
+导出：    Exp
+</code></pre><h1 id="8-数据字典："><a href="#8-数据字典：" class="headerlink" title="8.数据字典："></a>8.数据字典：</h1><pre><code>元数据的数据：
+    $
+    Dba_        all_       user_tables…
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/18/Oracle学习之数据库对象/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Oracle学习之DCL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -855,181 +1178,10 @@ MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型
 
 
   
-    <article id="post-Oracle学习之Oracle基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/13/Oracle学习之Oracle基础/">Oracle学习之Oracle基础</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/13/Oracle学习之Oracle基础/" class="archive-article-date">
-  	<time datetime="2015-01-13T06:18:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-未来计划："><a href="#1-未来计划：" class="headerlink" title="1.未来计划："></a>1.未来计划：</h1><pre><code>Oracle:数据库，mySql， powerDesigner
-jdbc:操作数据库的API，反射，annotation
-web编程
-   Html
-css
-javascript
-javaEE: servlet, jsp, jstl, xml, ajax,jquery
-tomcat
-</code></pre><p>   项目实践</p>
-<h1 id="2-数据库产品类型："><a href="#2-数据库产品类型：" class="headerlink" title="2.数据库产品类型："></a>2.数据库产品类型：</h1><pre><code>单机版：
-    access; foxbase; 
-    无法数据共享
-网络版：
-    mySQL: oracle公司的产品，免费开源
-    SQLServer: 微软
-    Oracle: Oracle公司
-    Db2: IBM公司
-</code></pre><h1 id="3-RDBMS的基本概念"><a href="#3-RDBMS的基本概念" class="headerlink" title="3.RDBMS的基本概念"></a>3.RDBMS的基本概念</h1><ul>
-<li>表是最小的一个存储单元</li>
-<li>整体思路：先将需要处理的数据进行分类后，存储在各个相互关联的表中</li>
-</ul>
-<h1 id="4-Oracle的主要服务："><a href="#4-Oracle的主要服务：" class="headerlink" title="4.Oracle的主要服务："></a>4.Oracle的主要服务：</h1><pre><code>OracleXXXListener: 监听器1521
-OracleSercviceXXX: Oracle实例
-OracleDbConsoleXXX: Oracle企业管理器
-
-常用工具：
-    Oracle Universal Installer(Oracle全局安装器)    安装卸载数据库管理系统
-    Datebase Configuration Assistant(数据库配置助手)    创建/配置/删除/管理模板
-    Net Configuration Assistant(网络配置助手)    监听器/命名方法/本地网络服务名/目录使用配置
-    SQL PLUS    Oracle 经典操作平台   基于命令行
-    SQL Developer    Oracle 图形操作平台   基于java
-    PL/SQL Developer    企业中广泛使用的操作平台
-</code></pre><h1 id="5-SQL语句的分类"><a href="#5-SQL语句的分类" class="headerlink" title="5.SQL语句的分类"></a>5.SQL语句的分类</h1><pre><code>结构化查询语言：
-    数据定义语言(DDL)： Create, Drop, Alter, Truncate
-    数据操作语言(DML)： Upate, Insert, Delete, Select(增删改查)
-    数据控制语言(DCL)： Grant(授予),Revoke(解除)
-    事物控制语言(TCL)： commit, rollback, savepoint
-</code></pre><h1 id="6-Create：创建"><a href="#6-Create：创建" class="headerlink" title="6.Create：创建"></a>6.Create：创建</h1><pre><code>作用：创建数据库对象，例如：
-    表，用户，索引，视图
-创建表的语法
-    create table 表名(
-        列名 数据类型 [约束],
-        ……………          ,
-        [表级约束]
-    ) 
-</code></pre><h1 id="7-Oracle数据类型："><a href="#7-Oracle数据类型：" class="headerlink" title="7.Oracle数据类型："></a>7.Oracle数据类型：</h1><pre><code>数字：    number(4)    表示最多4位数
-    number(4,2)    表示最多4位数，2位小数
-字符：    varchar(10)    可变字符 最多10个长度，根据值开辟空间
-    char(10)    不可变字符 保证占10个长度
-    varchar2    
-    nvarchar    可变字符 最多10个长度，根据值开辟空间
-        采用unicode字符集
-日期：    Date    
-    timeStamp    更精确
-大对象：    BLOB    4G/字段  存在数据库内部
-    BFILE    4G/字段  存在文件中
-    CLOB    4G/字段  大文本的
-    NCLOB    4G/字段  大文本的
-        采用unicode字符集
-
-oracle数据库密码：Oracle123
-</code></pre><h1 id="8-创建一个学生表："><a href="#8-创建一个学生表：" class="headerlink" title="8.创建一个学生表："></a>8.创建一个学生表：</h1><pre><code>    Create table TB_STUDENT(
-        sno  number(5) primary key,
-        sname varchar(20),
-        sex varchar(5),
-        birth date
-        ); 
-查看表结构：
-    Desc 表名;
-</code></pre><h1 id="9-对scott账户解锁："><a href="#9-对scott账户解锁：" class="headerlink" title="9.对scott账户解锁："></a>9.对scott账户解锁：</h1><pre><code>1.使用管理员登录 dos下： sqlplus / as sysdba
-2.解锁： alter user scott account
-3.改密码： alter user scott identified by tiger
-4.重新登录
-</code></pre><h1 id="10-约束的类型："><a href="#10-约束的类型：" class="headerlink" title="10.约束的类型："></a>10.约束的类型：</h1><pre><code>主键：一个表只能有一个主键，主键不能为空，不能重复，作用是唯一标识一条记录；
-       primary key，主键通常与业务无关，无特殊含义。
-非空：not null，不能为空，必填项 
-唯一：unique，不重复，可以为空，一个表可以有多个列是唯一约束
-检查：check，可以自定义规则；比如性别  in(&apos;male&apos;,&apos;female&apos;)
-外键：foreign key，外键的值必须在另一个表的主键中获取
-</code></pre><h1 id="11-insert语句："><a href="#11-insert语句：" class="headerlink" title="11.insert语句："></a>11.insert语句：</h1><pre><code>向表中插入记录
-    Insert into 表名 values(值,值2,…….);
-    Insert into 表名(列名) values(值);
-</code></pre><h1 id="12-事例："><a href="#12-事例：" class="headerlink" title="12.事例："></a>12.事例：</h1><pre><code>create table t_person(pno number(5) primary key,
-  2  name varchar(20) not null,
-  3  email varchar(30) unique,
-  4  sex varchar(6) check (sex in (&apos;male&apos;,&apos;female&apos;))
-  5  );
-</code></pre><h1 id="13-修改表语句："><a href="#13-修改表语句：" class="headerlink" title="13.修改表语句："></a>13.修改表语句：</h1><pre><code>ALTER TABLE &lt;表名&gt;
-    ADD &lt;新列名&gt;&lt;数据类型&gt;[完整性约束]
-    DROP &lt;完整性约束名&gt;
-    MODIFY &lt;列名&gt;&lt;数据类型&gt;
-    ;
-向表添加新的列，修改列或删除列
-添加表约束和删除表约束
-1.添加新列
-    Alter table 表名 add 列名 列类型;
-2.删除列
-    Alter table stu drop column sex;
-3.修改列的类型
-    Alter table stu modify sex varchar(15);
-4.添加主键
-    Alter table stu add primary key (id);
-5.删除主键
-    Alter table stu drop primary key;
-5.添加外键
-    Alter table test2 
-    add constraint foreign_key_name foreign key (Name)
-     references emp(EMPNO);
-6.删除表：
-    Drop table 表名;
-    删除表结构，表中的数据都将被删除;
-7.截断表：
-    Truncate table 表名;
-    将表中所有数据清空，表仍保留
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/13/Oracle学习之Oracle基础/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
