@@ -178,52 +178,60 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#1、 三角函数 </p>
-<p>##double sin (double);正弦 </p>
-<p>##double cos (double);余弦  </p>
-<p>##double tan (double);正切  </p>
+        <h1 id="1、-三角函数"><a href="#1、-三角函数" class="headerlink" title="1、 三角函数"></a>1、 三角函数</h1><ul>
+<li>double sin (double);正弦 </li>
+<li>double cos (double);余弦  </li>
+<li>double tan (double);正切  </li>
+</ul>
 <hr>
-<p>#2 、反三角函数 　　</p>
-<p>##double asin (double); 结果介于[-PI/2, PI/2] 　　</p>
-<p>##double acos (double); 结果介于[0, PI]　　</p>
-<p>##double atan (double); 反正切(主值), 结果介于[-PI/2, PI/2] 　　</p>
-<p>##double atan2 (double, double); 反正切(整圆值), 结果介于[-PI, PI]</p>
+<h1 id="2-、反三角函数"><a href="#2-、反三角函数" class="headerlink" title="2 、反三角函数　　"></a>2 、反三角函数　　</h1><ul>
+<li>double asin (double); 结果介于[-PI/2, PI/2] 　　</li>
+<li>double acos (double); 结果介于[0, PI]　　</li>
+<li>double atan (double); 反正切(主值), 结果介于[-PI/2, PI/2] 　　</li>
+<li>double atan2 (double, double); 反正切(整圆值), 结果介于[-PI, PI]</li>
+</ul>
 <hr>
-<p>#3 、双曲三角函数 </p>
-<p>##double sinh (double);　</p>
-<p>##double cosh (double);  　　</p>
-<p>##double tanh (double); 　　</p>
+<h1 id="3-、双曲三角函数"><a href="#3-、双曲三角函数" class="headerlink" title="3 、双曲三角函数"></a>3 、双曲三角函数</h1><ul>
+<li>double sinh (double);　</li>
+<li>double cosh (double);  　　</li>
+<li>double tanh (double); 　　</li>
+</ul>
 <hr>
-<p>#4 、指数与对数 　　</p>
-<p>##double exp (double);求取自然数e的幂  　　</p>
-<p>##double sqrt (double);开平方 　　</p>
-<p>##double log (double); 以e为底的对数 　　</p>
-<p>##double log10 (double);以10为底的对数 　　</p>
-<p>##double pow(double x, double y;计算以x为底数的y次幂  　　</p>
-<p>##float powf(float x, float y); 功能与pow一致，只是输入与输出皆为浮点数 </p>
+<h1 id="4-、指数与对数"><a href="#4-、指数与对数" class="headerlink" title="4 、指数与对数　　"></a>4 、指数与对数　　</h1><ul>
+<li>double exp (double);求取自然数e的幂  　　</li>
+<li>double sqrt (double);开平方 　　</li>
+<li>double log (double); 以e为底的对数 　　</li>
+<li>double log10 (double);以10为底的对数 　　</li>
+<li>double pow(double x, double y;计算以x为底数的y次幂  　　</li>
+<li>float powf(float x, float y); 功能与pow一致，只是输入与输出皆为浮点数 </li>
+</ul>
 <hr>
-<p>#5 、取整 　　</p>
-<p>##double ceil (double); 取上整 　　</p>
-<p>##double floor (double); 取下整 </p>
+<h1 id="5-、取整"><a href="#5-、取整" class="headerlink" title="5 、取整　　"></a>5 、取整　　</h1><ul>
+<li>double ceil (double); 取上整 　　</li>
+<li>double floor (double); 取下整 </li>
+</ul>
 <hr>
-<p>#6 、绝对值 　　</p>
-<p>##double fabs (double);求绝对值 　　</p>
-<p>##double cabs(struct complex znum) ;求复数的绝对值 </p>
+<h1 id="6-、绝对值"><a href="#6-、绝对值" class="headerlink" title="6 、绝对值 　　"></a>6 、绝对值 　　</h1><ul>
+<li>double fabs (double);求绝对值 　　</li>
+<li>double cabs(struct complex znum) ;求复数的绝对值 </li>
+</ul>
 <hr>
-<p>#7 、标准化浮点数　　</p>
-<p>##double frexp (double f, int <em>p); 标准化浮点数, f = x </em> 2^p, 已知f求x, p ( x介于[0.5, 1] ) 　　</p>
-<p>##double ldexp (double x, int p); 与frexp相反, 已知x, p求f 8 、取整与取余 　　</p>
-<p>##double modf (double, double*); 将参数的整数部分通过指针回传, 返回小数部分 　　</p>
-<p>##double fmod (double, double); 返回两参数相除的余数 </p>
+<h1 id="7-、标准化浮点数"><a href="#7-、标准化浮点数" class="headerlink" title="7 、标准化浮点数　　"></a>7 、标准化浮点数　　</h1><ul>
+<li>double frexp (double f, int <em>p); 标准化浮点数, f = x </em> 2^p, 已知f求x, p ( x介于[0.5, 1] ) 　　</li>
+<li>double ldexp (double x, int p); 与frexp相反, 已知x, p求f </li>
+</ul>
 <hr>
-<p>#8 、取整与取余   </p>
-<p>##double modf (double, double*); 将参数的整数部分通过指针回传, 返回小数部分  </p>
-<p>##double fmod (double, double); 返回两参数相除的余数  </p>
+<h1 id="8-、取整与取余"><a href="#8-、取整与取余" class="headerlink" title="8 、取整与取余"></a>8 、取整与取余</h1><ul>
+<li>double modf (double, double*); 将参数的整数部分通过指针回传, 返回小数部分  </li>
+<li>double fmod (double, double); 返回两参数相除的余数  </li>
+</ul>
 <hr>
-<p>#9 、其他double hypot(double x, double y);已知直角三角形两个直角边长度，求斜边长度　　</p>
-<p>##double ldexp(double x, int exponent);计算x*(2的exponent次幂) 　　</p>
-<p>##double poly(double x, int degree, double coeffs [] );计算多项式　　</p>
-<p>##nt matherr(struct exception *e);数学错误计算处理程序</p>
+<h1 id="9-、其他"><a href="#9-、其他" class="headerlink" title="9 、其他"></a>9 、其他</h1><ul>
+<li>double hypot(double x, double y);已知直角三角形两个直角边长度，求斜边长度　　</li>
+<li>double ldexp(double x, int exponent);计算x*(2的exponent次幂) 　　</li>
+<li>double poly(double x, int degree, double coeffs [] );计算多项式　　</li>
+<li>int matherr(struct exception *e);数学错误计算处理程序</li>
+</ul>
 
       
 
@@ -285,42 +293,44 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#类的定义</p>
-<p>##@interface SimpleClass:NSObject</p>
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>##@end</p>
-<hr>
-<p>#类的属性申明</p>
-<p>##@interface Person:NSObject</p>
-<p>##@property NSString *firstName;</p>
-<p>##@property NSSTring *lastName; </p>
-<p>##@end</p>
-<hr>
-<p>#类的属性申明</p>
-<p>##@property NSNumber *yearOfBirth;</p>
-<p>##@property int yearOfBirth;</p>
-<p>##@property(readonly) NSString *firstName;</p>
-<hr>
-<p>#减号方法（普通方法又称对象方法）申明</p>
-<p>##@interface Person:NSObject</p>
-<p>##- (void)someMethod;</p>
-<p>##- (void)someMethodWithValue:(SomeType)value;</p>
-<p>##- (void)someMethodWithFirstValue:(SomeType)info1 </p>
-<p>##secondValue:(AnotherType)info2;</p>
-<p>##@end</p>
-<hr>
-<p>#加号方法（类方法又称静态方法）申明</p>
-<p>##@interface NSString:NSObject</p>
-<p>##+ (id)string;</p>
-<p>##+ (id)stringWithString:(NSString *)aString;</p>
-<p>##+ (id)stringWithFormat:(NSString *)format,…;</p>
-<p>##+ (id)stringWithContentsOfFile:(NSString <em>)path encoding:(NSStringEncoding)enc error:(NSError *</em>)errod;</p>
-<p>##+ (id)stringWithCString:(const char *)cString encoding:(NSStringEncoding)enc;</p>
-<p>##@end</p>
-<hr>
-<p>#类的实现</p>
-<h1 id="import-“XYZPerson-h”"><a href="#import-“XYZPerson-h”" class="headerlink" title="#import “XYZPerson.h”"></a>#import “XYZPerson.h”</h1><p>##@implementation XYZPersion</p>
-<p>##@end</p>
-<hr>
+        <p>类的定义</p>
+<pre><code>@interface SimpleClass:NSObject
+    类 
+@end 
+</code></pre><hr>
+<p>类的属性申明</p>
+<pre><code>@interface Person:NSObject
+@property NSString *firstName;
+@property NSSTring *lastName; 
+@end
+</code></pre><hr>
+<p>类的属性申明</p>
+<pre><code>@property NSNumber *yearOfBirth;
+@property int yearOfBirth;
+@property(readonly) NSString *firstName;
+</code></pre><hr>
+<p>减号方法（普通方法又称对象方法）申明</p>
+<pre><code>@interface Person:NSObject
+-(void)someMethod;
+-(void)someMethodWithValue:(SomeType)value;
+-(void)someMethodWithFirstValue:(SomeType)info1 
+secondValue:(AnotherType)info2;
+@end
+</code></pre><hr>
+<p>加号方法（类方法又称静态方法）申明</p>
+<pre><code>@interface NSString:NSObject
++(id)string;
++(id)stringWithString:(NSString *)aString;
++(id)stringWithFormat:(NSString *)format,...;
++(id)stringWithContentsOfFile:(NSString *)path  encoding:(NSStringEncoding)enc error:(NSError **)errod;
++(id)stringWithCString:(const char *)cString encoding:(NSStringEncoding)enc;
+@end
+</code></pre><hr>
+<p>类的实现</p>
+<pre><code>#import &quot;XYZPerson.h&quot;
+@implementation XYZPersion
+@end
+</code></pre><hr>
 
       
 
@@ -382,8 +392,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#二月二，龙抬头。祝自己生日快乐。</p>
-<p>##Happy birthday.</p>
+        <p>二月二，龙抬头。祝自己生日快乐。<br>Happy birthday.</p>
 
       
 
