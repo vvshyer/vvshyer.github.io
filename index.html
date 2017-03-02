@@ -380,43 +380,23 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>类的定义</p>
-<pre><code>@interface SimpleClass:NSObject
-    类 
-@end 
-</code></pre><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SimpleClass</span>:<span class="title">NSObject</span></span></div><div class="line">类 </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
 <p>类的属性申明</p>
-<pre><code>@interface Person:NSObject
-@property NSString *firstName;
-@property NSSTring *lastName; 
-@end
-</code></pre><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>:<span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSSTring</span> *lastName; </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
 <p>类的属性申明</p>
-<pre><code>@property NSNumber *yearOfBirth;
-@property int yearOfBirth;
-@property(readonly) NSString *firstName;
-</code></pre><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> <span class="built_in">NSNumber</span> *yearOfBirth;</div><div class="line"><span class="keyword">@property</span> <span class="keyword">int</span> yearOfBirth;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>) <span class="built_in">NSString</span> *firstName;</div></pre></td></tr></table></figure>
+<hr>
 <p>减号方法（普通方法又称对象方法）申明</p>
-<pre><code>@interface Person:NSObject
--(void)someMethod;
--(void)someMethodWithValue:(SomeType)value;
--(void)someMethodWithFirstValue:(SomeType)info1 
-secondValue:(AnotherType)info2;
-@end
-</code></pre><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>:<span class="title">NSObject</span></span></div><div class="line">-(<span class="keyword">void</span>)someMethod;</div><div class="line">-(<span class="keyword">void</span>)someMethodWithValue:(SomeType)value;</div><div class="line">-(<span class="keyword">void</span>)someMethodWithFirstValue:(SomeType)info1 </div><div class="line">secondValue:(AnotherType)info2;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
 <p>加号方法（类方法又称静态方法）申明</p>
-<pre><code>@interface NSString:NSObject
-+(id)string;
-+(id)stringWithString:(NSString *)aString;
-+(id)stringWithFormat:(NSString *)format,...;
-+(id)stringWithContentsOfFile:(NSString *)path  encoding:(NSStringEncoding)enc error:(NSError **)errod;
-+(id)stringWithCString:(const char *)cString encoding:(NSStringEncoding)enc;
-@end
-</code></pre><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSString</span>:<span class="title">NSObject</span></span></div><div class="line">+(<span class="keyword">id</span>)string;</div><div class="line">+(<span class="keyword">id</span>)stringWithString:(<span class="built_in">NSString</span> *)aString;</div><div class="line">+(<span class="keyword">id</span>)stringWithFormat:(<span class="built_in">NSString</span> *)format,...;</div><div class="line">+(<span class="keyword">id</span>)stringWithContentsOfFile:(<span class="built_in">NSString</span> *)path  encoding:(<span class="built_in">NSStringEncoding</span>)enc error:(<span class="built_in">NSError</span> **)errod;</div><div class="line">+(<span class="keyword">id</span>)stringWithCString:(<span class="keyword">const</span> <span class="keyword">char</span> *)cString encoding:(<span class="built_in">NSStringEncoding</span>)enc;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
 <p>类的实现</p>
-<pre><code>#import &quot;XYZPerson.h&quot;
-@implementation XYZPersion
-@end
-</code></pre><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"XYZPerson.h"</span></span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XYZPersion</span></span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
 
       
 
@@ -1274,11 +1254,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
             
             <div class="clearfix"></div>
