@@ -158,6 +158,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-机试笔记01排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/07/机试笔记01排序/">机试笔记01排序</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/07/机试笔记01排序/" class="archive-article-date">
+  	<time datetime="2017-03-07T11:24:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#冒泡排序<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">int</span> buf[<span class="number">100</span>];</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)&#123;<span class="comment">//输入n,并实现多组数据输入</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n<span class="number">-1</span>-i; j++) &#123;</div><div class="line">                <span class="keyword">if</span> (buf[j]&gt;buf[j+<span class="number">1</span>]) &#123;</div><div class="line">                    <span class="keyword">int</span> tmp = buf[j];</div><div class="line">                    buf[j] = buf[j+<span class="number">1</span>];</div><div class="line">                    buf[j+<span class="number">1</span>] = tmp;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)</div></pre></td></tr></table></figure>
+<ul>
+<li>scanf函数是有返回值的，返回被输入函数成功复制的变量个数</li>
+<li>此例中，若成功对n赋值，返回值为1</li>
+<li>一般测试数据需要输入多组，需要对每组输入都输出相应答案</li>
+<li>当输入已经到达结尾，scanf函数无法再为n赋值，scanf返回EOF</li>
+</ul>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>使用C++内置函数 sort</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123; <span class="comment">//定义排序规则</span></div><div class="line">    <span class="keyword">return</span> x&gt;y;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">int</span> buf[<span class="number">100</span>];</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;buf[i]);</div><div class="line">        &#125;</div><div class="line">            <span class="comment">//sort(buf,buf+n);//使用该重载形式，表明使用默认排序（递增）</span></div><div class="line">        sort(buf,buf+n,cmp);<span class="comment">//使用该重载形式，表明使用自定义规则</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>#成绩排序 利用sort</p>
+<ul>
+<li>题目描述</li>
+<li>N 个学生的数据，将学生数据按成绩高低排序，如果成绩相同则按姓名 字符的字母序排序，如果姓名的字母序也相同则按照学生的年龄排序，并输出 N 个学生排序后的信息。</li>
+<li>输入</li>
+<li>测试数据有多组，每组输入第一行有一个整数 N(N&lt;=1000)，接下来的 N 行包括 N 个学生的数据。每个学生的数据包括姓名(长度不超过 100 的字符串)、<br>年龄(整形数)、成绩(小于等于 100 的正数)。</li>
+<li>输出</li>
+<li>将学生信息按成绩进行排序，成绩相同的则按姓名的字母序进行排序。然后输出学生信息，按照如下格式:姓名 年龄 成绩</li>
+<li><p>样例输入：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3abc 20 99</div><div class="line">bcd 19 97 </div><div class="line">bed 20 97</div></pre></td></tr></table></figure>
+</li>
+<li><p>样例输出</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bcd 19 97 </div><div class="line">bed 20 97 </div><div class="line">abc 20 99</div></pre></td></tr></table></figure>
+</li>
+<li><p>提示</p>
+</li>
+<li>学生姓名的字母序区分字母的大小写，如 A 要比 a 的字母序靠前(因为 A 的 ASC 码比 a 的 ASC 码要小)。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> E&#123;</div><div class="line">    <span class="keyword">char</span> name[<span class="number">101</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">int</span> score;</div><div class="line">    </div><div class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> E &amp;b) <span class="keyword">const</span>&#123;</div><div class="line">        <span class="comment">//重载小于运算符</span></div><div class="line">        <span class="keyword">if</span>(score != b.score) <span class="keyword">return</span> score &lt; b.score;</div><div class="line">        <span class="keyword">int</span> tmp = <span class="built_in">strcmp</span>(name, b.name);</div><div class="line">        <span class="keyword">if</span>(tmp != <span class="number">0</span>) <span class="keyword">return</span> tmp&lt;<span class="number">0</span>;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">return</span> age &lt; b.age;</div><div class="line">    &#125;</div><div class="line">&#125;buf[<span class="number">100</span>];</div><div class="line"></div><div class="line"><span class="comment">//bool cmp(E a,E b)&#123;</span></div><div class="line"><span class="comment">//    if (a.score != b.score) &#123;</span></div><div class="line"><span class="comment">//        return a.score &lt; b.score;</span></div><div class="line"><span class="comment">//    &#125;</span></div><div class="line"><span class="comment">//    int tmp = strcmp(a.name, b.name);</span></div><div class="line"><span class="comment">//    if (tmp != 0) &#123;</span></div><div class="line"><span class="comment">//        return tmp &lt; 0;</span></div><div class="line"><span class="comment">//    &#125;else&#123;</span></div><div class="line"><span class="comment">//        return a.age &lt; b.age;</span></div><div class="line"><span class="comment">//    &#125;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%s%d%d"</span>,buf[i].name,&amp;buf[i].age,&amp;buf[i].score);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//sort(buf, buf+n, cmp);</span></div><div class="line">        sort(buf,buf+n);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%s %d %d \n"</span>,buf[i].name,buf[i].age,buf[i].score);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/07/机试笔记01排序/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-计算机网络笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1027,111 +1116,6 @@ Insert
 
 
   
-    <article id="post-Oracle学习之高级查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/15/Oracle学习之高级查询/">Oracle学习之高级查询</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/15/Oracle学习之高级查询/" class="archive-article-date">
-  	<time datetime="2015-01-15T10:29:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#1.表连接：<br>    内连接：<br>        (Oracle写法):select <em> from table_name,table_name2 [where 条件];<br>        (标准sql语法):select </em> from emp inner join dept on dept.deptno=emp.deptno;<br>        如果from后，加入多个表时，查询的结果应该是两个表中的乘积；(列的和，记录的积)<br>    外连接：<br>        左外连接：    以左边的表为准，将左表中的数据全都查询出来，如果右表没有对应的录，则在右表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept=dept.deptno(+);<br>            (标准sql语法)select </em> from emp left [outer] join dept on dept.deptno=emp.deptno;<br>        右外连接：    以右边的表为准，将右表中的数据全都查询出来，如果左表没有对应的录，则在左表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept(+)=dept.deptno;<br>            (标准sql语法)select </em> from emp right [outer] join dept on dept.deptno=emp.deptno;<br>        全外连接：    左右表中的数据都至少显示一次；<br>            (标准sql语法):select * from emp full [outer] join dept on dept.deptno=emp.deptno;</p>
-<h1 id="2-子查询-嵌套查询-："><a href="#2-子查询-嵌套查询-：" class="headerlink" title="2.子查询(嵌套查询)："></a>2.子查询(嵌套查询)：</h1><pre><code>    指一个查询中还包含另外一个查询体，也可以理解为，将一个查询结果作为另一个查询的查询条件；
-常用的谓词：
-    Any, all, in, not in
-    Exists 存在
-    select * from dept d where exists(sql查询); 
-    如果exists中的查询有记录，返回true，否则，返回false；
-实例：
-    --查询sales或者research部门的员工
-    select * from emp where deptno in (select deptno from dept where dname=&apos;SALES&apos; or dname=&apos;RESEARCH&apos;);
-    select * from dept;
-
-    --查询比平均工资高的员工信息
-    select * from emp where sal&gt;(select avg(sal) from emp);
-
-    --查询比20部门所有员工工资都高的员工信息
-    select * from emp where sal&lt;all(select sal from emp where deptno=30);
-    
-    --查询出没有员工的部门
-    1.select * from dept where deptno not in(
-        select distinct deptno from emp);
-    2.select * from dept d where not exists (select * from emp where d.deptno=emp.deptno);
-</code></pre><h1 id="3-集合查询："><a href="#3-集合查询：" class="headerlink" title="3.集合查询："></a>3.集合查询：</h1><pre><code>交，并，差
-要求：两个查询结果的列数一样，数据类型匹配
-Union [all]:    并 不排序
-Intersect:    交
-Minus:    差
-</code></pre><h1 id="4-递归查询-树查询-："><a href="#4-递归查询-树查询-：" class="headerlink" title="4.递归查询(树查询)："></a>4.递归查询(树查询)：</h1><pre><code>Connect by prior    后设置的是递归查询的连接条件
-Start with    后设置的是从哪个记录开始进行递归查询
-使用递归查询要求：
-    这个表中应该是一个自连接的表
-可以使用level这个伪列，来查询层级值
-
-实例：
-    select level,emp.* from emp connect by prior empno=mgr start with mgr is null;
-</code></pre><h1 id="5-两个伪列"><a href="#5-两个伪列" class="headerlink" title="5.两个伪列"></a>5.两个伪列</h1><pre><code>Rownum    行号 行号的算法不是先生成编号，而是满足条件后，才生成行号；
-        因此不能使用where rownum=2,rownum&gt;3这样的语法，这样不会查出任何记录
-Rowid    行的唯一标识    表空间     -&gt;段-&gt;区-&gt;块
-        比主键更唯一，在全局是唯一的
-</code></pre><h1 id="6-通过rownum可以实现Oracle的分页查询"><a href="#6-通过rownum可以实现Oracle的分页查询" class="headerlink" title="6.通过rownum可以实现Oracle的分页查询"></a>6.通过rownum可以实现Oracle的分页查询</h1><pre><code>实例：
-    select * from (
-        select rownum r,a.* from(
-        select * from emp order by sal desc) a 
-    where rownum&lt;11) b where b.r&lt;5;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/15/Oracle学习之高级查询/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1251,6 +1235,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">研究生之路</a>
               </li>
              
               <li class="article-tag-list-item">
