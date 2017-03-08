@@ -6,17 +6,36 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://vvshyer.com">
-  <title>Archives | MineMine</title>
+  <title>机试笔记02日期类问题 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Stay Hungry. Stay Foolish.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MineMine">
-<meta property="og:url" content="https://vvshyer.com/archives/index.html">
+  <meta name="description" content="日期差值
+在保存某个特定日期与原点日期的天数差时，用了三位数组
+输入采用技巧
+涉及开辟大量内存空间的情况，必须在函数体外定义或者动态malloc
+
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机试笔记02日期类问题">
+<meta property="og:url" content="https://vvshyer.com/2017/03/08/机试笔记02日期类问题/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="Stay Hungry. Stay Foolish.">
+<meta property="og:description" content="日期差值
+在保存某个特定日期与原点日期的天数差时，用了三位数组
+输入采用技巧
+涉及开辟大量内存空间的情况，必须在函数体外定义或者动态malloc
+
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667">
+<meta property="og:updated_time" content="2017-03-08T14:10:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MineMine">
-<meta name="twitter:description" content="Stay Hungry. Stay Foolish.">
+<meta name="twitter:title" content="机试笔记02日期类问题">
+<meta name="twitter:description" content="日期差值
+在保存某个特定日期与原点日期的天数差时，用了三位数组
+输入采用技巧
+涉及开辟大量内存空间的情况，必须在函数体外定义或者动态malloc
+
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -156,36 +175,78 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-机试笔记02日期类问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      机试笔记02日期类问题
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/08/机试笔记02日期类问题/" class="archive-article-date">
+
+        
+        <a href="/2017/03/08/机试笔记02日期类问题/" class="archive-article-date">
   	<time datetime="2017-03-08T13:39:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-08</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/08/机试笔记02日期类问题/">机试笔记02日期类问题</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="日期差值"><a href="#日期差值" class="headerlink" title="日期差值"></a>日期差值</h1><ul>
+<li>在保存某个特定日期与原点日期的天数差时，用了三位数组</li>
+<li>输入采用技巧</li>
+<li>涉及开辟大量内存空间的情况，必须在函数体外定义或者动态malloc</li>
+<li></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ISYEAP(x) x % 100 != 0 &amp;&amp; x % 4 == 0 || x % 400 == 0 ? 1 : 0</span></div><div class="line"><span class="comment">//定义宏判断是否是闰年，方便计算每月天数</span></div><div class="line"><span class="keyword">int</span> dayOfMonth[<span class="number">13</span>][<span class="number">2</span>]&#123;</div><div class="line">    <span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//1</span></div><div class="line">    <span class="number">28</span>,<span class="number">29</span>, <span class="comment">//2</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//3</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//4</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//5</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//6</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//7</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//8</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//9</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//10</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//11</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>  <span class="comment">//12</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> Date&#123;</div><div class="line">    <span class="keyword">int</span> Day;</div><div class="line">    <span class="keyword">int</span> Month;</div><div class="line">    <span class="keyword">int</span> Year;</div><div class="line">    <span class="comment">//计算下一天的日期</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">nextDay</span><span class="params">()</span></span>&#123;</div><div class="line">        Day++;</div><div class="line">        <span class="keyword">if</span>(Day &gt; dayOfMonth[Month][ISYEAP(Year)])&#123;</div><div class="line">            <span class="comment">//若日数超过最大日数</span></div><div class="line">            Day = <span class="number">1</span>;</div><div class="line">            Month++;<span class="comment">//进入下一月</span></div><div class="line">            <span class="keyword">if</span>(Month &gt; <span class="number">12</span>)&#123;<span class="comment">//月数超过12</span></div><div class="line">                Month = <span class="number">1</span>;</div><div class="line">                Year++; <span class="comment">//进入下一年</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> buf[<span class="number">5001</span>][<span class="number">13</span>][<span class="number">32</span>];<span class="comment">//保存预处理天数</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Abs</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</div><div class="line">    <span class="comment">//求绝对值</span></div><div class="line">    <span class="keyword">return</span> x &lt; <span class="number">0</span> ? -x : x;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    Date tmp;</div><div class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>; <span class="comment">//天数计数</span></div><div class="line">    tmp.Day = <span class="number">1</span>;</div><div class="line">    tmp.Month = <span class="number">1</span>;</div><div class="line">    tmp.Year = <span class="number">0</span>;<span class="comment">//初始化日期类对象为0年1月1日</span></div><div class="line">    <span class="keyword">while</span>(tmp.Year != <span class="number">5001</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//将该日与0年1月1日的天数差保存起来</span></div><div class="line">        buf[tmp.Year][tmp.Month][tmp.Day] = cnt;</div><div class="line">        tmp.nextDay();<span class="comment">//计算下一天日期</span></div><div class="line">        cnt++;<span class="comment">//计算器累加，每经过一天计数器+1,代表与原点日期的间隔又增加一天</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> d1, m1, y1;</div><div class="line">    <span class="keyword">int</span> d2, m2, y2;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%4d%2d%2d"</span>,&amp;y1,&amp;m1,&amp;d1) != EOF) &#123;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%4d%2d%2d"</span>,&amp;y2,&amp;m2,&amp;d2);<span class="comment">//读入要计算的两个日期</span></div><div class="line">        <span class="comment">//用预处理的数据计算两日期差值，取绝对值</span></div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Abs(buf[y2][m2][d2] - buf[y1][m1][d1] + <span class="number">1</span>));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Day-of-Week"><a href="#Day-of-Week" class="headerlink" title="Day of Week"></a>Day of Week</h1><ul>
+<li>输入一个日期，要求输出该日期为星期几</li>
+<li>1.今天是星期几;</li>
+<li>2.今天和所给定的那天相隔几天。利用其对7求余数，我们便可以轻易的知道所给定的那天是星期几了。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ISYEAP(x) x % 100 != 0 &amp;&amp; x % 4 == 0 || x % 400 == 0 ? 1 : 0</span></div><div class="line"><span class="comment">//定义宏判断是否是闰年，方便计算每月天数</span></div><div class="line"><span class="keyword">int</span> dayOfMonth[<span class="number">13</span>][<span class="number">2</span>]&#123;</div><div class="line">    <span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//1</span></div><div class="line">    <span class="number">28</span>,<span class="number">29</span>, <span class="comment">//2</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//3</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//4</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//5</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//6</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//7</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//8</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//9</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//10</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//11</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>  <span class="comment">//12</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> Date&#123;</div><div class="line">    <span class="keyword">int</span> Day;</div><div class="line">    <span class="keyword">int</span> Month;</div><div class="line">    <span class="keyword">int</span> Year;</div><div class="line">    <span class="comment">//计算下一天的日期</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">nextDay</span><span class="params">()</span></span>&#123;</div><div class="line">        Day++;</div><div class="line">        <span class="keyword">if</span>(Day &gt; dayOfMonth[Month][ISYEAP(Year)])&#123;</div><div class="line">            <span class="comment">//若日数超过最大日数</span></div><div class="line">            Day = <span class="number">1</span>;</div><div class="line">            Month++;<span class="comment">//进入下一月</span></div><div class="line">            <span class="keyword">if</span>(Month &gt; <span class="number">12</span>)&#123;<span class="comment">//月数超过12</span></div><div class="line">                Month = <span class="number">1</span>;</div><div class="line">                Year++; <span class="comment">//进入下一年</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> buf[<span class="number">3001</span>][<span class="number">13</span>][<span class="number">32</span>];<span class="comment">//保存预处理天数</span></div><div class="line"></div><div class="line"><span class="keyword">char</span> monthName[<span class="number">13</span>][<span class="number">20</span>] = &#123;</div><div class="line">    <span class="string">""</span>,</div><div class="line">    <span class="string">"January"</span>,</div><div class="line">    <span class="string">"February"</span>,</div><div class="line">    <span class="string">"March"</span>,</div><div class="line">    <span class="string">"April"</span>,</div><div class="line">    <span class="string">"May"</span>,</div><div class="line">    <span class="string">"June"</span>,</div><div class="line">    <span class="string">"July"</span>,</div><div class="line">    <span class="string">"August"</span>,</div><div class="line">    <span class="string">"September"</span>,</div><div class="line">    <span class="string">"October"</span>,</div><div class="line">    <span class="string">"November"</span>,</div><div class="line">    <span class="string">"December"</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">char</span> weekName[<span class="number">7</span>][<span class="number">20</span>] = &#123;</div><div class="line">    <span class="string">"Sunday"</span>,</div><div class="line">    <span class="string">"Monday"</span>,</div><div class="line">    <span class="string">"Tuesday"</span>,</div><div class="line">    <span class="string">"Wednesday"</span>,</div><div class="line">    <span class="string">"Thursday"</span>,</div><div class="line">    <span class="string">"Friday"</span>,</div><div class="line">    <span class="string">"Saturday"</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    Date tmp;</div><div class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>; <span class="comment">//天数计数</span></div><div class="line">    tmp.Day = <span class="number">1</span>;</div><div class="line">    tmp.Month = <span class="number">1</span>;</div><div class="line">    tmp.Year = <span class="number">0</span>;<span class="comment">//初始化日期类对象为0年1月1日</span></div><div class="line">    <span class="keyword">while</span>(tmp.Year != <span class="number">3001</span>)&#123;</div><div class="line">        <span class="comment">//将该日与0年1月1日的天数差保存起来</span></div><div class="line">        buf[tmp.Year][tmp.Month][tmp.Day] = cnt;</div><div class="line">        tmp.nextDay();<span class="comment">//计算下一天日期</span></div><div class="line">        cnt++;<span class="comment">//计算器累加，每经过一天计数器+1,代表与原点日期的间隔又增加一天</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> d, m, y;</div><div class="line">    <span class="keyword">char</span> s[<span class="number">20</span>];</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d%s%d"</span>,&amp;d,s,&amp;y) != EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (m = <span class="number">1</span>; m &lt;= <span class="number">12</span>; m++) &#123;</div><div class="line">            <span class="keyword">if</span> (<span class="built_in">strcmp</span>(s,monthName[m]) == <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//计算给定日期与今日日期的天数间隔</span></div><div class="line">        <span class="keyword">int</span> days = buf[y][m][d] - buf[<span class="number">2017</span>][<span class="number">3</span>][<span class="number">6</span>];</div><div class="line">        <span class="comment">//今天2017年3月6日为星期一，对应数组下标为1，则计算1经过days天后的下标</span></div><div class="line">        days = days+<span class="number">1</span>;</div><div class="line">        <span class="built_in">puts</span>(weekName[(days % <span class="number">7</span> + <span class="number">7</span>)%<span class="number">7</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -197,375 +258,106 @@
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/07/机试笔记01排序/" class="archive-article-date">
-  	<time datetime="2017-03-07T11:24:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/07/机试笔记01排序/">机试笔记01排序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/01/计算机网络笔记01/" class="archive-article-date">
-  	<time datetime="2017-03-01T13:56:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/01/计算机网络笔记01/">计算机网络笔记01</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/28/OC学习之数学公式/" class="archive-article-date">
-  	<time datetime="2017-02-28T11:48:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/28/OC学习之数学公式/">OC学习之数学公式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">iOS MAC Object-C</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/28/OC学习之语法/" class="archive-article-date">
-  	<time datetime="2017-02-28T02:39:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/28/OC学习之语法/">OC学习之语法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">iOS MAC Object-C</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/27/生日快乐/" class="archive-article-date">
-  	<time datetime="2017-02-27T13:18:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/27/生日快乐/">生日快乐</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/01/22/Oracle学习之JDBC/" class="archive-article-date">
-  	<time datetime="2015-01-22T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/01/22/Oracle学习之JDBC/">Oracle学习之JDBC</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/03/08/机试笔记02日期类问题/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/01/20/Oracle学习之E-R图/" class="archive-article-date">
-  	<time datetime="2015-01-20T07:23:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-20</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/01/20/Oracle学习之E-R图/">Oracle学习之E-R图</a>
-    </h1>
+  
+    <a href="/2017/03/07/机试笔记01排序/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">机试笔记01排序</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="机试笔记02日期类问题" data-title="机试笔记02日期类问题" data-url="https://vvshyer.com/2017/03/08/机试笔记02日期类问题/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"vvshyer"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/01/18/Oracle学习之数据库对象/" class="archive-article-date">
-  	<time datetime="2015-01-18T06:35:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/01/18/Oracle学习之数据库对象/">Oracle学习之数据库对象</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/01/17/Oracle学习之DCL/" class="archive-article-date">
-  	<time datetime="2015-01-17T05:24:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/01/17/Oracle学习之DCL/">Oracle学习之DCL</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -588,8 +380,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
