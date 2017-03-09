@@ -6,17 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://vvshyer.com">
-  <title>MineMine</title>
+  <title>机试笔记03Hash的应用 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Stay Hungry. Stay Foolish.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MineMine">
-<meta property="og:url" content="https://vvshyer.com/page/2/index.html">
+  <meta name="description" content="统计同成绩学生人数
+读入 N 名学生的成绩，将获得某一给定分数的学生人数输出。
+
+12345678910111213141516#include &amp;lt;stdio.h&amp;gt;int main()&amp;#123;    int n;    while (scanf(&quot;%d&quot;,&amp;amp;n) != EOF &amp;amp;&amp;amp; n != 0) &amp;#123;        int Hash[101] =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机试笔记03Hash的应用">
+<meta property="og:url" content="https://vvshyer.com/2017/03/09/机试笔记03Hash的应用/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="Stay Hungry. Stay Foolish.">
+<meta property="og:description" content="统计同成绩学生人数
+读入 N 名学生的成绩，将获得某一给定分数的学生人数输出。
+
+12345678910111213141516#include &amp;lt;stdio.h&amp;gt;int main()&amp;#123;    int n;    while (scanf(&quot;%d&quot;,&amp;amp;n) != EOF &amp;amp;&amp;amp; n != 0) &amp;#123;        int Hash[101] =">
+<meta property="og:updated_time" content="2017-03-09T08:11:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MineMine">
-<meta name="twitter:description" content="Stay Hungry. Stay Foolish.">
+<meta name="twitter:title" content="机试笔记03Hash的应用">
+<meta name="twitter:description" content="统计同成绩学生人数
+读入 N 名学生的成绩，将获得某一给定分数的学生人数输出。
+
+12345678910111213141516#include &amp;lt;stdio.h&amp;gt;int main()&amp;#123;    int n;    while (scanf(&quot;%d&quot;,&amp;amp;n) != EOF &amp;amp;&amp;amp; n != 0) &amp;#123;        int Hash[101] =">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -156,566 +166,68 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Oracle学习之DCL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-机试笔记03Hash的应用" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/17/Oracle学习之DCL/">Oracle学习之DCL</a>
+    <h1 class="article-title" itemprop="name">
+      机试笔记03Hash的应用
     </h1>
   
 
         
-        <a href="/2015/01/17/Oracle学习之DCL/" class="archive-article-date">
-  	<time datetime="2015-01-17T05:24:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-17</time>
+        <a href="/2017/03/09/机试笔记03Hash的应用/" class="archive-article-date">
+  	<time datetime="2017-03-09T07:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-oracle常用的用户："><a href="#1-oracle常用的用户：" class="headerlink" title="1.oracle常用的用户："></a>1.oracle常用的用户：</h1><pre><code>Sys：    系统管理员    创建数据库，启动数据库，关闭数据库
-System：    数据库管理员    数据库启动后，可以使用数据库的任何权限
-scott：    示例用户    
-</code></pre><h1 id="2-创建用户："><a href="#2-创建用户：" class="headerlink" title="2.创建用户："></a>2.创建用户：</h1><pre><code>Create user USER_NAME identified by PASSWORD;
-</code></pre><h1 id="3-oracle中权限的分类："><a href="#3-oracle中权限的分类：" class="headerlink" title="3.oracle中权限的分类："></a>3.oracle中权限的分类：</h1><pre><code>系统权限：    用户使用系统资源的权限，例如：登陆，创建表，修改表，创建函数等
-对象权限：    一个用户使用其他用户的资源，例如：利用scott来查询student用户的表
-</code></pre><h1 id="4-授权："><a href="#4-授权：" class="headerlink" title="4.授权："></a>4.授权：</h1><pre><code>Grant 权限 to 用户;
-Grant create session to student;
-</code></pre><h1 id="5-角色："><a href="#5-角色：" class="headerlink" title="5.角色："></a>5.角色：</h1><pre><code>即权限的组合（集合）
-常用的角色：
-    Connect    登陆
-    Resource    普通用户的常用权限的集合
-    dba    数据库管理员
-</code></pre><h1 id="6-撤销权限："><a href="#6-撤销权限：" class="headerlink" title="6.撤销权限："></a>6.撤销权限：</h1><pre><code>Revoke 权限 from 用户
-</code></pre><h1 id="7-对象权限："><a href="#7-对象权限：" class="headerlink" title="7.对象权限："></a>7.对象权限：</h1><pre><code>例如：
-    student能否删除，修改，查询scott.emp表
-Grant select/insert/all on emp to student;
-Revokde select/insert/all on emp from student;
-</code></pre><h1 id="8-事务："><a href="#8-事务：" class="headerlink" title="8.事务："></a>8.事务：</h1><pre><code>Transaction
-是用户自定义的一个操作序列，这个操作序列式一个最小的执行单元
-也就是说，要么全做，要么一个都不执行
-事务的四个特性：ACID
-原子性    最小的执行单位，不能再分
-一致性    执行前后，应该保持一致状态
-隔离性    多个事务之间，互不干扰
-持久性    一旦事务提交，不能回退
-</code></pre><h1 id="9-事务控制语句："><a href="#9-事务控制语句：" class="headerlink" title="9.事务控制语句："></a>9.事务控制语句：</h1><pre><code>Commit    提交
-Rollback    回退
-savepoint    设置保存点
-</code></pre><h1 id="10-事务所涉及的操作："><a href="#10-事务所涉及的操作：" class="headerlink" title="10.事务所涉及的操作："></a>10.事务所涉及的操作：</h1><pre><code>Update    
-Delete    
-Insert    
-</code></pre><h1 id="11-以下情况会提交事务："><a href="#11-以下情况会提交事务：" class="headerlink" title="11.以下情况会提交事务："></a>11.以下情况会提交事务：</h1><pre><code>手动commit提交
-正常退出sqlplus环境
-执行DDL语句
-执行DCL语句
-</code></pre><h1 id="12-解锁用户："><a href="#12-解锁用户：" class="headerlink" title="12.解锁用户："></a>12.解锁用户：</h1><pre><code>Alter user username account unlock;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/17/Oracle学习之DCL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之常用函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/16/Oracle学习之常用函数/">Oracle学习之常用函数</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/16/Oracle学习之常用函数/" class="archive-article-date">
-  	<time datetime="2015-01-16T10:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-常用函数"><a href="#1-常用函数" class="headerlink" title="1.常用函数"></a>1.常用函数</h1><pre><code>字符：
-    Lower：转小写       lower(&apos;Name&apos;);
-    Upper：转大写       upper(&apos;name&apos;);
-    Ltrim：去掉左空格
-    Rtrim：去掉右空格
-    Trim：去掉两边空格
-    Length：求长度
-    Instr：求字串的位置  instr(&apos;I love china&apos;,&apos;china&apos;)  : 8
-    Substr：截取子串  substr(&apos;I love&apos;,3,4) ：love
-    Lpad：左边填充指定字符  lpad(&apos;hello&apos;,7,&apos;*&apos;) : **hello
-    Rpad：右边填充指定字符
-    Initcap：将字符串每个首字母大写，其余转为小写
-数字：
-    Round：四舍五入  round(34.44)
-    Trunc：直接截断
-    mod：取余
-日期：
-    Months_between：两个日期之间的越差
-        Months_between(date1,date2);
-    Add_months：为日期增加几个月
-        Add_months(sysdate,4);
-    sysdate：返回当前时间
-    Last_day：当前日期所在月的最后一天的日期
-        Last_day(sysdate);
-    Next_day：指定日期后第一个星期几的日期
-        Next_day(sysdate,1);
-    日期直接+数字：代表加的是天数
-转换：
-    To_Date：将字符串转换成日期
-        To_date(&apos;19980908&apos;,&apos;yyyyMMdd&apos;);
-    To_char：将日期转换成字符串
-        To_char(sysdate,&apos;yyyy-MM-dd&apos;);
-    To_number：转换成数字
-        To_number(&apos; 1234&apos;,&apos;990000&apos;);
-其他：
-    nvl：对null进行处理的函数
-        Nvl(comm,0)：如果comm的值为空，返回0，否则，返回的还是comm的值
-    decode：解码，相当于if else语句
-</code></pre><h1 id="2-case语句："><a href="#2-case语句：" class="headerlink" title="2.case语句："></a>2.case语句：</h1><pre><code>可以在查询中进行判断，语法是：
-    Select 
-        Case
-            When 条件1 then 结果
-            When 条件2 then 结果
-            Else 结果3
-        End score,name from emp;    
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/16/Oracle学习之常用函数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之高级查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/15/Oracle学习之高级查询/">Oracle学习之高级查询</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/15/Oracle学习之高级查询/" class="archive-article-date">
-  	<time datetime="2015-01-15T10:29:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#1.表连接：<br>    内连接：<br>        (Oracle写法):select <em> from table_name,table_name2 [where 条件];<br>        (标准sql语法):select </em> from emp inner join dept on dept.deptno=emp.deptno;<br>        如果from后，加入多个表时，查询的结果应该是两个表中的乘积；(列的和，记录的积)<br>    外连接：<br>        左外连接：    以左边的表为准，将左表中的数据全都查询出来，如果右表没有对应的录，则在右表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept=dept.deptno(+);<br>            (标准sql语法)select </em> from emp left [outer] join dept on dept.deptno=emp.deptno;<br>        右外连接：    以右边的表为准，将右表中的数据全都查询出来，如果左表没有对应的录，则在左表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept(+)=dept.deptno;<br>            (标准sql语法)select </em> from emp right [outer] join dept on dept.deptno=emp.deptno;<br>        全外连接：    左右表中的数据都至少显示一次；<br>            (标准sql语法):select * from emp full [outer] join dept on dept.deptno=emp.deptno;</p>
-<h1 id="2-子查询-嵌套查询-："><a href="#2-子查询-嵌套查询-：" class="headerlink" title="2.子查询(嵌套查询)："></a>2.子查询(嵌套查询)：</h1><pre><code>    指一个查询中还包含另外一个查询体，也可以理解为，将一个查询结果作为另一个查询的查询条件；
-常用的谓词：
-    Any, all, in, not in
-    Exists 存在
-    select * from dept d where exists(sql查询); 
-    如果exists中的查询有记录，返回true，否则，返回false；
-实例：
-    --查询sales或者research部门的员工
-    select * from emp where deptno in (select deptno from dept where dname=&apos;SALES&apos; or dname=&apos;RESEARCH&apos;);
-    select * from dept;
-
-    --查询比平均工资高的员工信息
-    select * from emp where sal&gt;(select avg(sal) from emp);
-
-    --查询比20部门所有员工工资都高的员工信息
-    select * from emp where sal&lt;all(select sal from emp where deptno=30);
-    
-    --查询出没有员工的部门
-    1.select * from dept where deptno not in(
-        select distinct deptno from emp);
-    2.select * from dept d where not exists (select * from emp where d.deptno=emp.deptno);
-</code></pre><h1 id="3-集合查询："><a href="#3-集合查询：" class="headerlink" title="3.集合查询："></a>3.集合查询：</h1><pre><code>交，并，差
-要求：两个查询结果的列数一样，数据类型匹配
-Union [all]:    并 不排序
-Intersect:    交
-Minus:    差
-</code></pre><h1 id="4-递归查询-树查询-："><a href="#4-递归查询-树查询-：" class="headerlink" title="4.递归查询(树查询)："></a>4.递归查询(树查询)：</h1><pre><code>Connect by prior    后设置的是递归查询的连接条件
-Start with    后设置的是从哪个记录开始进行递归查询
-使用递归查询要求：
-    这个表中应该是一个自连接的表
-可以使用level这个伪列，来查询层级值
-
-实例：
-    select level,emp.* from emp connect by prior empno=mgr start with mgr is null;
-</code></pre><h1 id="5-两个伪列"><a href="#5-两个伪列" class="headerlink" title="5.两个伪列"></a>5.两个伪列</h1><pre><code>Rownum    行号 行号的算法不是先生成编号，而是满足条件后，才生成行号；
-        因此不能使用where rownum=2,rownum&gt;3这样的语法，这样不会查出任何记录
-Rowid    行的唯一标识    表空间     -&gt;段-&gt;区-&gt;块
-        比主键更唯一，在全局是唯一的
-</code></pre><h1 id="6-通过rownum可以实现Oracle的分页查询"><a href="#6-通过rownum可以实现Oracle的分页查询" class="headerlink" title="6.通过rownum可以实现Oracle的分页查询"></a>6.通过rownum可以实现Oracle的分页查询</h1><pre><code>实例：
-    select * from (
-        select rownum r,a.* from(
-        select * from emp order by sal desc) a 
-    where rownum&lt;11) b where b.r&lt;5;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/15/Oracle学习之高级查询/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之DML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/14/Oracle学习之DML/">Oracle学习之DML</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/14/Oracle学习之DML/" class="archive-article-date">
-  	<time datetime="2015-01-14T13:24:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-dml"><a href="#1-dml" class="headerlink" title="1.dml"></a>1.dml</h1><pre><code>数据操作语言：
-    对表中的记录进行操作
-Insert    插入
-Update    修改更新
-Delete    删除
-Select    选择
-</code></pre><h1 id="2-insert"><a href="#2-insert" class="headerlink" title="2.insert:"></a>2.insert:</h1><pre><code>1.插入一整条记录：
-    Insert into 表名 values(数据)；
-2.指定字段：
-    Insert into 表名(列名) values();
-3.一次性插入多条记录：
-    Insert into 表名(列名) select语句;
-</code></pre><h1 id="3-update-修改"><a href="#3-update-修改" class="headerlink" title="3.update: 修改"></a>3.update: 修改</h1><pre><code>Update 表名 set 列名=新值[,列名2=新值,…][where 条件];
-</code></pre><h1 id="4-delete-删除"><a href="#4-delete-删除" class="headerlink" title="4.delete: 删除"></a>4.delete: 删除</h1><pre><code>Delete from 表名 [where 条件];
-</code></pre><h1 id="5-select-选择"><a href="#5-select-选择" class="headerlink" title="5.select: 选择"></a>5.select: 选择</h1><pre><code>Select *|distinct 列名1,…. 表达式 from 表名或视图名 [where 条件] 
-[group by 分组条件 [having 分组后条件]]
-[order by 排序字段 asc|desc];
-</code></pre><h1 id="6-列别名的问题"><a href="#6-列别名的问题" class="headerlink" title="6.列别名的问题:"></a>6.列别名的问题:</h1><pre><code>如果在查询中需要给列重新设置一个别名，可以使用&lt;as 列别名&gt;的方式，as 可以省略，
-如果别名中出现空格，整个别名应该用双引号引起;
-Select sal*15 as &quot;salary of year&quot; from emp;
-</code></pre><h1 id="7-to-char函数"><a href="#7-to-char函数" class="headerlink" title="7.to_char函数"></a>7.to_char函数</h1><pre><code>将日期转换为字符的函数
-    To_char(日期值,&apos;格式&apos;);
-    例如：
-    To_char(hiredate,&apos;YYYY-MM-dd&apos;);
-</code></pre><h1 id="8-oralce中的连接字符串运算符使用"><a href="#8-oralce中的连接字符串运算符使用" class="headerlink" title="8.oralce中的连接字符串运算符使用||."></a>8.oralce中的连接字符串运算符使用||.</h1><h1 id="9-常用查询条件："><a href="#9-常用查询条件：" class="headerlink" title="9.常用查询条件："></a>9.常用查询条件：</h1><pre><code>查询条件    谓词
-比较    =，&gt;，&lt;，&gt;=，&lt;=，!=，&lt;&gt;，not+上述比较运算符
-确定范围    Between and，not between and
-确定集合    In，not in
-字符匹配    Like，not like
-空    Is null， is not null
-多重条件    And，or
-</code></pre><h1 id="10-in-的使用："><a href="#10-in-的使用：" class="headerlink" title="10.in 的使用："></a>10.in 的使用：</h1><pre><code>In:可以确定一个不连续的范围：
-Select * from emp where job in(&quot;MANAGER&apos;,&apos;CLERK&apos;);
-Not in:不在一个范围：
-Select * from emp where job not in(&quot;MANAGER&apos;,&apos;CLERK&apos;);
-</code></pre><h1 id="11-like的使用："><a href="#11-like的使用：" class="headerlink" title="11.like的使用："></a>11.like的使用：</h1><pre><code>模糊查询：
-    通配符：
-    _：任意一个字符；
-    %：任意多个字符（0到多）；
-    Select * from emp where ename like &apos;%A%&apos;;
-</code></pre><h1 id="12-对于null的比较："><a href="#12-对于null的比较：" class="headerlink" title="12.对于null的比较："></a>12.对于null的比较：</h1><pre><code>null代表空，只能通过特殊的运算符进行比较
-    Is null 或 is not null
-如果通过=null进行比较，永远返回false
-</code></pre><h1 id="13-聚集函数："><a href="#13-聚集函数：" class="headerlink" title="13.聚集函数："></a>13.聚集函数：</h1><pre><code>增强检索功能
-函数    功能
-Count([Distinct|ALL]*)    统计记录个数
-Count([Distinct|ALL]&lt;列名&gt;)    统计一列中值的个数
-SUM([Distinct|ALL]&lt;列名&gt;)    计算一列的总和(必须为数值型)
-AVG([Distinct|ALL]&lt;列名&gt;)    计算一列的平均值(必须为数值型)
-MAX([Distinct|ALL]&lt;列名&gt;)    计算一列的最大值(必须为数值型)
-MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型)
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/14/Oracle学习之DML/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之Oracle基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/13/Oracle学习之Oracle基础/">Oracle学习之Oracle基础</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/13/Oracle学习之Oracle基础/" class="archive-article-date">
-  	<time datetime="2015-01-13T06:18:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-未来计划："><a href="#1-未来计划：" class="headerlink" title="1.未来计划："></a>1.未来计划：</h1><pre><code>Oracle:数据库，mySql， powerDesigner
-jdbc:操作数据库的API，反射，annotation
-web编程
-   Html
-css
-javascript
-javaEE: servlet, jsp, jstl, xml, ajax,jquery
-tomcat
-</code></pre><p>   项目实践</p>
-<h1 id="2-数据库产品类型："><a href="#2-数据库产品类型：" class="headerlink" title="2.数据库产品类型："></a>2.数据库产品类型：</h1><pre><code>单机版：
-    access; foxbase; 
-    无法数据共享
-网络版：
-    mySQL: oracle公司的产品，免费开源
-    SQLServer: 微软
-    Oracle: Oracle公司
-    Db2: IBM公司
-</code></pre><h1 id="3-RDBMS的基本概念"><a href="#3-RDBMS的基本概念" class="headerlink" title="3.RDBMS的基本概念"></a>3.RDBMS的基本概念</h1><ul>
-<li>表是最小的一个存储单元</li>
-<li>整体思路：先将需要处理的数据进行分类后，存储在各个相互关联的表中</li>
+        <h1 id="统计同成绩学生人数"><a href="#统计同成绩学生人数" class="headerlink" title="统计同成绩学生人数"></a>统计同成绩学生人数</h1><ul>
+<li>读入 N 名学生的成绩，将获得某一给定分数的学生人数输出。</li>
 </ul>
-<h1 id="4-Oracle的主要服务："><a href="#4-Oracle的主要服务：" class="headerlink" title="4.Oracle的主要服务："></a>4.Oracle的主要服务：</h1><pre><code>OracleXXXListener: 监听器1521
-OracleSercviceXXX: Oracle实例
-OracleDbConsoleXXX: Oracle企业管理器
-
-常用工具：
-    Oracle Universal Installer(Oracle全局安装器)    安装卸载数据库管理系统
-    Datebase Configuration Assistant(数据库配置助手)    创建/配置/删除/管理模板
-    Net Configuration Assistant(网络配置助手)    监听器/命名方法/本地网络服务名/目录使用配置
-    SQL PLUS    Oracle 经典操作平台   基于命令行
-    SQL Developer    Oracle 图形操作平台   基于java
-    PL/SQL Developer    企业中广泛使用的操作平台
-</code></pre><h1 id="5-SQL语句的分类"><a href="#5-SQL语句的分类" class="headerlink" title="5.SQL语句的分类"></a>5.SQL语句的分类</h1><pre><code>结构化查询语言：
-    数据定义语言(DDL)： Create, Drop, Alter, Truncate
-    数据操作语言(DML)： Upate, Insert, Delete, Select(增删改查)
-    数据控制语言(DCL)： Grant(授予),Revoke(解除)
-    事物控制语言(TCL)： commit, rollback, savepoint
-</code></pre><h1 id="6-Create：创建"><a href="#6-Create：创建" class="headerlink" title="6.Create：创建"></a>6.Create：创建</h1><pre><code>作用：创建数据库对象，例如：
-    表，用户，索引，视图
-创建表的语法
-    create table 表名(
-        列名 数据类型 [约束],
-        ……………          ,
-        [表级约束]
-    ) 
-</code></pre><h1 id="7-Oracle数据类型："><a href="#7-Oracle数据类型：" class="headerlink" title="7.Oracle数据类型："></a>7.Oracle数据类型：</h1><pre><code>数字：    number(4)    表示最多4位数
-    number(4,2)    表示最多4位数，2位小数
-字符：    varchar(10)    可变字符 最多10个长度，根据值开辟空间
-    char(10)    不可变字符 保证占10个长度
-    varchar2    
-    nvarchar    可变字符 最多10个长度，根据值开辟空间
-        采用unicode字符集
-日期：    Date    
-    timeStamp    更精确
-大对象：    BLOB    4G/字段  存在数据库内部
-    BFILE    4G/字段  存在文件中
-    CLOB    4G/字段  大文本的
-    NCLOB    4G/字段  大文本的
-        采用unicode字符集
-
-oracle数据库密码：Oracle123
-</code></pre><h1 id="8-创建一个学生表："><a href="#8-创建一个学生表：" class="headerlink" title="8.创建一个学生表："></a>8.创建一个学生表：</h1><pre><code>    Create table TB_STUDENT(
-        sno  number(5) primary key,
-        sname varchar(20),
-        sex varchar(5),
-        birth date
-        ); 
-查看表结构：
-    Desc 表名;
-</code></pre><h1 id="9-对scott账户解锁："><a href="#9-对scott账户解锁：" class="headerlink" title="9.对scott账户解锁："></a>9.对scott账户解锁：</h1><pre><code>1.使用管理员登录 dos下： sqlplus / as sysdba
-2.解锁： alter user scott account
-3.改密码： alter user scott identified by tiger
-4.重新登录
-</code></pre><h1 id="10-约束的类型："><a href="#10-约束的类型：" class="headerlink" title="10.约束的类型："></a>10.约束的类型：</h1><pre><code>主键：一个表只能有一个主键，主键不能为空，不能重复，作用是唯一标识一条记录；
-       primary key，主键通常与业务无关，无特殊含义。
-非空：not null，不能为空，必填项 
-唯一：unique，不重复，可以为空，一个表可以有多个列是唯一约束
-检查：check，可以自定义规则；比如性别  in(&apos;male&apos;,&apos;female&apos;)
-外键：foreign key，外键的值必须在另一个表的主键中获取
-</code></pre><h1 id="11-insert语句："><a href="#11-insert语句：" class="headerlink" title="11.insert语句："></a>11.insert语句：</h1><pre><code>向表中插入记录
-    Insert into 表名 values(值,值2,…….);
-    Insert into 表名(列名) values(值);
-</code></pre><h1 id="12-事例："><a href="#12-事例：" class="headerlink" title="12.事例："></a>12.事例：</h1><pre><code>create table t_person(pno number(5) primary key,
-  2  name varchar(20) not null,
-  3  email varchar(30) unique,
-  4  sex varchar(6) check (sex in (&apos;male&apos;,&apos;female&apos;))
-  5  );
-</code></pre><h1 id="13-修改表语句："><a href="#13-修改表语句：" class="headerlink" title="13.修改表语句："></a>13.修改表语句：</h1><pre><code>ALTER TABLE &lt;表名&gt;
-    ADD &lt;新列名&gt;&lt;数据类型&gt;[完整性约束]
-    DROP &lt;完整性约束名&gt;
-    MODIFY &lt;列名&gt;&lt;数据类型&gt;
-    ;
-向表添加新的列，修改列或删除列
-添加表约束和删除表约束
-1.添加新列
-    Alter table 表名 add 列名 列类型;
-2.删除列
-    Alter table stu drop column sex;
-3.修改列的类型
-    Alter table stu modify sex varchar(15);
-4.添加主键
-    Alter table stu add primary key (id);
-5.删除主键
-    Alter table stu drop primary key;
-5.添加外键
-    Alter table test2 
-    add constraint foreign_key_name foreign key (Name)
-     references emp(EMPNO);
-6.删除表：
-    Drop table 表名;
-    删除表结构，表中的数据都将被删除;
-7.截断表：
-    Truncate table 表名;
-    将表中所有数据清空，表仍保留
-</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n) != EOF &amp;&amp; n != <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">int</span> Hash[<span class="number">101</span>] = &#123;<span class="number">0</span>&#125;;<span class="comment">//建立一个初始为0的Hash数组</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">            Hash[x]++;<span class="comment">//统计分数出现次数</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Hash[x]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h1><ul>
+<li>给你 n 个整数，请按从大到小的顺序输出其中前 m 大的数。</li>
+<li>每组测试数据有两行，第一行有两个数 n,m(0&lt;n,m&lt;1000000)，第二行包含 n 个各不相同，且都处于区间[-500000,500000]的整数。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> OFFSET 500000</span></div><div class="line"><span class="keyword">int</span> Hash[<span class="number">1000001</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n,m;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m) != EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">-500000</span>;i&lt;=<span class="number">500000</span>; i++) &#123;</div><div class="line">            Hash[i+OFFSET] = <span class="number">0</span>;</div><div class="line">        &#125;<span class="comment">//初始化 将每个数字都标记为未出现</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">            Hash[x+OFFSET] = <span class="number">1</span>;<span class="comment">//凡是出现过的数字，该数组元素均为1</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">500000</span>; i&gt;=<span class="number">-500000</span>; i--) &#123;<span class="comment">//输出前m个数</span></div><div class="line">            <span class="keyword">if</span> (Hash[i+OFFSET]==<span class="number">1</span>) &#123;<span class="comment">//若该数字在输入中出现</span></div><div class="line">                <span class="built_in">printf</span>(<span class="string">"%d"</span>,i);<span class="comment">//输出该数字</span></div><div class="line">                m--;<span class="comment">//输出一个数字后，m--</span></div><div class="line">                <span class="keyword">if</span> (m!=<span class="number">0</span>) &#123;</div><div class="line">                    <span class="built_in">printf</span>(<span class="string">" "</span>);</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -726,7 +238,7 @@ oracle数据库密码：Oracle123
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
         		</li>
       		
 		</ul>
@@ -735,18 +247,74 @@ oracle数据库密码：Oracle123
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/13/Oracle学习之Oracle基础/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/03/09/机试笔记03Hash的应用/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/08/机试笔记02日期类问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">机试笔记02日期类问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -754,11 +322,28 @@ oracle数据库密码：Oracle123
 
 
   
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="机试笔记03Hash的应用" data-title="机试笔记03Hash的应用" data-url="https://vvshyer.com/2017/03/09/机试笔记03Hash的应用/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"vvshyer"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
+
+
 
 
           </div>
@@ -780,8 +365,8 @@ oracle数据库密码：Oracle123
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
