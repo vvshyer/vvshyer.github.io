@@ -158,6 +158,69 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-机试笔记07栈的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/13/机试笔记07栈的应用/">机试笔记07栈的应用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/13/机试笔记07栈的应用/" class="archive-article-date">
+  	<time datetime="2017-03-13T12:30:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; S;<span class="comment">//定义一个堆栈</span></div><div class="line"><span class="keyword">char</span> str[<span class="number">110</span>];<span class="comment">//保存输入字符串</span></div><div class="line"><span class="keyword">char</span> ans[<span class="number">110</span>];<span class="comment">//保存输出字符串</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%s"</span>,str)!=EOF) &#123;</div><div class="line">        <span class="keyword">int</span> i;</div><div class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; str[i]!=<span class="number">0</span>; i++) &#123;<span class="comment">//从左到右遍历字符串</span></div><div class="line">            <span class="keyword">if</span> (str[i] == <span class="string">'('</span>) &#123;<span class="comment">//若遇到左括号</span></div><div class="line">                S.push(i);<span class="comment">//将其数组下标放入栈中</span></div><div class="line">                ans[i] = <span class="string">' '</span>;<span class="comment">//暂且将对应的输出字符串位置改为空格</span></div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">')'</span>)&#123;<span class="comment">//若遇到右括号</span></div><div class="line">                <span class="keyword">if</span> (S.empty() == <span class="literal">false</span>) &#123;<span class="comment">//若此时栈为空</span></div><div class="line">                    S.pop();<span class="comment">//栈顶左括号与其匹配，从战中弹出</span></div><div class="line">                    ans[i] = <span class="string">' '</span>;<span class="comment">//修改输出中该位置为空格</span></div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    ans[i] = <span class="string">'?'</span>;<span class="comment">//若栈为空，则无法找到左括号匹配</span></div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                ans[i] = <span class="string">' '</span>;<span class="comment">//若为其它字符</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span> (!S.empty()) &#123;<span class="comment">//字符串遍历完成剩下的无法匹配的左括号</span></div><div class="line">            ans[S.top()] = <span class="string">'$'</span>;<span class="comment">//修改其在输出中的位置为"$"</span></div><div class="line">            S.pop();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//ans[i] = 0; //为了使输出形成字符串，在其最后一个字符后添加一个空字符</span></div><div class="line">        <span class="built_in">puts</span>(str);<span class="comment">//输出字符串</span></div><div class="line">        <span class="built_in">puts</span>(ans);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">char</span> str[<span class="number">220</span>];<span class="comment">//保存表达式字符串</span></div><div class="line"><span class="keyword">int</span> mat[][<span class="number">5</span>]&#123;<span class="comment">//优先级矩阵，若mat[i][j]==1,则表示i号运算符优先级大于j号运算符，运算符编码规则为+1号，-2号，*3号，/4号</span></div><div class="line">    <span class="comment">//人为添加在表达式首位的标记运算符为0号</span></div><div class="line">    <span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span></div><div class="line">&#125;;</div><div class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; op;<span class="comment">//运算符栈,保存运算符编号</span></div><div class="line"><span class="built_in">stack</span>&lt;<span class="keyword">double</span>&gt; in;<span class="comment">//数字栈</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">getOp</span><span class="params">(<span class="keyword">bool</span> &amp;reto,<span class="keyword">int</span> &amp;retn,<span class="keyword">int</span> &amp;i)</span></span>&#123;</div><div class="line">    <span class="comment">//获得表达式中	下一个元素函数，若函数运行结束时，引用变量reto为true,则表示该元素为一个运算符，其编号保存在引用变量retn中；否则，表示该元素为一个数字，其值保存在引用变量retn中，引用变量i表示遍历到的字符串下标</span></div><div class="line">    <span class="keyword">if</span> (i == <span class="number">0</span> &amp;&amp; op.empty() == <span class="literal">true</span>) &#123;<span class="comment">//若此时遍历字符串第一个字符，且运算符栈为空，我们人为添加编号为0的标记字符</span></div><div class="line">        reto = <span class="literal">true</span>;<span class="comment">//运算符</span></div><div class="line">        retn = <span class="number">0</span>;<span class="comment">//编号为0</span></div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (str[i] == <span class="number">0</span>) &#123;<span class="comment">//若此时遍历字符为空字符，则表示该字符串已被遍历完</span></div><div class="line">        reto = <span class="literal">true</span>;</div><div class="line">        retn = <span class="number">0</span>;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (str[i] &gt;= <span class="string">'0'</span> &amp;&amp; str[i] &lt;= <span class="string">'9'</span>) &#123;<span class="comment">//若当前字符为数字</span></div><div class="line">        reto = <span class="literal">false</span>;<span class="comment">//返回为数字</span></div><div class="line">    &#125;<span class="keyword">else</span>&#123;<span class="comment">//否则</span></div><div class="line">        reto = <span class="literal">true</span>;<span class="comment">//返回为运算符</span></div><div class="line">        <span class="keyword">if</span> (str[i] == <span class="string">'+'</span>) &#123;</div><div class="line">            retn = <span class="number">1</span>;</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] == <span class="string">'-'</span>)&#123;</div><div class="line">            retn = <span class="number">2</span>;</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] == <span class="string">'*'</span>)&#123;</div><div class="line">            retn = <span class="number">3</span>;</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] == <span class="string">'/'</span>)&#123;</div><div class="line">            retn = <span class="number">4</span>;</div><div class="line">        &#125;</div><div class="line">        i += <span class="number">2</span>;<span class="comment">//i递增，跳过该运算字符和后面的空格</span></div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    retn = <span class="number">0</span>;<span class="comment">//返回结果为数字</span></div><div class="line">    <span class="keyword">for</span> (; str[i] != <span class="string">' '</span> &amp;&amp; str[i] != <span class="number">0</span> ; i++) &#123;<span class="comment">//若字符串未遍历完，且在一个字符不是空格，则依次遍历其后数字，计算当前连续数字字符表示的数值</span></div><div class="line">        retn *= <span class="number">10</span>;</div><div class="line">        retn += str[i] - <span class="string">'0'</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (str[i] == <span class="string">' '</span>)&#123;<span class="comment">//若其后字符为空格，则表示字符串未被遍历完</span></div><div class="line">        i++;<span class="comment">//i递增，跳过该空格</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">while</span> (gets(str)) &#123;<span class="comment">//输入字符串，当其位于文件尾时，gets返回0</span></div><div class="line">        <span class="keyword">if</span> (str[<span class="number">0</span>] == <span class="string">'0'</span> &amp;&amp; str[<span class="number">1</span>] == <span class="number">0</span>) &#123;<span class="comment">//若输入只有1个0，则退出</span></div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">bool</span> retop; <span class="keyword">int</span> retnum;<span class="comment">//定义函数所需的引用变量</span></div><div class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;<span class="comment">//定义遍历到的字符串下标，初始值尾0</span></div><div class="line">        <span class="keyword">while</span> (!op.empty()) &#123;</div><div class="line">            op.pop();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span> (!in.empty()) &#123;</div><div class="line">            in.pop();<span class="comment">//清空数字栈和运算符栈</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;<span class="comment">//循环遍历表达式字符串</span></div><div class="line">            getOp(retop, retnum, idx);<span class="comment">//获取表达式中下一个元素</span></div><div class="line">            <span class="keyword">if</span> (retop == <span class="literal">false</span>) &#123;<span class="comment">//若该元素为数字</span></div><div class="line">                in.push((<span class="keyword">double</span>)retnum);<span class="comment">//将其压入数字栈中</span></div><div class="line">            &#125;<span class="keyword">else</span>&#123;<span class="comment">//否则</span></div><div class="line">                <span class="keyword">double</span> tmp;</div><div class="line">                <span class="keyword">if</span> (op.empty() == <span class="literal">true</span> || mat[retnum][op.top()] == <span class="number">1</span>) &#123;</div><div class="line">                    op.push(retnum);<span class="comment">//若运算符栈为空或当前遍历到的运算符优先级大于栈顶运算符，将该运算符压入运算符堆栈</span></div><div class="line">                &#125;<span class="keyword">else</span>&#123;<span class="comment">//否则</span></div><div class="line">                    <span class="keyword">while</span> (mat[retnum][op.top()] == <span class="number">0</span>) &#123;<span class="comment">//只要当前运算符优先级小于栈顶元素运算符，则重复循环</span></div><div class="line">                        <span class="keyword">int</span> ret = op.top();<span class="comment">//保存栈顶运算符</span></div><div class="line">                        op.pop();</div><div class="line">                        <span class="keyword">double</span> b = in.top();</div><div class="line">                        in.pop();</div><div class="line">                        <span class="keyword">double</span> a = in.top();</div><div class="line">                        in.pop();<span class="comment">//从数字栈栈顶弹出两个数字，依次保存在遍历a,b中</span></div><div class="line">                        <span class="keyword">if</span> (ret == <span class="number">1</span>) &#123;</div><div class="line">                            tmp = a+b;</div><div class="line">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ret == <span class="number">2</span>)&#123;</div><div class="line">                            tmp = a - b;</div><div class="line">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ret == <span class="number">3</span>)&#123;</div><div class="line">                            tmp = a * b;</div><div class="line">                        &#125;<span class="keyword">else</span>&#123;</div><div class="line">                            tmp = a/b;<span class="comment">//按照运算符类型完成运算</span></div><div class="line">                        &#125;</div><div class="line">                        in.push(tmp);<span class="comment">//将结果压回数字栈</span></div><div class="line">                    &#125;</div><div class="line">                    op.push(retnum);<span class="comment">//将当前运算符压入运算符栈</span></div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">if</span> (op.size() == <span class="number">2</span> &amp;&amp; op.top() == <span class="number">0</span>) &#123;<span class="comment">//若运算符栈只有两个元素，且栈顶元素为标记运算符，则表示表达式求值结束</span></div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%.2f\n"</span>,in.top());</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/13/机试笔记07栈的应用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-机试笔记06Java在ACM中的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -909,68 +972,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/02/28/OC学习之语法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-生日快乐" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/27/生日快乐/">生日快乐</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/27/生日快乐/" class="archive-article-date">
-  	<time datetime="2017-02-27T13:18:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>二月二，龙抬头。祝自己生日快乐。<br>Happy birthday.</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/27/生日快乐/">展开全文 >></a>
         </p>
       
 
