@@ -158,6 +158,217 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Oracle学习之常用函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/16/Oracle学习之常用函数/">Oracle学习之常用函数</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/16/Oracle学习之常用函数/" class="archive-article-date">
+  	<time datetime="2015-01-16T10:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-常用函数"><a href="#1-常用函数" class="headerlink" title="1.常用函数"></a>1.常用函数</h1><pre><code>字符：
+    Lower：转小写       lower(&apos;Name&apos;);
+    Upper：转大写       upper(&apos;name&apos;);
+    Ltrim：去掉左空格
+    Rtrim：去掉右空格
+    Trim：去掉两边空格
+    Length：求长度
+    Instr：求字串的位置  instr(&apos;I love china&apos;,&apos;china&apos;)  : 8
+    Substr：截取子串  substr(&apos;I love&apos;,3,4) ：love
+    Lpad：左边填充指定字符  lpad(&apos;hello&apos;,7,&apos;*&apos;) : **hello
+    Rpad：右边填充指定字符
+    Initcap：将字符串每个首字母大写，其余转为小写
+数字：
+    Round：四舍五入  round(34.44)
+    Trunc：直接截断
+    mod：取余
+日期：
+    Months_between：两个日期之间的越差
+        Months_between(date1,date2);
+    Add_months：为日期增加几个月
+        Add_months(sysdate,4);
+    sysdate：返回当前时间
+    Last_day：当前日期所在月的最后一天的日期
+        Last_day(sysdate);
+    Next_day：指定日期后第一个星期几的日期
+        Next_day(sysdate,1);
+    日期直接+数字：代表加的是天数
+转换：
+    To_Date：将字符串转换成日期
+        To_date(&apos;19980908&apos;,&apos;yyyyMMdd&apos;);
+    To_char：将日期转换成字符串
+        To_char(sysdate,&apos;yyyy-MM-dd&apos;);
+    To_number：转换成数字
+        To_number(&apos; 1234&apos;,&apos;990000&apos;);
+其他：
+    nvl：对null进行处理的函数
+        Nvl(comm,0)：如果comm的值为空，返回0，否则，返回的还是comm的值
+    decode：解码，相当于if else语句
+</code></pre><h1 id="2-case语句："><a href="#2-case语句：" class="headerlink" title="2.case语句："></a>2.case语句：</h1><pre><code>可以在查询中进行判断，语法是：
+    Select 
+        Case
+            When 条件1 then 结果
+            When 条件2 then 结果
+            Else 结果3
+        End score,name from emp;    
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/16/Oracle学习之常用函数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-Oracle学习之高级查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/15/Oracle学习之高级查询/">Oracle学习之高级查询</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/15/Oracle学习之高级查询/" class="archive-article-date">
+  	<time datetime="2015-01-15T10:29:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1.表连接：<br>    内连接：<br>        (Oracle写法):select <em> from table_name,table_name2 [where 条件];<br>        (标准sql语法):select </em> from emp inner join dept on dept.deptno=emp.deptno;<br>        如果from后，加入多个表时，查询的结果应该是两个表中的乘积；(列的和，记录的积)<br>    外连接：<br>        左外连接：    以左边的表为准，将左表中的数据全都查询出来，如果右表没有对应的录，则在右表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept=dept.deptno(+);<br>            (标准sql语法)select </em> from emp left [outer] join dept on dept.deptno=emp.deptno;<br>        右外连接：    以右边的表为准，将右表中的数据全都查询出来，如果左表没有对应的录，则在左表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept(+)=dept.deptno;<br>            (标准sql语法)select </em> from emp right [outer] join dept on dept.deptno=emp.deptno;<br>        全外连接：    左右表中的数据都至少显示一次；<br>            (标准sql语法):select * from emp full [outer] join dept on dept.deptno=emp.deptno;</p>
+<h1 id="2-子查询-嵌套查询-："><a href="#2-子查询-嵌套查询-：" class="headerlink" title="2.子查询(嵌套查询)："></a>2.子查询(嵌套查询)：</h1><pre><code>    指一个查询中还包含另外一个查询体，也可以理解为，将一个查询结果作为另一个查询的查询条件；
+常用的谓词：
+    Any, all, in, not in
+    Exists 存在
+    select * from dept d where exists(sql查询); 
+    如果exists中的查询有记录，返回true，否则，返回false；
+实例：
+    --查询sales或者research部门的员工
+    select * from emp where deptno in (select deptno from dept where dname=&apos;SALES&apos; or dname=&apos;RESEARCH&apos;);
+    select * from dept;
+
+    --查询比平均工资高的员工信息
+    select * from emp where sal&gt;(select avg(sal) from emp);
+
+    --查询比20部门所有员工工资都高的员工信息
+    select * from emp where sal&lt;all(select sal from emp where deptno=30);
+    
+    --查询出没有员工的部门
+    1.select * from dept where deptno not in(
+        select distinct deptno from emp);
+    2.select * from dept d where not exists (select * from emp where d.deptno=emp.deptno);
+</code></pre><h1 id="3-集合查询："><a href="#3-集合查询：" class="headerlink" title="3.集合查询："></a>3.集合查询：</h1><pre><code>交，并，差
+要求：两个查询结果的列数一样，数据类型匹配
+Union [all]:    并 不排序
+Intersect:    交
+Minus:    差
+</code></pre><h1 id="4-递归查询-树查询-："><a href="#4-递归查询-树查询-：" class="headerlink" title="4.递归查询(树查询)："></a>4.递归查询(树查询)：</h1><pre><code>Connect by prior    后设置的是递归查询的连接条件
+Start with    后设置的是从哪个记录开始进行递归查询
+使用递归查询要求：
+    这个表中应该是一个自连接的表
+可以使用level这个伪列，来查询层级值
+
+实例：
+    select level,emp.* from emp connect by prior empno=mgr start with mgr is null;
+</code></pre><h1 id="5-两个伪列"><a href="#5-两个伪列" class="headerlink" title="5.两个伪列"></a>5.两个伪列</h1><pre><code>Rownum    行号 行号的算法不是先生成编号，而是满足条件后，才生成行号；
+        因此不能使用where rownum=2,rownum&gt;3这样的语法，这样不会查出任何记录
+Rowid    行的唯一标识    表空间     -&gt;段-&gt;区-&gt;块
+        比主键更唯一，在全局是唯一的
+</code></pre><h1 id="6-通过rownum可以实现Oracle的分页查询"><a href="#6-通过rownum可以实现Oracle的分页查询" class="headerlink" title="6.通过rownum可以实现Oracle的分页查询"></a>6.通过rownum可以实现Oracle的分页查询</h1><pre><code>实例：
+    select * from (
+        select rownum r,a.* from(
+        select * from emp order by sal desc) a 
+    where rownum&lt;11) b where b.r&lt;5;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/15/Oracle学习之高级查询/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Oracle学习之DML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
