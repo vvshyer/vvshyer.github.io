@@ -6,18 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://vvshyer.com">
-  <title>数学基础之log的巧用 | MineMine</title>
+  <title>算法之博弈论初探 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1058 N的阶乘的长度1234567891011121314import java.util.Scanner;public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        Scanner cin = new Scanner(System.in);        double N = cin.nex">
+  <meta name="description" content="1066 Bash游戏有一堆石子共有N个。A B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。
+例如N = 3，K = 2。无论A如何拿，B都可以拿到最后1颗石子。
+Input
+第1行：一个数T，表示后面用作输入测试的数的数量。（1 &amp;lt;= T &amp;lt;= 10000)
+第2 - T">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数学基础之log的巧用">
-<meta property="og:url" content="https://vvshyer.com/2017/03/15/数学基础之log的巧用/index.html">
+<meta property="og:title" content="算法之博弈论初探">
+<meta property="og:url" content="https://vvshyer.com/2017/03/15/算法之博弈论初探/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="1058 N的阶乘的长度1234567891011121314import java.util.Scanner;public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        Scanner cin = new Scanner(System.in);        double N = cin.nex">
-<meta property="og:updated_time" content="2017-03-15T13:54:12.000Z">
+<meta property="og:description" content="1066 Bash游戏有一堆石子共有N个。A B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。
+例如N = 3，K = 2。无论A如何拿，B都可以拿到最后1颗石子。
+Input
+第1行：一个数T，表示后面用作输入测试的数的数量。（1 &amp;lt;= T &amp;lt;= 10000)
+第2 - T">
+<meta property="og:updated_time" content="2017-03-15T14:00:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数学基础之log的巧用">
-<meta name="twitter:description" content="1058 N的阶乘的长度1234567891011121314import java.util.Scanner;public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        Scanner cin = new Scanner(System.in);        double N = cin.nex">
+<meta name="twitter:title" content="算法之博弈论初探">
+<meta name="twitter:description" content="1066 Bash游戏有一堆石子共有N个。A B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。
+例如N = 3，K = 2。无论A如何拿，B都可以拿到最后1颗石子。
+Input
+第1行：一个数T，表示后面用作输入测试的数的数量。（1 &amp;lt;= T &amp;lt;= 10000)
+第2 - T">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -157,27 +169,66 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数学基础之log的巧用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-算法之博弈论初探" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数学基础之log的巧用
+      算法之博弈论初探
     </h1>
   
 
         
-        <a href="/2017/03/15/数学基础之log的巧用/" class="archive-article-date">
-  	<time datetime="2017-03-15T13:52:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
+        <a href="/2017/03/15/算法之博弈论初探/" class="archive-article-date">
+  	<time datetime="2017-03-15T13:56:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1058-N的阶乘的长度"><a href="#1058-N的阶乘的长度" class="headerlink" title="1058 N的阶乘的长度"></a>1058 N的阶乘的长度</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">double</span> N = cin.nextLong();</div><div class="line">        <span class="keyword">double</span> ans = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">double</span> i = <span class="number">1</span>; i &lt;= N;i++)&#123;</div><div class="line"></div><div class="line">            ans = ans + Math.log10(i);</div><div class="line">        &#125;</div><div class="line">        System.out.println((<span class="keyword">int</span>)ans);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h1 id="1066-Bash游戏"><a href="#1066-Bash游戏" class="headerlink" title="1066 Bash游戏"></a>1066 Bash游戏</h1><h4 id="有一堆石子共有N个。A-B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。"><a href="#有一堆石子共有N个。A-B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。" class="headerlink" title="有一堆石子共有N个。A B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。"></a>有一堆石子共有N个。A B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。</h4><ul>
+<li>例如N = 3，K = 2。无论A如何拿，B都可以拿到最后1颗石子。</li>
+<li>Input<ul>
+<li>第1行：一个数T，表示后面用作输入测试的数的数量。（1 &lt;= T &lt;= 10000)</li>
+<li>第2 - T + 1行：每行2个数N，K。中间用空格分隔。（1 &lt;= N,K &lt;= 10^9)</li>
+</ul>
+</li>
+<li>Output<ul>
+<li>共T行，如果A获胜输出A，如果B获胜输出B。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span>[] ans = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">10000</span>];</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">int</span> T = cin.nextInt();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt; T ;i++)&#123;</div><div class="line">            <span class="keyword">int</span> N = cin.nextInt();</div><div class="line">            <span class="keyword">int</span> K = cin.nextInt();</div><div class="line">            <span class="keyword">if</span> ((N % (K+<span class="number">1</span>)) == <span class="number">0</span>)</div><div class="line">                ans[i] = <span class="string">'B'</span>;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                ans[i] = <span class="string">'A'</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;T;i++)&#123;</div><div class="line">            System.out.println(ans[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="1069-Nim游戏"><a href="#1069-Nim游戏" class="headerlink" title="1069 Nim游戏"></a>1069 Nim游戏</h1><h4 id="有N堆石子。A-B两个人轮流拿，A先拿。每次只能从一堆中取若干个，可将一堆全取走，但不可不取，拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出N及每堆石子的数量，问最后谁能赢得比赛。"><a href="#有N堆石子。A-B两个人轮流拿，A先拿。每次只能从一堆中取若干个，可将一堆全取走，但不可不取，拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出N及每堆石子的数量，问最后谁能赢得比赛。" class="headerlink" title="有N堆石子。A B两个人轮流拿，A先拿。每次只能从一堆中取若干个，可将一堆全取走，但不可不取，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N及每堆石子的数量，问最后谁能赢得比赛。"></a>有N堆石子。A B两个人轮流拿，A先拿。每次只能从一堆中取若干个，可将一堆全取走，但不可不取，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N及每堆石子的数量，问最后谁能赢得比赛。</h4><ul>
+<li>例如：3堆石子，每堆1颗。A拿1颗，B拿1颗，此时还剩1堆，所以A可以拿到最后1颗石子。</li>
+<li>Input<ul>
+<li>第1行：一个数N，表示有N堆石子。（1 &lt;= N &lt;= 1000)</li>
+<li>第2 - N + 1行：N堆石子的数量。(1 &lt;= A[i] &lt;= 10^9)</li>
+</ul>
+</li>
+<li>Output<ul>
+<li>如果A获胜输出A，如果B获胜输出B。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">int</span> T = cin.nextInt();</div><div class="line">        <span class="keyword">int</span> tmp , ret = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt; T ;i++)&#123;</div><div class="line">            tmp = cin.nextInt();</div><div class="line">            <span class="keyword">if</span> (i==<span class="number">0</span>) ret = tmp;</div><div class="line">            <span class="keyword">else</span> ret = ret ^ tmp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">char</span> ans;</div><div class="line">        <span class="keyword">if</span> (ret==<span class="number">0</span>) ans = <span class="string">'B'</span>;</div><div class="line">        <span class="keyword">else</span>  ans = <span class="string">'A'</span>;</div><div class="line">        System.out.println(ans);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="1072-威左夫游戏"><a href="#1072-威左夫游戏" class="headerlink" title="1072 威左夫游戏"></a>1072 威左夫游戏</h1><h4 id="有2堆石子。A-B两个人轮流拿，A先拿。每次可以从一堆中取任意个或从2堆中取相同数量的石子，但不可不取。拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出2堆石子的数量，问最后谁能赢得比赛。"><a href="#有2堆石子。A-B两个人轮流拿，A先拿。每次可以从一堆中取任意个或从2堆中取相同数量的石子，但不可不取。拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出2堆石子的数量，问最后谁能赢得比赛。" class="headerlink" title="有2堆石子。A B两个人轮流拿，A先拿。每次可以从一堆中取任意个或从2堆中取相同数量的石子，但不可不取。拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出2堆石子的数量，问最后谁能赢得比赛。"></a>有2堆石子。A B两个人轮流拿，A先拿。每次可以从一堆中取任意个或从2堆中取相同数量的石子，但不可不取。拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出2堆石子的数量，问最后谁能赢得比赛。</h4><ul>
+<li>例如：2堆石子分别为3颗和5颗。那么不论A怎样拿，B都有对应的方法拿到最后1颗。</li>
+<li>Input<ul>
+<li>第1行：一个数T，表示后面用作输入测试的数的数量。（1 &lt;= T &lt;= 10000)</li>
+<li>第2 - T + 1行：每行2个数分别是2堆石子的数量，中间用空格分隔。(1 &lt;= N &lt;= 2000000)</li>
+</ul>
+</li>
+<li>Output<ul>
+<li>共T行，如果A获胜输出A，如果B获胜输出B。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> t,n,m,temp;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;t);</div><div class="line">	<span class="keyword">while</span>(t--) &#123;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</div><div class="line">		<span class="keyword">if</span>(n&gt;m) swap(n,m);</div><div class="line">		temp=(m-n)*(<span class="built_in">sqrt</span>(<span class="number">5</span>)+<span class="number">1</span>)/<span class="number">2</span>;</div><div class="line">		<span class="keyword">if</span>(n==temp) <span class="built_in">printf</span>(<span class="string">"B\n"</span>);</div><div class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"A\n"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
 
       
@@ -221,7 +272,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数学</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
@@ -277,7 +328,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/03/15/数学基础之log的巧用/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/03/15/算法之博弈论初探/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -291,18 +342,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/15/算法之博弈论初探/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/03/15/数学基础之约瑟夫环/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          算法之博弈论初探
+          数学基础之约瑟夫环
         
       </div>
     </a>
   
   
-    <a href="/2017/03/15/算法之归并/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">算法之归并</div>
+    <a href="/2017/03/15/数学基础之log的巧用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数学基础之log的巧用</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -316,7 +367,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="数学基础之log的巧用" data-title="数学基础之log的巧用" data-url="https://vvshyer.com/2017/03/15/数学基础之log的巧用/"></div>
+	<div class="ds-thread" data-thread-key="算法之博弈论初探" data-title="算法之博弈论初探" data-url="https://vvshyer.com/2017/03/15/算法之博弈论初探/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

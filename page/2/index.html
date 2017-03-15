@@ -158,6 +158,212 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-机试笔记05贪心算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/11/机试笔记05贪心算法/">机试笔记05贪心算法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/11/机试笔记05贪心算法/" class="archive-article-date">
+  	<time datetime="2017-03-11T11:53:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="FatMouse’-Trade"><a href="#FatMouse’-Trade" class="headerlink" title="FatMouse’ Trade"></a>FatMouse’ Trade</h1><ul>
+<li>有 m 元钱，n 种物品;每种物品有 j 磅，总价值 f 元，可以 使用 0 到 f 的任意价格购买相应磅的物品，例如使用 0.3f 元，可以购买 0.3j 磅物 品。要求输出用 m 元钱最多能买到多少磅物品</li>
+<li>每次都买剩余物品中性价比最高的物品，知道该物品被买完活捉钱耗尽。但该物品已经被卖买完，则我们继续在剩余的物品中寻找性价比最高的物品</li>
+<li></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">struct</span> goods &#123;</div><div class="line">    <span class="keyword">double</span> j;<span class="comment">//总重</span></div><div class="line">    <span class="keyword">double</span> f;<span class="comment">//总价值</span></div><div class="line">    <span class="keyword">double</span> s;<span class="comment">//性价比</span></div><div class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> goods &amp;A) <span class="keyword">const</span>&#123;</div><div class="line">        <span class="keyword">return</span> s &gt; A.s;</div><div class="line">    &#125;</div><div class="line">&#125;buf[<span class="number">1000</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">double</span> m;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%lf%d"</span>,&amp;m,&amp;n)!=EOF)&#123;</div><div class="line">        <span class="keyword">if</span> (m == <span class="number">-1</span> &amp;&amp; n == <span class="number">-1</span>) <span class="keyword">break</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%lf%lf"</span>,&amp;buf[i].j,&amp;buf[i].f);</div><div class="line">            buf[i].s = buf[i].j / buf[i].f;<span class="comment">//计算性价比</span></div><div class="line">        &#125;</div><div class="line">        sort(buf, buf+n);</div><div class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;<span class="comment">//当前货物下标</span></div><div class="line">        <span class="keyword">double</span> ans = <span class="number">0</span>;<span class="comment">//累加所能得到的总重量</span></div><div class="line">        <span class="keyword">while</span> (m &gt; <span class="number">0</span> &amp;&amp; idx &lt; n) &#123;</div><div class="line">            <span class="comment">//若能买下全部该物品</span></div><div class="line">            <span class="keyword">if</span> (m &gt; buf[idx].f) &#123;</div><div class="line">                ans += buf[idx].j;</div><div class="line">                m -= buf[idx].f;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="comment">//若只能买下部分该物品</span></div><div class="line">                ans += buf[idx].j * m / buf[idx].f;</div><div class="line">                m = <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">            idx++;<span class="comment">//继续下一个物品</span></div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%.3lf\n"</span>,ans);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="今年暑假不AC"><a href="#今年暑假不AC" class="headerlink" title="今年暑假不AC"></a>今年暑假不AC</h1><ul>
+<li>最优解中，第一个观看的节目一定是所有节目里结束时间最早的节目。因为按照优先选择结束时间最早的节目，我们所观看的第一个节目一定是所有节目里结束时间最早的。</li>
+<li>如果最优解的第一个节目并不是结束最早的节目，那么我们可以直接用结束时间最早的节目代替该解中的第一个节目，替换后的解也是最优解。这样，我们就可以得出当第一个节目选择所有节目中结束时间最早的节目， 这样是一定不会得不到最优解的。于是，在我们所要求的最优解中，第一个被收看的节目可以安排所有节目中结束时间最早的节目(若有多个，则可任意选择一个)。</li>
+<li>在选择第 x(x&gt;=1)个节目时， 一定是选择在收看完前 x-1 个节目后，其它所有可以收看节目中结束时间最早的节目，这就是我们要找的贪心策略。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">struct</span> program&#123;</div><div class="line">    <span class="keyword">int</span> startTime;</div><div class="line">    <span class="keyword">int</span> endTime;</div><div class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> program &amp;A) <span class="keyword">const</span>&#123;</div><div class="line">        <span class="keyword">return</span> endTime &lt; A.endTime;</div><div class="line">    &#125;</div><div class="line">&#125;buf[<span class="number">100</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF) &#123;</div><div class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;buf[i].startTime,&amp;buf[i].endTime);</div><div class="line">        &#125;</div><div class="line">        sort(buf, buf+n);</div><div class="line">        <span class="keyword">int</span> currentTime = <span class="number">0</span>, ans = <span class="number">0</span>;<span class="comment">//记录当前时间变量初始值为0</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (currentTime &lt;= buf[i].startTime) &#123;</div><div class="line">                <span class="comment">//若当前时间小于等于开始时间，那么收看该在剩余节目里结束时间最早的节目</span></div><div class="line">                currentTime = buf[i].endTime;<span class="comment">//当前时间变为该节目结束时间</span></div><div class="line">                ans ++;<span class="comment">//又收看了一个节目</span></div><div class="line">                </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);<span class="comment">//输出</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/11/机试笔记05贪心算法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-机试笔记04查找" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/10/机试笔记04查找/">机试笔记04查找</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/10/机试笔记04查找/" class="archive-article-date">
+  	<time datetime="2017-03-10T13:07:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="输入N个学生的信息进行查询"><a href="#输入N个学生的信息进行查询" class="headerlink" title="输入N个学生的信息进行查询"></a>输入N个学生的信息进行查询</h1><ul>
+<li>二分查找</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//存在一个升序有序的数组buf,其大小为size,目标数字为target int base = 0 , top = size; //初始情况与二分查找一致</span><span class="keyword">while</span> (base &lt;= top) &#123; <span class="comment">//二分循环条件与二分查找一致</span><span class="keyword">int</span> mid = (base + top) / <span class="number">2</span>;<span class="keyword">if</span> (buf[mid] &lt;= target) base = mid + <span class="number">1</span>; <span class="comment">//符合前一部分数字规定 else top = mid - 1; //否则</span>&#125;</div><div class="line"><span class="keyword">int</span> ans = top;<span class="comment">//最后，top即位我们要求的数字数组下标，buf[top]为数字本省</span></div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">struct</span> Student &#123;</div><div class="line">    <span class="keyword">char</span> no[<span class="number">100</span>];</div><div class="line">    <span class="keyword">char</span> name[<span class="number">100</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">char</span> sex[<span class="number">5</span>];</div><div class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Student &amp; A) <span class="keyword">const</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">strcmp</span>(no, A.no) &lt; <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;buf[<span class="number">1000</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n) != EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%s%s%s%d"</span>,buf[i].no,buf[i].name,buf[i].sex,</div><div class="line">                  &amp;buf[i].age);</div><div class="line">        &#125;<span class="comment">//输入</span></div><div class="line">        sort(buf, buf+n);</div><div class="line">        <span class="keyword">int</span> t;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;t);</div><div class="line">        <span class="keyword">while</span> (t-- != <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">int</span> ans = <span class="number">-1</span>;</div><div class="line">            <span class="keyword">char</span> x[<span class="number">30</span>];</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%s"</span>,x);</div><div class="line">            <span class="keyword">int</span> top = n<span class="number">-1</span>, base = <span class="number">0</span>;</div><div class="line">            <span class="keyword">while</span> (top &gt;= base) &#123;</div><div class="line">                <span class="keyword">int</span> mid = (top + base)/<span class="number">2</span>;</div><div class="line">                <span class="keyword">int</span> tmp = <span class="built_in">strcmp</span>(buf[mid].no, x);</div><div class="line">                <span class="keyword">if</span> (tmp == <span class="number">0</span>) &#123;</div><div class="line">                    ans = mid;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(tmp &gt;<span class="number">0</span>)</div><div class="line">                    top = mid - <span class="number">1</span>;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    base = mid + <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (ans == <span class="number">-1</span>) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"No Answer!\n"</span>);</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"%s %s %s %d\n"</span>,buf[ans].no,buf[ans].name,buf[ans].sex,buf[ans].age);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/10/机试笔记04查找/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-机试笔记03Hash的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/09/机试笔记03Hash的应用/">机试笔记03Hash的应用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/09/机试笔记03Hash的应用/" class="archive-article-date">
+  	<time datetime="2017-03-09T07:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="统计同成绩学生人数"><a href="#统计同成绩学生人数" class="headerlink" title="统计同成绩学生人数"></a>统计同成绩学生人数</h1><ul>
+<li>读入 N 名学生的成绩，将获得某一给定分数的学生人数输出。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n) != EOF &amp;&amp; n != <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">int</span> Hash[<span class="number">101</span>] = &#123;<span class="number">0</span>&#125;;<span class="comment">//建立一个初始为0的Hash数组</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">            Hash[x]++;<span class="comment">//统计分数出现次数</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Hash[x]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h1><ul>
+<li>给你 n 个整数，请按从大到小的顺序输出其中前 m 大的数。</li>
+<li>每组测试数据有两行，第一行有两个数 n,m(0&lt;n,m&lt;1000000)，第二行包含 n 个各不相同，且都处于区间[-500000,500000]的整数。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> OFFSET 500000</span></div><div class="line"><span class="keyword">int</span> Hash[<span class="number">1000001</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n,m;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m) != EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">-500000</span>;i&lt;=<span class="number">500000</span>; i++) &#123;</div><div class="line">            Hash[i+OFFSET] = <span class="number">0</span>;</div><div class="line">        &#125;<span class="comment">//初始化 将每个数字都标记为未出现</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">            Hash[x+OFFSET] = <span class="number">1</span>;<span class="comment">//凡是出现过的数字，该数组元素均为1</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">500000</span>; i&gt;=<span class="number">-500000</span>; i--) &#123;<span class="comment">//输出前m个数</span></div><div class="line">            <span class="keyword">if</span> (Hash[i+OFFSET]==<span class="number">1</span>) &#123;<span class="comment">//若该数字在输入中出现</span></div><div class="line">                <span class="built_in">printf</span>(<span class="string">"%d"</span>,i);<span class="comment">//输出该数字</span></div><div class="line">                m--;<span class="comment">//输出一个数字后，m--</span></div><div class="line">                <span class="keyword">if</span> (m!=<span class="number">0</span>) &#123;</div><div class="line">                    <span class="built_in">printf</span>(<span class="string">" "</span>);</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/09/机试笔记03Hash的应用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-机试笔记02日期类问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -766,307 +972,6 @@ VO:Value Object
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2015/01/22/Oracle学习之JDBC/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之E-R图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/20/Oracle学习之E-R图/">Oracle学习之E-R图</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/20/Oracle学习之E-R图/" class="archive-article-date">
-  	<time datetime="2015-01-20T07:23:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="软件开发生命周期："><a href="#软件开发生命周期：" class="headerlink" title="软件开发生命周期："></a>软件开发生命周期：</h1><pre><code>1.可行性分析：做还是不做
-2.需求分析：做什么
-3.概要设计
-4.系统实现
-5.测试：单元测试，黑盒，白盒，集成测试，性能测试（压力测试）
-6.运行维护：（运维人员）
-</code></pre><h1 id="1-建模："><a href="#1-建模：" class="headerlink" title="1.建模："></a>1.建模：</h1><pre><code>E-R图：
-实体，关系图：
-    三要素：
-        实体：表
-        属性：列
-        关系：一对一，一对多，多对多
-</code></pre><h1 id="2-PowerDesinger"><a href="#2-PowerDesinger" class="headerlink" title="2.PowerDesinger"></a>2.PowerDesinger</h1><pre><code>简称：PD
-是一个建模工具软件，可以利用这个软件绘制E-R图
-</code></pre><h1 id="3-使用PD创建E-R图的步骤："><a href="#3-使用PD创建E-R图的步骤：" class="headerlink" title="3.使用PD创建E-R图的步骤："></a>3.使用PD创建E-R图的步骤：</h1><pre><code>1.新建一个概念E-R图
-2.创建实例，属性，并建立关系，如果是一对多，不要在多的那个实体中自定义外键列，
-只需要建立一对多关系即可，外键会自动生成
-3.将概念E-R图转换成Oracle的物理E-R图
-4.生成建表的sql语句
-
-思路：概念-&gt;物理-&gt;语句
-</code></pre><h1 id="4-多对多的实现方式："><a href="#4-多对多的实现方式：" class="headerlink" title="4.多对多的实现方式："></a>4.多对多的实现方式：</h1><pre><code>学生表                         科目表
-          中间表
-</code></pre><h1 id="5-一对一："><a href="#5-一对一：" class="headerlink" title="5.一对一："></a>5.一对一：</h1><pre><code>唯一外键：
-    是一对多的一个特例，在外键列上再增加一个unique约束即可；
-相同主键：
-    两个表的主键是一个列，从表的主键列还是外键
-</code></pre><h1 id="6-范式："><a href="#6-范式：" class="headerlink" title="6.范式："></a>6.范式：</h1><pre><code>1NF：主键，列的值不能为一组值（集合）
-2NF：满足1NF，消除部分依赖
-3NF：满足2NF，消除传递依赖
-BCNF
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/20/Oracle学习之E-R图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之数据库对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/18/Oracle学习之数据库对象/">Oracle学习之数据库对象</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/18/Oracle学习之数据库对象/" class="archive-article-date">
-  	<time datetime="2015-01-18T06:35:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-数据库对象："><a href="#1-数据库对象：" class="headerlink" title="1.数据库对象："></a>1.数据库对象：</h1><pre><code>表是最基本的数据库对象，作用是用来存储数据
-</code></pre><h1 id="2-其它常用的数据库对象："><a href="#2-其它常用的数据库对象：" class="headerlink" title="2.其它常用的数据库对象："></a>2.其它常用的数据库对象：</h1><pre><code>同义词：
-序列：
-视图：
-索引：
-函数：
-存储过程：
-触发器：
-</code></pre><h1 id="3-序列："><a href="#3-序列：" class="headerlink" title="3.序列："></a>3.序列：</h1><pre><code>用来产生唯一，连续的序号；
-生成主键；
-Create sequence 序列名
-    Start with
-    Increment by：增量
-    Maxvalue：最大值
-    Minvalue：最小值
-    Cycle | nocycle：是否循环
-    cache：缓存
-
-如何使用序列：
-    一定要在sql语句中使用；
-    序列名.nextVal：下一个值
-    序列名.currVal：当前值
-</code></pre><h1 id="4-分析函数："><a href="#4-分析函数：" class="headerlink" title="4.分析函数："></a>4.分析函数：</h1><pre><code>Rank() over() 一起使用
-Rank()：生成序号，如果比较大小时相同，则序号相同，下一个序列会空出来，的例如 1 1 3
-Dense_rank()：生成序号，与rank相比，值相同，序号相同，但不同有空余的序号 1 1 2
-Row_number()：函数与rownum伪列相同
-
-Select rank() over(order by sal),emp.* from emp;
-</code></pre><h1 id="5-视图："><a href="#5-视图：" class="headerlink" title="5.视图："></a>5.视图：</h1><pre><code>一个命名的查询语句，也可称为虚拟表
-优点：
-    安全
-    隔离基表的改变
-
-创建视图：
-    Create view view_name as 查询语句;
-创建一个只读视图：
-    Create view view_name as 查询语句 with read only;
-对视图中的字段进行重命名：
-    Create view view_name(新名) as 查询语句
-对视图进行删除，插入，修改的操作：
-    如果对视图进行以上操作，实际上是对视图所关联的表进行操作，并不是所有的视图都可以做以上操作；
-    视图中的数据中的数据必须来自表中的真实数据才可以
-</code></pre><h1 id="6-索引："><a href="#6-索引：" class="headerlink" title="6.索引："></a>6.索引：</h1><pre><code>用来提高查询速度的一个对象：
-    Create index 索引名 on 表名（列名）
-</code></pre><h1 id="7-数据库备份："><a href="#7-数据库备份：" class="headerlink" title="7.数据库备份："></a>7.数据库备份：</h1><pre><code>dos下直接输入两个命令
-导入：    Imp
-导出：    Exp
-</code></pre><h1 id="8-数据字典："><a href="#8-数据字典：" class="headerlink" title="8.数据字典："></a>8.数据字典：</h1><pre><code>元数据的数据：
-    $
-    Dba_        all_       user_tables…
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/18/Oracle学习之数据库对象/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之DCL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/17/Oracle学习之DCL/">Oracle学习之DCL</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/17/Oracle学习之DCL/" class="archive-article-date">
-  	<time datetime="2015-01-17T05:24:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-oracle常用的用户："><a href="#1-oracle常用的用户：" class="headerlink" title="1.oracle常用的用户："></a>1.oracle常用的用户：</h1><pre><code>Sys：    系统管理员    创建数据库，启动数据库，关闭数据库
-System：    数据库管理员    数据库启动后，可以使用数据库的任何权限
-scott：    示例用户    
-</code></pre><h1 id="2-创建用户："><a href="#2-创建用户：" class="headerlink" title="2.创建用户："></a>2.创建用户：</h1><pre><code>Create user USER_NAME identified by PASSWORD;
-</code></pre><h1 id="3-oracle中权限的分类："><a href="#3-oracle中权限的分类：" class="headerlink" title="3.oracle中权限的分类："></a>3.oracle中权限的分类：</h1><pre><code>系统权限：    用户使用系统资源的权限，例如：登陆，创建表，修改表，创建函数等
-对象权限：    一个用户使用其他用户的资源，例如：利用scott来查询student用户的表
-</code></pre><h1 id="4-授权："><a href="#4-授权：" class="headerlink" title="4.授权："></a>4.授权：</h1><pre><code>Grant 权限 to 用户;
-Grant create session to student;
-</code></pre><h1 id="5-角色："><a href="#5-角色：" class="headerlink" title="5.角色："></a>5.角色：</h1><pre><code>即权限的组合（集合）
-常用的角色：
-    Connect    登陆
-    Resource    普通用户的常用权限的集合
-    dba    数据库管理员
-</code></pre><h1 id="6-撤销权限："><a href="#6-撤销权限：" class="headerlink" title="6.撤销权限："></a>6.撤销权限：</h1><pre><code>Revoke 权限 from 用户
-</code></pre><h1 id="7-对象权限："><a href="#7-对象权限：" class="headerlink" title="7.对象权限："></a>7.对象权限：</h1><pre><code>例如：
-    student能否删除，修改，查询scott.emp表
-Grant select/insert/all on emp to student;
-Revokde select/insert/all on emp from student;
-</code></pre><h1 id="8-事务："><a href="#8-事务：" class="headerlink" title="8.事务："></a>8.事务：</h1><pre><code>Transaction
-是用户自定义的一个操作序列，这个操作序列式一个最小的执行单元
-也就是说，要么全做，要么一个都不执行
-事务的四个特性：ACID
-原子性    最小的执行单位，不能再分
-一致性    执行前后，应该保持一致状态
-隔离性    多个事务之间，互不干扰
-持久性    一旦事务提交，不能回退
-</code></pre><h1 id="9-事务控制语句："><a href="#9-事务控制语句：" class="headerlink" title="9.事务控制语句："></a>9.事务控制语句：</h1><pre><code>Commit    提交
-Rollback    回退
-savepoint    设置保存点
-</code></pre><h1 id="10-事务所涉及的操作："><a href="#10-事务所涉及的操作：" class="headerlink" title="10.事务所涉及的操作："></a>10.事务所涉及的操作：</h1><pre><code>Update    
-Delete    
-Insert    
-</code></pre><h1 id="11-以下情况会提交事务："><a href="#11-以下情况会提交事务：" class="headerlink" title="11.以下情况会提交事务："></a>11.以下情况会提交事务：</h1><pre><code>手动commit提交
-正常退出sqlplus环境
-执行DDL语句
-执行DCL语句
-</code></pre><h1 id="12-解锁用户："><a href="#12-解锁用户：" class="headerlink" title="12.解锁用户："></a>12.解锁用户：</h1><pre><code>Alter user username account unlock;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/17/Oracle学习之DCL/">展开全文 >></a>
         </p>
       
 

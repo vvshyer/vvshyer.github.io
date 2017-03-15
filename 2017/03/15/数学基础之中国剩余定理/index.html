@@ -6,18 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://vvshyer.com">
-  <title>数学基础之log的巧用 | MineMine</title>
+  <title>数学基础之中国剩余定理 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1058 N的阶乘的长度1234567891011121314import java.util.Scanner;public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        Scanner cin = new Scanner(System.in);        double N = cin.nex">
+  <meta name="description" content="1079 中国剩余定理一个正整数K，给出K Mod 一些质数的结果，求符合条件的最小的K。例如，K % 2 = 1, K % 3 = 2, K % 5 = 3。符合条件的最小的K = 23。
+Input
+第1行：1个数N表示后面输入的质数及模的数量。（2 &amp;lt;= N &amp;lt;= 10)
+第2 - N + 1行，每行2个数P和M，中间用空格分隔，P是质数，M是K % P的结果。（2 &amp;lt;=">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数学基础之log的巧用">
-<meta property="og:url" content="https://vvshyer.com/2017/03/15/数学基础之log的巧用/index.html">
+<meta property="og:title" content="数学基础之中国剩余定理">
+<meta property="og:url" content="https://vvshyer.com/2017/03/15/数学基础之中国剩余定理/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="1058 N的阶乘的长度1234567891011121314import java.util.Scanner;public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        Scanner cin = new Scanner(System.in);        double N = cin.nex">
-<meta property="og:updated_time" content="2017-03-15T13:54:12.000Z">
+<meta property="og:description" content="1079 中国剩余定理一个正整数K，给出K Mod 一些质数的结果，求符合条件的最小的K。例如，K % 2 = 1, K % 3 = 2, K % 5 = 3。符合条件的最小的K = 23。
+Input
+第1行：1个数N表示后面输入的质数及模的数量。（2 &amp;lt;= N &amp;lt;= 10)
+第2 - N + 1行，每行2个数P和M，中间用空格分隔，P是质数，M是K % P的结果。（2 &amp;lt;=">
+<meta property="og:updated_time" content="2017-03-15T14:10:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数学基础之log的巧用">
-<meta name="twitter:description" content="1058 N的阶乘的长度1234567891011121314import java.util.Scanner;public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        Scanner cin = new Scanner(System.in);        double N = cin.nex">
+<meta name="twitter:title" content="数学基础之中国剩余定理">
+<meta name="twitter:description" content="1079 中国剩余定理一个正整数K，给出K Mod 一些质数的结果，求符合条件的最小的K。例如，K % 2 = 1, K % 3 = 2, K % 5 = 3。符合条件的最小的K = 23。
+Input
+第1行：1个数N表示后面输入的质数及模的数量。（2 &amp;lt;= N &amp;lt;= 10)
+第2 - N + 1行，每行2个数P和M，中间用空格分隔，P是质数，M是K % P的结果。（2 &amp;lt;=">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -157,27 +166,46 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数学基础之log的巧用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-数学基础之中国剩余定理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数学基础之log的巧用
+      数学基础之中国剩余定理
     </h1>
   
 
         
-        <a href="/2017/03/15/数学基础之log的巧用/" class="archive-article-date">
-  	<time datetime="2017-03-15T13:52:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
+        <a href="/2017/03/15/数学基础之中国剩余定理/" class="archive-article-date">
+  	<time datetime="2017-03-15T14:06:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1058-N的阶乘的长度"><a href="#1058-N的阶乘的长度" class="headerlink" title="1058 N的阶乘的长度"></a>1058 N的阶乘的长度</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">double</span> N = cin.nextLong();</div><div class="line">        <span class="keyword">double</span> ans = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">double</span> i = <span class="number">1</span>; i &lt;= N;i++)&#123;</div><div class="line"></div><div class="line">            ans = ans + Math.log10(i);</div><div class="line">        &#125;</div><div class="line">        System.out.println((<span class="keyword">int</span>)ans);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h1 id="1079-中国剩余定理"><a href="#1079-中国剩余定理" class="headerlink" title="1079 中国剩余定理"></a>1079 中国剩余定理</h1><h4 id="一个正整数K，给出K-Mod-一些质数的结果，求符合条件的最小的K。例如，K-2-1-K-3-2-K-5-3。符合条件的最小的K-23。"><a href="#一个正整数K，给出K-Mod-一些质数的结果，求符合条件的最小的K。例如，K-2-1-K-3-2-K-5-3。符合条件的最小的K-23。" class="headerlink" title="一个正整数K，给出K Mod 一些质数的结果，求符合条件的最小的K。例如，K % 2 = 1, K % 3 = 2, K % 5 = 3。符合条件的最小的K = 23。"></a>一个正整数K，给出K Mod 一些质数的结果，求符合条件的最小的K。例如，K % 2 = 1, K % 3 = 2, K % 5 = 3。符合条件的最小的K = 23。</h4><ul>
+<li>Input<ul>
+<li>第1行：1个数N表示后面输入的质数及模的数量。（2 &lt;= N &lt;= 10)</li>
+<li>第2 - N + 1行，每行2个数P和M，中间用空格分隔，P是质数，M是K % P的结果。（2 &lt;= P &lt;= 100, 0 &lt;= K &lt; P)</li>
+</ul>
+</li>
+<li><p>Output</p>
+<ul>
+<li>输出符合条件的最小的K。数据中所有K均小于10^9。</li>
+</ul>
+</li>
+<li><p>例7：一个班学生分组做游戏，如果每组三人就多两人，每组五人就多三人，每组七人就多四人，问这个班有多少学生? </p>
+</li>
+</ul>
+<p>题目可以看成，除3余2，除5余3，除7余4。没有同余的情况，用的方法是“逐步约束法”，就是从“除7余4的数”中找出符合“除5余3的数”，就是再7上一直加7，直到所得的数除5余3。得出数为18，下面只要在18上一直加7和5得最小公倍数35，直到满足“除3余2” </p>
+<pre><code>4+7=11 
+11+7=18 
+18+35=53
+</code></pre><p>在第一个余数的基础上，加上最小公倍数，如果取余得到要求得余数就取该值（最小）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] P = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] M = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">int</span> N = cin.nextInt();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; N;i++)&#123;</div><div class="line">            P[i] = cin.nextInt();</div><div class="line">            M[i] = cin.nextInt();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> j;</div><div class="line">        <span class="keyword">int</span> s= <span class="number">1</span>, k = M[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; N-<span class="number">1</span>;i++)&#123;</div><div class="line">            s = s * P[i];</div><div class="line">            <span class="keyword">while</span> (k % P[i+<span class="number">1</span>] != M[i+<span class="number">1</span>])&#123;</div><div class="line">                k+=s;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(k);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
 
       
@@ -277,7 +305,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/03/15/数学基础之log的巧用/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/03/15/数学基础之中国剩余定理/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -291,18 +319,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/15/算法之博弈论初探/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          算法之博弈论初探
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/15/算法之归并/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">算法之归并</div>
+    <a href="/2017/03/15/数学基础之约瑟夫环/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数学基础之约瑟夫环</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -316,7 +335,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="数学基础之log的巧用" data-title="数学基础之log的巧用" data-url="https://vvshyer.com/2017/03/15/数学基础之log的巧用/"></div>
+	<div class="ds-thread" data-thread-key="数学基础之中国剩余定理" data-title="数学基础之中国剩余定理" data-url="https://vvshyer.com/2017/03/15/数学基础之中国剩余定理/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
