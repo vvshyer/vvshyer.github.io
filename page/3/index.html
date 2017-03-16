@@ -158,6 +158,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-OC学习之语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/28/OC学习之语法/">OC学习之语法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/28/OC学习之语法/" class="archive-article-date">
+  	<time datetime="2017-02-28T02:39:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>类的定义</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SimpleClass</span>:<span class="title">NSObject</span></span></div><div class="line">类 </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
+<p>类的属性申明</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>:<span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSSTring</span> *lastName; </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
+<p>类的属性申明</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> <span class="built_in">NSNumber</span> *yearOfBirth;</div><div class="line"><span class="keyword">@property</span> <span class="keyword">int</span> yearOfBirth;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>) <span class="built_in">NSString</span> *firstName;</div></pre></td></tr></table></figure>
+<hr>
+<p>减号方法（普通方法又称对象方法）申明</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>:<span class="title">NSObject</span></span></div><div class="line">-(<span class="keyword">void</span>)someMethod;</div><div class="line">-(<span class="keyword">void</span>)someMethodWithValue:(SomeType)value;</div><div class="line">-(<span class="keyword">void</span>)someMethodWithFirstValue:(SomeType)info1 </div><div class="line">secondValue:(AnotherType)info2;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
+<p>加号方法（类方法又称静态方法）申明</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSString</span>:<span class="title">NSObject</span></span></div><div class="line">+(<span class="keyword">id</span>)string;</div><div class="line">+(<span class="keyword">id</span>)stringWithString:(<span class="built_in">NSString</span> *)aString;</div><div class="line">+(<span class="keyword">id</span>)stringWithFormat:(<span class="built_in">NSString</span> *)format,...;</div><div class="line">+(<span class="keyword">id</span>)stringWithContentsOfFile:(<span class="built_in">NSString</span> *)path  encoding:(<span class="built_in">NSStringEncoding</span>)enc error:(<span class="built_in">NSError</span> **)errod;</div><div class="line">+(<span class="keyword">id</span>)stringWithCString:(<span class="keyword">const</span> <span class="keyword">char</span> *)cString encoding:(<span class="built_in">NSStringEncoding</span>)enc;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
+<p>类的实现</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"XYZPerson.h"</span></span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XYZPersion</span></span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">iOS MAC Object-C</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/28/OC学习之语法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-生日快乐" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1253,6 +1332,10 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">iOS MAC Object-C</a>
               </li>
              
@@ -1269,19 +1352,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
             
             <div class="clearfix"></div>

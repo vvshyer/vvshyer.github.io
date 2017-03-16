@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://vvshyer.com">
-  <title>Tag: 算法 | MineMine</title>
+  <title>CCF之201612-3权限查询 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Stay Hungry. Stay Foolish.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MineMine">
-<meta property="og:url" content="https://vvshyer.com/tags/算法/index.html">
+  <meta name="description" content="授权查询####问题描述
+授权 (authorization) 是各类业务系统不可缺少的组成部分，系统用户通过授权机制获得系统中各个模块的操作权限。
+本题中的授权机制是这样设计的：每位用户具有若干角色，每种角色具有若干权限。例如，用户 david 具有 manager 角色，manager 角色有 crm:2 权限，则用户 david 具有 crm:2 权限，也就是 crm 类权限的第 2 等级的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CCF之201612-3权限查询">
+<meta property="og:url" content="https://vvshyer.com/2017/03/16/CCF之201612-3权限查询/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="Stay Hungry. Stay Foolish.">
+<meta property="og:description" content="授权查询####问题描述
+授权 (authorization) 是各类业务系统不可缺少的组成部分，系统用户通过授权机制获得系统中各个模块的操作权限。
+本题中的授权机制是这样设计的：每位用户具有若干角色，每种角色具有若干权限。例如，用户 david 具有 manager 角色，manager 角色有 crm:2 权限，则用户 david 具有 crm:2 权限，也就是 crm 类权限的第 2 等级的">
+<meta property="og:updated_time" content="2017-03-16T09:58:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MineMine">
-<meta name="twitter:description" content="Stay Hungry. Stay Foolish.">
+<meta name="twitter:title" content="CCF之201612-3权限查询">
+<meta name="twitter:description" content="授权查询####问题描述
+授权 (authorization) 是各类业务系统不可缺少的组成部分，系统用户通过授权机制获得系统中各个模块的操作权限。
+本题中的授权机制是这样设计的：每位用户具有若干角色，每种角色具有若干权限。例如，用户 david 具有 manager 角色，manager 角色有 crm:2 权限，则用户 david 具有 crm:2 权限，也就是 crm 类权限的第 2 等级的">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -156,174 +163,190 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-CCF之201612-3权限查询" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CCF之201612-3权限查询
+    </h1>
+  
+
+        
+        <a href="/2017/03/16/CCF之201612-3权限查询/" class="archive-article-date">
+  	<time datetime="2017-03-16T09:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="授权查询"><a href="#授权查询" class="headerlink" title="授权查询"></a>授权查询</h1><p>####问题描述</p>
+<p>授权 (authorization) 是各类业务系统不可缺少的组成部分，系统用户通过授权机制获得系统中各个模块的操作权限。</p>
+<p>本题中的授权机制是这样设计的：每位用户具有若干角色，每种角色具有若干权限。例如，用户 david 具有 manager 角色，manager 角色有 crm:2 权限，则用户 david 具有 crm:2 权限，也就是 crm 类权限的第 2 等级的权限。</p>
+<p>具体地，用户名和角色名称都是由小写字母组成的字符串，长度不超过 32。权限分为分等级权限和不分等级权限两大类。分等级权限由权限类名和权限等级构成，中间用冒号“:”分隔。其中权限类名也是由小写字母组成的字符串，长度不超过 32。权限等级是一位数字，从 0 到 9，数字越大表示权限等级越高。系统规定如果用户具有某类某一等级的权限，那么他也将自动具有该类更低等级的权限。例如在上面的例子中，除 crm:2 外，用户 david 也具有 crm:1 和 crm:0 权限。不分等级权限在描述权限时只有权限类名，没有权限等级（也没有用于分隔的冒号）。</p>
+<p>给出系统中用户、角色和权限的描述信息，你的程序需要回答多个关于用户和权限的查询。查询可分为以下几类：</p>
+<ul>
+<li>不分等级权限的查询：如果权限本身是不分等级的，则查询时不指定等级，返回是否具有该权限；</li>
+<li>分等级权限的带等级查询：如果权限本身分等级，查询也带等级，则返回是否具有该类的该等级权限；</li>
+<li>分等级权限的不带等级查询：如果权限本身分等级，查询不带等级，则返回具有该类权限的等级；如果不具有该类的任何等级权限，则返回“否”。<br>输入格式</li>
+</ul>
+<p>输入第一行是一个正整数 p，表示不同的权限类别的数量。紧接着的 p 行被称为 P 段，每行一个字符串，描述各个权限。对于分等级权限，格式为 <figure class="highlight plain"><figcaption><span>```<category>``` 是权限类名，```<level>``` 是该类权限的最高等级。对于不分等级权限，字符串只包含权限类名。</level></category></span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">接下来一行是一个正整数 r，表示不同的角色数量。紧接着的 r 行被称为 R 段，每行描述一种角色，格式为</div><div class="line"> 	```&lt;role&gt; &lt;s&gt; &lt;privilege 1&gt; &lt;privilege 2&gt; ... &lt;privilege s&gt;</div></pre></td></tr></table></figure></p>
+<p>其中 <figure class="highlight plain"><figcaption><span>是角色名称，```<s>``` 表示该角色具有多少种权限。后面 ```<s>``` 个字符串描述该角色具有的权限，格式同 P 段。</s></s></span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">接下来一行是一个正整数 u，表示用户数量。紧接着的 u 行被称为 U 段，每行描述一个用户，格式为</div><div class="line"> &lt;user&gt; &lt;t&gt; &lt;role 1&gt; &lt;role 2&gt; ... &lt;role t&gt;</div><div class="line"></div><div class="line">其中 ```&lt;user&gt;``` 是用户名，```&lt;t&gt;``` 表示该用户具有多少种角色。后面 ```&lt;t&gt;``` 个字符串描述该用户具有的角色。</div><div class="line"></div><div class="line">接下来一行是一个正整数 q，表示权限查询的数量。紧接着的 q 行被称为 Q 段，每行描述一个授权查询，格式为 ```&lt;user&gt; &lt;privilege&gt;```，表示查询用户 ```&lt;user&gt;``` 是否具有 ```&lt;privilege&gt;``` 权限。如果查询的权限是分等级权限，则查询中的 ```&lt;privilege&gt;``` 可指定等级，表示查询该用户是否具有该等级的权限；也可以不指定等级，表示查询该用户具有该权限的等级。对于不分等级权限，只能查询该用户是否具有该权限，查询中不能指定等级。</div><div class="line">输出格式</div><div class="line"></div><div class="line">输出共 q 行，每行为 false、true，或者一个数字。false 表示相应的用户不具有相应的权限，true 表示相应的用户具有相应的权限。对于分等级权限的不带等级查询，如果具有权限，则结果是一个数字，表示该用户具有该权限的（最高）等级。如果用户不存在，或者查询的权限没有定义，则应该返回 false。</div><div class="line"></div><div class="line">* 样例输入</div></pre></td></tr></table></figure></p>
+<p>3<br>crm:2<br>git:3<br>game<br>4<br>hr 1 crm:2<br>it 3 crm:1 git:1 game<br>dev 2 git:3 game<br>qa 1 git:2<br>3<br>alice 1 hr<br>bob 2 it qa<br>charlie 1 dev<br>9<br>alice game<br>alice crm:2<br>alice git:0<br>bob git<br>bob poweroff<br>charlie game<br>charlie crm<br>charlie git:3<br>malice game<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 样例输出</div></pre></td></tr></table></figure></p>
+<p>false<br>true<br>false<br>2<br>false<br>true<br>false<br>true<br>false<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```Java</div><div class="line">package com.main;</div><div class="line">import java.util.Scanner;</div><div class="line"></div><div class="line">public class Main &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner cin = new Scanner(System.in);</div><div class="line"></div><div class="line">        //输入权限类别的数量</div><div class="line">        int p = cin.nextInt();</div><div class="line">        Privi[] arrayPrivi = new Privi[p];</div><div class="line">        //输入各个权限</div><div class="line">        for (int i = 0; i &lt; p; i++) &#123;</div><div class="line">            arrayPrivi[i] = new Privi(cin.next());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 输入角色数量</div><div class="line">        int r = cin.nextInt();</div><div class="line">        Role[] arrayRole = new Role[r];</div><div class="line">        //输入每个角色信息</div><div class="line">        for (int i = 0; i &lt; r; i++) &#123;</div><div class="line">            String name = cin.next();   //角色名</div><div class="line">            int countrole = cin.nextInt(); //角色拥有的权限数</div><div class="line">            Role ro = new Role(name, countrole);</div><div class="line">            //输入该角色具有的权限</div><div class="line">            for (int j = 0; j &lt; countrole; j++) &#123;</div><div class="line">                ro.addPrivi(j, new Privi(cin.next()));</div><div class="line">            &#125;</div><div class="line">            arrayRole[i] = ro;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        //输入用户数量</div><div class="line">        int u = cin.nextInt();</div><div class="line">        User[] arrayUser = new User[u];</div><div class="line">        //输入每个用户信息</div><div class="line">        for (int i = 0; i &lt; u; i++) &#123;</div><div class="line">            String name = cin.next();   //用户名</div><div class="line">            int countrole = cin.nextInt(); //用户拥有角色数</div><div class="line">            User us = new User(name,countrole);</div><div class="line">            //输入该用户具有的角色</div><div class="line">            for (int j = 0; j &lt; countrole; j++) &#123;</div><div class="line">                us.addRole(j, roleFactory(arrayRole,cin.next()));</div><div class="line">            &#125;</div><div class="line">            arrayUser[i] = us;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        //输入权限查询数量</div><div class="line">        int q = cin.nextInt();</div><div class="line">        Query[] arrayQuery = new Query[q];</div><div class="line">        for (int i = 0; i &lt; q; i++) &#123;</div><div class="line">            //输入查询用户和是否具有的权限</div><div class="line">            arrayQuery[i] = new Query(cin.next(),cin.next());</div><div class="line">        &#125;</div><div class="line">        cin.close();</div><div class="line"></div><div class="line">        //查询</div><div class="line">        StringBuilder sb = new StringBuilder();</div><div class="line">        for (Query query : arrayQuery) &#123;</div><div class="line">            //查询结果拼接</div><div class="line">            sb.append(check(query,arrayUser) + &quot;\n&quot;);</div><div class="line">        &#125;</div><div class="line">        //输出查询结果</div><div class="line">        System.out.println(sb.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //角色工厂，如果已存在该角色直接返回，否则返回null</div><div class="line">    private static Role roleFactory(Role[] arrayRole,String name) &#123;</div><div class="line">        for(Role role : arrayRole) &#123;</div><div class="line">            if(name.equals(role.getName())) &#123;</div><div class="line">                return role;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //查询</div><div class="line">    private static String check(Query query,User[] arrayUser) &#123;</div><div class="line">        int flag = -3;</div><div class="line">        String uname = query.qUserName;</div><div class="line">        Privi up = query.qPrivi;</div><div class="line">        for (User user : arrayUser) &#123;</div><div class="line">            flag = -3;</div><div class="line">            //找是否存在该用户</div><div class="line">            if (uname.equals(user.getName())) &#123;</div><div class="line">                Role[] userRoleArr = user.getRoleArray();</div><div class="line">                //是否有该角色</div><div class="line">                for (Role role : userRoleArr) &#123;</div><div class="line">                    Privi[] userRolePriviArr = role.getPriviArray();</div><div class="line">                    //是否有该权限，取权限最高级</div><div class="line">                    for (Privi privi : userRolePriviArr) &#123;</div><div class="line">                        int temp = up.equals(privi);</div><div class="line">                        flag = (temp &gt; flag) ? temp : flag;</div><div class="line">                        if(flag == -1) return &quot;true&quot;;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        if (flag == -2 || flag == -3) &#123;</div><div class="line">            return &quot;false&quot;;</div><div class="line">        &#125; else</div><div class="line">            return flag + &quot;&quot;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    static class Query &#123;</div><div class="line">        public String qUserName;</div><div class="line">        public Privi qPrivi;</div><div class="line">        Query(String username, String Priviname) &#123;</div><div class="line">            this.qUserName = username;</div><div class="line">            this.qPrivi = new Privi(Priviname);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Privi &#123;</div><div class="line">    private String name;</div><div class="line">    private int level;</div><div class="line">    public Privi() &#123;&#125;</div><div class="line"></div><div class="line">    public Privi(String per) &#123;</div><div class="line">        String[] p = per.split(&quot;:&quot;);</div><div class="line">        if (p.length == 1) &#123;</div><div class="line">            Privi.this.name = p[0];</div><div class="line">            Privi.this.level = -1;</div><div class="line">        &#125; else if (p.length == 2) &#123;</div><div class="line">            Privi.this.name = p[0];</div><div class="line">            Privi.this.level = Integer.parseInt(p[1]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getName() &#123;</div><div class="line">        return this.name;</div><div class="line">    &#125;</div><div class="line">    public void setName(String s) &#123;</div><div class="line">        this.name = s;</div><div class="line">    &#125;</div><div class="line">    public int getLevel() &#123;</div><div class="line">        return this.level;</div><div class="line">    &#125;</div><div class="line">    public void setLevel(int l) &#123;</div><div class="line">        this.level = l;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int equals(Privi p) &#123;</div><div class="line">        if (this.name.equals(p.getName())) &#123;</div><div class="line">            if(this.level == -1 &amp;&amp; this.level &lt; p.getLevel())</div><div class="line">                return p.getLevel();</div><div class="line">            else if(this.level == -1 &amp;&amp; p.getLevel() == -1)</div><div class="line">                return -1;//bufendengji</div><div class="line">            else if(this.level != -1 &amp;&amp; this.level &lt;= p.getLevel() )</div><div class="line">                return -1;//fendengji</div><div class="line">            else</div><div class="line">                return -2; //</div><div class="line">        &#125; else</div><div class="line">            return -2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String toString() &#123;</div><div class="line">        return this.name +(this.level != -1 ? (&quot;:&quot; + this.level) : &quot;&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Role &#123;</div><div class="line">    private String name;</div><div class="line">    private int countPrivi;</div><div class="line">    private Privi[] arrPrivi;</div><div class="line"></div><div class="line">    public Role() &#123;</div><div class="line">        this.name = &quot;&quot;;</div><div class="line">    &#125;</div><div class="line">    public Role(String n,int count) &#123;</div><div class="line">        this.name = n;</div><div class="line">        this.countPrivi = count;</div><div class="line">        this.arrPrivi = new Privi[count];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getName() &#123;</div><div class="line">        return this.name;</div><div class="line">    &#125;</div><div class="line">    public void setName(String s) &#123;</div><div class="line">        this.name = s;</div><div class="line">    &#125;</div><div class="line">    public int getPriviCount() &#123;</div><div class="line">        return this.arrPrivi.length;</div><div class="line">    &#125;</div><div class="line">    public Privi[] getPriviArray() &#123;</div><div class="line">        return this.arrPrivi;</div><div class="line">    &#125;</div><div class="line">    public void addPrivi(int n,Privi p) &#123;</div><div class="line">        this.arrPrivi[n] = p;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String toString() &#123;</div><div class="line">        String s = this.name + &quot;~&quot; ;</div><div class="line">        for(Privi p : this.arrPrivi) &#123;</div><div class="line">            s += p.toString() + &quot;+&quot;;</div><div class="line">        &#125;</div><div class="line">        return s;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class User &#123;</div><div class="line">    private String name;</div><div class="line">    private int countRole;</div><div class="line">    private Role[] arrRole;</div><div class="line"></div><div class="line">    public User() &#123;</div><div class="line">        this.name = &quot;&quot;;</div><div class="line">    &#125;</div><div class="line">    public User(String name, int count) &#123;</div><div class="line">        this.name = name;</div><div class="line">        this.countRole = count;</div><div class="line">        this.arrRole = new Role[count];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getName() &#123;</div><div class="line">        return this.name;</div><div class="line">    &#125;</div><div class="line">    public void setName(String name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line">    public Role[] getRoleArray() &#123;</div><div class="line">        return this.arrRole;</div><div class="line">    &#125;</div><div class="line">    public void addRole(int n, Role role) &#123;</div><div class="line">        this.arrRole[n] = role;</div><div class="line">    &#125;</div><div class="line">    public String toString() &#123;</div><div class="line">        String s = name + &quot;~&quot;;</div><div class="line">        for(Role role : arrRole) &#123;</div><div class="line">            s += role.toString() + &quot;+&quot;;</div><div class="line">        &#125;</div><div class="line">        return s;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/16/算法之最长回文串/" class="archive-article-date">
-  	<time datetime="2017-03-16T08:33:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/16/算法之最长回文串/">算法之回文串</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CCF</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/03/16/CCF之201612-3权限查询/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/15/算法之博弈论初探/" class="archive-article-date">
-  	<time datetime="2017-03-15T13:56:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/15/算法之博弈论初探/">算法之博弈论初探</a>
-    </h1>
+  
+    <a href="/2017/03/16/算法之最长回文串/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">算法之回文串</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="CCF之201612-3权限查询" data-title="CCF之201612-3权限查询" data-url="https://vvshyer.com/2017/03/16/CCF之201612-3权限查询/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"vvshyer"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/15/算法之归并/" class="archive-article-date">
-  	<time datetime="2017-03-15T13:47:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/15/算法之归并/">算法之归并</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/14/算法之动态规划/" class="archive-article-date">
-  	<time datetime="2017-03-14T11:30:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/14/算法之动态规划/">算法之动态规划</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -346,9 +369,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
