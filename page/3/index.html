@@ -158,6 +158,271 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-机试笔记01排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/07/机试笔记01排序/">机试笔记01排序</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/07/机试笔记01排序/" class="archive-article-date">
+  	<time datetime="2017-03-07T11:24:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#冒泡排序<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">int</span> buf[<span class="number">100</span>];</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)&#123;<span class="comment">//输入n,并实现多组数据输入</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n<span class="number">-1</span>-i; j++) &#123;</div><div class="line">                <span class="keyword">if</span> (buf[j]&gt;buf[j+<span class="number">1</span>]) &#123;</div><div class="line">                    <span class="keyword">int</span> tmp = buf[j];</div><div class="line">                    buf[j] = buf[j+<span class="number">1</span>];</div><div class="line">                    buf[j+<span class="number">1</span>] = tmp;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)</div></pre></td></tr></table></figure>
+<ul>
+<li>scanf函数是有返回值的，返回被输入函数成功复制的变量个数</li>
+<li>此例中，若成功对n赋值，返回值为1</li>
+<li>一般测试数据需要输入多组，需要对每组输入都输出相应答案</li>
+<li>当输入已经到达结尾，scanf函数无法再为n赋值，scanf返回EOF</li>
+</ul>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>使用C++内置函数 sort</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123; <span class="comment">//定义排序规则</span></div><div class="line">    <span class="keyword">return</span> x&gt;y;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">int</span> buf[<span class="number">100</span>];</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;buf[i]);</div><div class="line">        &#125;</div><div class="line">            <span class="comment">//sort(buf,buf+n);//使用该重载形式，表明使用默认排序（递增）</span></div><div class="line">        sort(buf,buf+n,cmp);<span class="comment">//使用该重载形式，表明使用自定义规则</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>#成绩排序 利用sort</p>
+<ul>
+<li>题目描述</li>
+<li>N 个学生的数据，将学生数据按成绩高低排序，如果成绩相同则按姓名 字符的字母序排序，如果姓名的字母序也相同则按照学生的年龄排序，并输出 N 个学生排序后的信息。</li>
+<li>输入</li>
+<li>测试数据有多组，每组输入第一行有一个整数 N(N&lt;=1000)，接下来的 N 行包括 N 个学生的数据。每个学生的数据包括姓名(长度不超过 100 的字符串)、<br>年龄(整形数)、成绩(小于等于 100 的正数)。</li>
+<li>输出</li>
+<li>将学生信息按成绩进行排序，成绩相同的则按姓名的字母序进行排序。然后输出学生信息，按照如下格式:姓名 年龄 成绩</li>
+<li><p>样例输入：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3abc 20 99</div><div class="line">bcd 19 97 </div><div class="line">bed 20 97</div></pre></td></tr></table></figure>
+</li>
+<li><p>样例输出</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bcd 19 97 </div><div class="line">bed 20 97 </div><div class="line">abc 20 99</div></pre></td></tr></table></figure>
+</li>
+<li><p>提示</p>
+</li>
+<li>学生姓名的字母序区分字母的大小写，如 A 要比 a 的字母序靠前(因为 A 的 ASC 码比 a 的 ASC 码要小)。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> E&#123;</div><div class="line">    <span class="keyword">char</span> name[<span class="number">101</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">int</span> score;</div><div class="line">    </div><div class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> E &amp;b) <span class="keyword">const</span>&#123;</div><div class="line">        <span class="comment">//重载小于运算符</span></div><div class="line">        <span class="keyword">if</span>(score != b.score) <span class="keyword">return</span> score &lt; b.score;</div><div class="line">        <span class="keyword">int</span> tmp = <span class="built_in">strcmp</span>(name, b.name);</div><div class="line">        <span class="keyword">if</span>(tmp != <span class="number">0</span>) <span class="keyword">return</span> tmp&lt;<span class="number">0</span>;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">return</span> age &lt; b.age;</div><div class="line">    &#125;</div><div class="line">&#125;buf[<span class="number">100</span>];</div><div class="line"></div><div class="line"><span class="comment">//bool cmp(E a,E b)&#123;</span></div><div class="line"><span class="comment">//    if (a.score != b.score) &#123;</span></div><div class="line"><span class="comment">//        return a.score &lt; b.score;</span></div><div class="line"><span class="comment">//    &#125;</span></div><div class="line"><span class="comment">//    int tmp = strcmp(a.name, b.name);</span></div><div class="line"><span class="comment">//    if (tmp != 0) &#123;</span></div><div class="line"><span class="comment">//        return tmp &lt; 0;</span></div><div class="line"><span class="comment">//    &#125;else&#123;</span></div><div class="line"><span class="comment">//        return a.age &lt; b.age;</span></div><div class="line"><span class="comment">//    &#125;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%s%d%d"</span>,buf[i].name,&amp;buf[i].age,&amp;buf[i].score);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//sort(buf, buf+n, cmp);</span></div><div class="line">        sort(buf,buf+n);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%s %d %d \n"</span>,buf[i].name,buf[i].age,buf[i].score);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/07/机试笔记01排序/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-计算机网络笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/01/计算机网络笔记01/">计算机网络笔记01</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/01/计算机网络笔记01/" class="archive-article-date">
+  	<time datetime="2017-03-01T13:56:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="第一章-概述"><a href="#第一章-概述" class="headerlink" title="第一章 概述"></a>第一章 概述</h1><ul>
+<li>1.三网：电信网络、有线电视网络、计算机网络</li>
+<li>2.起核心作用的是：计算机网络</li>
+<li>3.计算机网络：是计算机技术与通信技术相结合形成了一门新的技术，即计算机之间的数据通信</li>
+</ul>
+<h2 id="计算机网络发展的五大阶段"><a href="#计算机网络发展的五大阶段" class="headerlink" title="计算机网络发展的五大阶段"></a>计算机网络发展的五大阶段</h2><h3 id="面向终端的网络（1957-1968）"><a href="#面向终端的网络（1957-1968）" class="headerlink" title="面向终端的网络（1957 - 1968）"></a>面向终端的网络（1957 - 1968）</h3><h3 id="分组交换网络（1968-1984）"><a href="#分组交换网络（1968-1984）" class="headerlink" title="分组交换网络（1968 - 1984）"></a>分组交换网络（1968 - 1984）</h3><h3 id="网络体系结构的出现（1984-1986）"><a href="#网络体系结构的出现（1984-1986）" class="headerlink" title="网络体系结构的出现（1984 - 1986）"></a>网络体系结构的出现（1984 - 1986）</h3><h3 id="Internet的出现（1986-今）"><a href="#Internet的出现（1986-今）" class="headerlink" title="Internet的出现（1986 - 今）"></a>Internet的出现（1986 - 今）</h3><h3 id="新一代的计算机网络（ISDN）"><a href="#新一代的计算机网络（ISDN）" class="headerlink" title="新一代的计算机网络（ISDN）"></a>新一代的计算机网络（ISDN）</h3><h1 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h1><h3 id="电路交换必定是面向连接的"><a href="#电路交换必定是面向连接的" class="headerlink" title="电路交换必定是面向连接的"></a>电路交换必定是面向连接的</h3><h3 id="三个阶段"><a href="#三个阶段" class="headerlink" title="三个阶段"></a>三个阶段</h3><ul>
+<li>建立连接</li>
+<li>通信</li>
+<li>释放连接</li>
+</ul>
+<h1 id="分组交换网的工作原理"><a href="#分组交换网的工作原理" class="headerlink" title="分组交换网的工作原理"></a>分组交换网的工作原理</h1><ul>
+<li>子网划分： 通信子网和资源子网</li>
+<li>节点交换机工作方式： 存储转发</li>
+<li>在发送端，先把较长的报文划分成较短的、固定长度的数据段</li>
+<li>每一个数据段前面添加上首部构成分组</li>
+<li>分组交换网以“分组”作为数据传输单元</li>
+<li>依次把各分组发送到接收端</li>
+<li>接收端收到分组后剥去首部还原成报文</li>
+</ul>
+<h1 id="分组首部的重要性"><a href="#分组首部的重要性" class="headerlink" title="分组首部的重要性"></a>分组首部的重要性</h1><ul>
+<li>每一个分组的首部都含有地址等控制信息</li>
+<li>分组交换网中的节点交换机根据收到的分组的首部中的地址信息，把分组转发到下一个节点交换机</li>
+<li>用这样的存储转发方式，最后分组就能到达最终目的地</li>
+</ul>
+<h1 id="主机和结点交换机"><a href="#主机和结点交换机" class="headerlink" title="主机和结点交换机"></a>主机和结点交换机</h1><ul>
+<li>主机是为用户进行信息处理的，并向网络发送分组，从网络接收分组</li>
+<li>结点交换机对分组进行存储转发，最后把分组交付给目的主机</li>
+</ul>
+<h1 id="分组交换网"><a href="#分组交换网" class="headerlink" title="分组交换网"></a>分组交换网</h1><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>高效：动态或断续分配带宽</li>
+<li>灵活：每个节点具有智能，独立选择路由</li>
+<li>迅速：不太长的分组作为传输单位，每个节点能做出快速的处理</li>
+<li>可靠：分布式的通信子网和完善的网络协议<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>开销：分组携带信息带来的开销</li>
+<li>可靠：分组可能丢失的现象</li>
+<li>顺序：分组出现失序的现象</li>
+<li>时延：分组在存储转发时造成的时延</li>
+</ul>
+<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>把处在不同地理位置的独立计算机系统，用一定的通信设备和介质相连接，在完善的网络软件支持下，实现互相通信、资源共享，这样的多机系统称为计算机网络。</li>
+</ul>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ul>
+<li>数据通信</li>
+<li>资源共享</li>
+<li>增强可靠性</li>
+<li>提高系统处理能力</li>
+</ul>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h4 id="从网络的交换功能进行分类"><a href="#从网络的交换功能进行分类" class="headerlink" title="从网络的交换功能进行分类"></a>从网络的交换功能进行分类</h4><ul>
+<li>电路交换<ul>
+<li>优点：时延小、透明传输</li>
+<li>缺点：网络资源利用率低</li>
+</ul>
+</li>
+<li>报文交换<ul>
+<li>优点：多路复用</li>
+<li>缺点：实时性差</li>
+</ul>
+</li>
+<li>分组交换<ul>
+<li>优点：多路复用</li>
+<li>缺点：实时性差</li>
+</ul>
+</li>
+<li>混合交换<h4 id="从网络的作用范围进行分类"><a href="#从网络的作用范围进行分类" class="headerlink" title="从网络的作用范围进行分类"></a>从网络的作用范围进行分类</h4></li>
+<li>广域网 WAN</li>
+<li>局域网 LAN</li>
+<li>城域网 MAN</li>
+<li>接入网 AN<h4 id="从网络的使用者进行分类"><a href="#从网络的使用者进行分类" class="headerlink" title="从网络的使用者进行分类"></a>从网络的使用者进行分类</h4></li>
+<li>公用网</li>
+<li>专用网<h4 id="从网络的拓扑结构进行分类"><a href="#从网络的拓扑结构进行分类" class="headerlink" title="从网络的拓扑结构进行分类"></a>从网络的拓扑结构进行分类</h4></li>
+<li>总线型</li>
+<li>星型</li>
+<li>环型</li>
+<li>网状<h4 id="从网络组件关系进行分类"><a href="#从网络组件关系进行分类" class="headerlink" title="从网络组件关系进行分类"></a>从网络组件关系进行分类</h4></li>
+<li>对等网</li>
+<li>基于服务器网络</li>
+</ul>
+<h2 id="主要性能指标"><a href="#主要性能指标" class="headerlink" title="主要性能指标"></a>主要性能指标</h2><h4 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h4><ul>
+<li>是数字信道所能传送的“最高数据率”的同义语，单位是“比特每秒”，或 b/s (bit/s)。<h4 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h4></li>
+<li>总时延 = 发送时延 + 传播时延 + 处理时延</li>
+</ul>
+<h2 id="体系结构形成"><a href="#体系结构形成" class="headerlink" title="体系结构形成"></a>体系结构形成</h2><h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><ul>
+<li>将复杂问题简单化</li>
+<li>各层之间是独立的</li>
+<li>结构上可分开</li>
+<li>灵活性好</li>
+<li>易于实现和维护</li>
+<li>能促进标准化的工作</li>
+</ul>
+<h4 id="分层的必要性"><a href="#分层的必要性" class="headerlink" title="分层的必要性"></a>分层的必要性</h4><ul>
+<li>计算机网络中的数据交换必须遵守事先约定好的规则。 </li>
+<li>这些规则明确规定了所交换的数据的格式以及有关的同步问题（同步含有时序的意思）。</li>
+<li>为进行网络中的数据交换而建立的规则、标准或约定即网络协议(network protocol)，简称为协议。  </li>
+</ul>
+<h2 id="五层协议的体系结构"><a href="#五层协议的体系结构" class="headerlink" title="五层协议的体系结构"></a>五层协议的体系结构</h2><ul>
+<li>应用层</li>
+<li>运输层</li>
+<li>网络层</li>
+<li>数据链路层</li>
+<li>物理层</li>
+</ul>
+<h4 id="实体、协议、服务和服务访问点"><a href="#实体、协议、服务和服务访问点" class="headerlink" title="实体、协议、服务和服务访问点"></a>实体、协议、服务和服务访问点</h4><ul>
+<li>实体(entity) 表示任何可发送或接收信息的硬件或软件进程。 </li>
+<li>协议是控制两个对等实体进行通信的规则的集合。 <ul>
+<li>协议是“水平的”</li>
+<li>服务是“垂直的”</li>
+</ul>
+</li>
+<li>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。</li>
+<li>要实现本层协议，还需要使用下层所提供的服务。 </li>
+<li>服务访问点：SAP 同一系统相邻两层的实体进行交互的地方</li>
+</ul>
+<h1 id="两种国际标准"><a href="#两种国际标准" class="headerlink" title="两种国际标准"></a>两种国际标准</h1><h2 id="OSI／RM"><a href="#OSI／RM" class="headerlink" title="OSI／RM"></a>OSI／RM</h2><h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h2><ul>
+<li>事实上的国际标准</li>
+</ul>
+<h2 id="面向连接服务"><a href="#面向连接服务" class="headerlink" title="面向连接服务"></a>面向连接服务</h2><h2 id="无连接服务"><a href="#无连接服务" class="headerlink" title="无连接服务"></a>无连接服务</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/01/计算机网络笔记01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-OC学习之数学公式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -941,223 +1206,6 @@ Insert
 
 
   
-    <article id="post-Oracle学习之高级查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/15/Oracle学习之高级查询/">Oracle学习之高级查询</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/15/Oracle学习之高级查询/" class="archive-article-date">
-  	<time datetime="2015-01-15T10:29:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#1.表连接：<br>    内连接：<br>        (Oracle写法):select <em> from table_name,table_name2 [where 条件];<br>        (标准sql语法):select </em> from emp inner join dept on dept.deptno=emp.deptno;<br>        如果from后，加入多个表时，查询的结果应该是两个表中的乘积；(列的和，记录的积)<br>    外连接：<br>        左外连接：    以左边的表为准，将左表中的数据全都查询出来，如果右表没有对应的录，则在右表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept=dept.deptno(+);<br>            (标准sql语法)select </em> from emp left [outer] join dept on dept.deptno=emp.deptno;<br>        右外连接：    以右边的表为准，将右表中的数据全都查询出来，如果左表没有对应的录，则在左表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept(+)=dept.deptno;<br>            (标准sql语法)select </em> from emp right [outer] join dept on dept.deptno=emp.deptno;<br>        全外连接：    左右表中的数据都至少显示一次；<br>            (标准sql语法):select * from emp full [outer] join dept on dept.deptno=emp.deptno;</p>
-<h1 id="2-子查询-嵌套查询-："><a href="#2-子查询-嵌套查询-：" class="headerlink" title="2.子查询(嵌套查询)："></a>2.子查询(嵌套查询)：</h1><pre><code>    指一个查询中还包含另外一个查询体，也可以理解为，将一个查询结果作为另一个查询的查询条件；
-常用的谓词：
-    Any, all, in, not in
-    Exists 存在
-    select * from dept d where exists(sql查询); 
-    如果exists中的查询有记录，返回true，否则，返回false；
-实例：
-    --查询sales或者research部门的员工
-    select * from emp where deptno in (select deptno from dept where dname=&apos;SALES&apos; or dname=&apos;RESEARCH&apos;);
-    select * from dept;
-
-    --查询比平均工资高的员工信息
-    select * from emp where sal&gt;(select avg(sal) from emp);
-
-    --查询比20部门所有员工工资都高的员工信息
-    select * from emp where sal&lt;all(select sal from emp where deptno=30);
-    
-    --查询出没有员工的部门
-    1.select * from dept where deptno not in(
-        select distinct deptno from emp);
-    2.select * from dept d where not exists (select * from emp where d.deptno=emp.deptno);
-</code></pre><h1 id="3-集合查询："><a href="#3-集合查询：" class="headerlink" title="3.集合查询："></a>3.集合查询：</h1><pre><code>交，并，差
-要求：两个查询结果的列数一样，数据类型匹配
-Union [all]:    并 不排序
-Intersect:    交
-Minus:    差
-</code></pre><h1 id="4-递归查询-树查询-："><a href="#4-递归查询-树查询-：" class="headerlink" title="4.递归查询(树查询)："></a>4.递归查询(树查询)：</h1><pre><code>Connect by prior    后设置的是递归查询的连接条件
-Start with    后设置的是从哪个记录开始进行递归查询
-使用递归查询要求：
-    这个表中应该是一个自连接的表
-可以使用level这个伪列，来查询层级值
-
-实例：
-    select level,emp.* from emp connect by prior empno=mgr start with mgr is null;
-</code></pre><h1 id="5-两个伪列"><a href="#5-两个伪列" class="headerlink" title="5.两个伪列"></a>5.两个伪列</h1><pre><code>Rownum    行号 行号的算法不是先生成编号，而是满足条件后，才生成行号；
-        因此不能使用where rownum=2,rownum&gt;3这样的语法，这样不会查出任何记录
-Rowid    行的唯一标识    表空间     -&gt;段-&gt;区-&gt;块
-        比主键更唯一，在全局是唯一的
-</code></pre><h1 id="6-通过rownum可以实现Oracle的分页查询"><a href="#6-通过rownum可以实现Oracle的分页查询" class="headerlink" title="6.通过rownum可以实现Oracle的分页查询"></a>6.通过rownum可以实现Oracle的分页查询</h1><pre><code>实例：
-    select * from (
-        select rownum r,a.* from(
-        select * from emp order by sal desc) a 
-    where rownum&lt;11) b where b.r&lt;5;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/15/Oracle学习之高级查询/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之DML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/14/Oracle学习之DML/">Oracle学习之DML</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/14/Oracle学习之DML/" class="archive-article-date">
-  	<time datetime="2015-01-14T13:24:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-dml"><a href="#1-dml" class="headerlink" title="1.dml"></a>1.dml</h1><pre><code>数据操作语言：
-    对表中的记录进行操作
-Insert    插入
-Update    修改更新
-Delete    删除
-Select    选择
-</code></pre><h1 id="2-insert"><a href="#2-insert" class="headerlink" title="2.insert:"></a>2.insert:</h1><pre><code>1.插入一整条记录：
-    Insert into 表名 values(数据)；
-2.指定字段：
-    Insert into 表名(列名) values();
-3.一次性插入多条记录：
-    Insert into 表名(列名) select语句;
-</code></pre><h1 id="3-update-修改"><a href="#3-update-修改" class="headerlink" title="3.update: 修改"></a>3.update: 修改</h1><pre><code>Update 表名 set 列名=新值[,列名2=新值,…][where 条件];
-</code></pre><h1 id="4-delete-删除"><a href="#4-delete-删除" class="headerlink" title="4.delete: 删除"></a>4.delete: 删除</h1><pre><code>Delete from 表名 [where 条件];
-</code></pre><h1 id="5-select-选择"><a href="#5-select-选择" class="headerlink" title="5.select: 选择"></a>5.select: 选择</h1><pre><code>Select *|distinct 列名1,…. 表达式 from 表名或视图名 [where 条件] 
-[group by 分组条件 [having 分组后条件]]
-[order by 排序字段 asc|desc];
-</code></pre><h1 id="6-列别名的问题"><a href="#6-列别名的问题" class="headerlink" title="6.列别名的问题:"></a>6.列别名的问题:</h1><pre><code>如果在查询中需要给列重新设置一个别名，可以使用&lt;as 列别名&gt;的方式，as 可以省略，
-如果别名中出现空格，整个别名应该用双引号引起;
-Select sal*15 as &quot;salary of year&quot; from emp;
-</code></pre><h1 id="7-to-char函数"><a href="#7-to-char函数" class="headerlink" title="7.to_char函数"></a>7.to_char函数</h1><pre><code>将日期转换为字符的函数
-    To_char(日期值,&apos;格式&apos;);
-    例如：
-    To_char(hiredate,&apos;YYYY-MM-dd&apos;);
-</code></pre><h1 id="8-oralce中的连接字符串运算符使用"><a href="#8-oralce中的连接字符串运算符使用" class="headerlink" title="8.oralce中的连接字符串运算符使用||."></a>8.oralce中的连接字符串运算符使用||.</h1><h1 id="9-常用查询条件："><a href="#9-常用查询条件：" class="headerlink" title="9.常用查询条件："></a>9.常用查询条件：</h1><pre><code>查询条件    谓词
-比较    =，&gt;，&lt;，&gt;=，&lt;=，!=，&lt;&gt;，not+上述比较运算符
-确定范围    Between and，not between and
-确定集合    In，not in
-字符匹配    Like，not like
-空    Is null， is not null
-多重条件    And，or
-</code></pre><h1 id="10-in-的使用："><a href="#10-in-的使用：" class="headerlink" title="10.in 的使用："></a>10.in 的使用：</h1><pre><code>In:可以确定一个不连续的范围：
-Select * from emp where job in(&quot;MANAGER&apos;,&apos;CLERK&apos;);
-Not in:不在一个范围：
-Select * from emp where job not in(&quot;MANAGER&apos;,&apos;CLERK&apos;);
-</code></pre><h1 id="11-like的使用："><a href="#11-like的使用：" class="headerlink" title="11.like的使用："></a>11.like的使用：</h1><pre><code>模糊查询：
-    通配符：
-    _：任意一个字符；
-    %：任意多个字符（0到多）；
-    Select * from emp where ename like &apos;%A%&apos;;
-</code></pre><h1 id="12-对于null的比较："><a href="#12-对于null的比较：" class="headerlink" title="12.对于null的比较："></a>12.对于null的比较：</h1><pre><code>null代表空，只能通过特殊的运算符进行比较
-    Is null 或 is not null
-如果通过=null进行比较，永远返回false
-</code></pre><h1 id="13-聚集函数："><a href="#13-聚集函数：" class="headerlink" title="13.聚集函数："></a>13.聚集函数：</h1><pre><code>增强检索功能
-函数    功能
-Count([Distinct|ALL]*)    统计记录个数
-Count([Distinct|ALL]&lt;列名&gt;)    统计一列中值的个数
-SUM([Distinct|ALL]&lt;列名&gt;)    计算一列的总和(必须为数值型)
-AVG([Distinct|ALL]&lt;列名&gt;)    计算一列的平均值(必须为数值型)
-MAX([Distinct|ALL]&lt;列名&gt;)    计算一列的最大值(必须为数值型)
-MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型)
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/14/Oracle学习之DML/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1292,11 +1340,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">

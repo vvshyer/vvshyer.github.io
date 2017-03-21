@@ -6,51 +6,36 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://vvshyer.com">
-  <title>Oracle学习之DML | MineMine</title>
+  <title>程序员的数学 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.dml数据操作语言：
-    对表中的记录进行操作
-Insert    插入
-Update    修改更新
-Delete    删除
-Select    选择
-2.insert:1.插入一整条记录：
-    Insert into 表名 values(数据)；
-2.指定字段：
-    Insert into 表名(列名) values();
-3.一次性插入多条记录：
-    Insert in">
+  <meta name="description" content="乘方的思考题1234567的987654321次方 的个位数是什么？1234567 0次方的个位 = 7的0次方 = 1
+1234567 1次方的个位 = 7的1次方 = 7
+1234567 2次方的个位 = 7的2次方 = 9
+1234567 3次方的个位 = 7的3次方 = 3
+1234567 4次方的个位 = 7的4次方 = 1
+1234567 5次方的个位 = 7的5次方 = 7
+1234">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Oracle学习之DML">
-<meta property="og:url" content="https://vvshyer.com/2015/01/14/Oracle学习之DML/index.html">
+<meta property="og:title" content="程序员的数学">
+<meta property="og:url" content="https://vvshyer.com/2017/03/21/程序员的数学/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="1.dml数据操作语言：
-    对表中的记录进行操作
-Insert    插入
-Update    修改更新
-Delete    删除
-Select    选择
-2.insert:1.插入一整条记录：
-    Insert into 表名 values(数据)；
-2.指定字段：
-    Insert into 表名(列名) values();
-3.一次性插入多条记录：
-    Insert in">
-<meta property="og:updated_time" content="2017-02-28T13:26:24.000Z">
+<meta property="og:description" content="乘方的思考题1234567的987654321次方 的个位数是什么？1234567 0次方的个位 = 7的0次方 = 1
+1234567 1次方的个位 = 7的1次方 = 7
+1234567 2次方的个位 = 7的2次方 = 9
+1234567 3次方的个位 = 7的3次方 = 3
+1234567 4次方的个位 = 7的4次方 = 1
+1234567 5次方的个位 = 7的5次方 = 7
+1234">
+<meta property="og:updated_time" content="2017-03-21T12:12:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Oracle学习之DML">
-<meta name="twitter:description" content="1.dml数据操作语言：
-    对表中的记录进行操作
-Insert    插入
-Update    修改更新
-Delete    删除
-Select    选择
-2.insert:1.插入一整条记录：
-    Insert into 表名 values(数据)；
-2.指定字段：
-    Insert into 表名(列名) values();
-3.一次性插入多条记录：
-    Insert in">
+<meta name="twitter:title" content="程序员的数学">
+<meta name="twitter:description" content="乘方的思考题1234567的987654321次方 的个位数是什么？1234567 0次方的个位 = 7的0次方 = 1
+1234567 1次方的个位 = 7的1次方 = 7
+1234567 2次方的个位 = 7的2次方 = 9
+1234567 3次方的个位 = 7的3次方 = 3
+1234567 4次方的个位 = 7的4次方 = 1
+1234567 5次方的个位 = 7的5次方 = 7
+1234">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -190,78 +175,41 @@ Select    选择
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Oracle学习之DML" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-程序员的数学" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Oracle学习之DML
+      程序员的数学
     </h1>
   
 
         
-        <a href="/2015/01/14/Oracle学习之DML/" class="archive-article-date">
-  	<time datetime="2015-01-14T13:24:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-14</time>
+        <a href="/2017/03/21/程序员的数学/" class="archive-article-date">
+  	<time datetime="2017-03-21T12:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-dml"><a href="#1-dml" class="headerlink" title="1.dml"></a>1.dml</h1><pre><code>数据操作语言：
-    对表中的记录进行操作
-Insert    插入
-Update    修改更新
-Delete    删除
-Select    选择
-</code></pre><h1 id="2-insert"><a href="#2-insert" class="headerlink" title="2.insert:"></a>2.insert:</h1><pre><code>1.插入一整条记录：
-    Insert into 表名 values(数据)；
-2.指定字段：
-    Insert into 表名(列名) values();
-3.一次性插入多条记录：
-    Insert into 表名(列名) select语句;
-</code></pre><h1 id="3-update-修改"><a href="#3-update-修改" class="headerlink" title="3.update: 修改"></a>3.update: 修改</h1><pre><code>Update 表名 set 列名=新值[,列名2=新值,…][where 条件];
-</code></pre><h1 id="4-delete-删除"><a href="#4-delete-删除" class="headerlink" title="4.delete: 删除"></a>4.delete: 删除</h1><pre><code>Delete from 表名 [where 条件];
-</code></pre><h1 id="5-select-选择"><a href="#5-select-选择" class="headerlink" title="5.select: 选择"></a>5.select: 选择</h1><pre><code>Select *|distinct 列名1,…. 表达式 from 表名或视图名 [where 条件] 
-[group by 分组条件 [having 分组后条件]]
-[order by 排序字段 asc|desc];
-</code></pre><h1 id="6-列别名的问题"><a href="#6-列别名的问题" class="headerlink" title="6.列别名的问题:"></a>6.列别名的问题:</h1><pre><code>如果在查询中需要给列重新设置一个别名，可以使用&lt;as 列别名&gt;的方式，as 可以省略，
-如果别名中出现空格，整个别名应该用双引号引起;
-Select sal*15 as &quot;salary of year&quot; from emp;
-</code></pre><h1 id="7-to-char函数"><a href="#7-to-char函数" class="headerlink" title="7.to_char函数"></a>7.to_char函数</h1><pre><code>将日期转换为字符的函数
-    To_char(日期值,&apos;格式&apos;);
-    例如：
-    To_char(hiredate,&apos;YYYY-MM-dd&apos;);
-</code></pre><h1 id="8-oralce中的连接字符串运算符使用"><a href="#8-oralce中的连接字符串运算符使用" class="headerlink" title="8.oralce中的连接字符串运算符使用||."></a>8.oralce中的连接字符串运算符使用||.</h1><h1 id="9-常用查询条件："><a href="#9-常用查询条件：" class="headerlink" title="9.常用查询条件："></a>9.常用查询条件：</h1><pre><code>查询条件    谓词
-比较    =，&gt;，&lt;，&gt;=，&lt;=，!=，&lt;&gt;，not+上述比较运算符
-确定范围    Between and，not between and
-确定集合    In，not in
-字符匹配    Like，not like
-空    Is null， is not null
-多重条件    And，or
-</code></pre><h1 id="10-in-的使用："><a href="#10-in-的使用：" class="headerlink" title="10.in 的使用："></a>10.in 的使用：</h1><pre><code>In:可以确定一个不连续的范围：
-Select * from emp where job in(&quot;MANAGER&apos;,&apos;CLERK&apos;);
-Not in:不在一个范围：
-Select * from emp where job not in(&quot;MANAGER&apos;,&apos;CLERK&apos;);
-</code></pre><h1 id="11-like的使用："><a href="#11-like的使用：" class="headerlink" title="11.like的使用："></a>11.like的使用：</h1><pre><code>模糊查询：
-    通配符：
-    _：任意一个字符；
-    %：任意多个字符（0到多）；
-    Select * from emp where ename like &apos;%A%&apos;;
-</code></pre><h1 id="12-对于null的比较："><a href="#12-对于null的比较：" class="headerlink" title="12.对于null的比较："></a>12.对于null的比较：</h1><pre><code>null代表空，只能通过特殊的运算符进行比较
-    Is null 或 is not null
-如果通过=null进行比较，永远返回false
-</code></pre><h1 id="13-聚集函数："><a href="#13-聚集函数：" class="headerlink" title="13.聚集函数："></a>13.聚集函数：</h1><pre><code>增强检索功能
-函数    功能
-Count([Distinct|ALL]*)    统计记录个数
-Count([Distinct|ALL]&lt;列名&gt;)    统计一列中值的个数
-SUM([Distinct|ALL]&lt;列名&gt;)    计算一列的总和(必须为数值型)
-AVG([Distinct|ALL]&lt;列名&gt;)    计算一列的平均值(必须为数值型)
-MAX([Distinct|ALL]&lt;列名&gt;)    计算一列的最大值(必须为数值型)
-MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型)
-</code></pre>
+        <h1 id="乘方的思考题"><a href="#乘方的思考题" class="headerlink" title="乘方的思考题"></a>乘方的思考题</h1><h4 id="1234567的987654321次方-的个位数是什么？"><a href="#1234567的987654321次方-的个位数是什么？" class="headerlink" title="1234567的987654321次方 的个位数是什么？"></a>1234567的987654321次方 的个位数是什么？</h4><pre><code>1234567 0次方的个位 = 7的0次方 = 1
+1234567 1次方的个位 = 7的1次方 = 7
+1234567 2次方的个位 = 7的2次方 = 9
+1234567 3次方的个位 = 7的3次方 = 3
+1234567 4次方的个位 = 7的4次方 = 1
+1234567 5次方的个位 = 7的5次方 = 7
+1234567 6次方的个位 = 7的6次方 = 9
+1234567 7次方的个位 = 7的7次方 = 3
+1234567 8次方的个位 = 7的8次方 = 1
+</code></pre><ul>
+<li>发现规律：个位时1、7、9、3四个数字的循环</li>
+<li>用987654321 % 4 = 1, 所以答案为7</li>
+</ul>
+<p>##Tip: 运用余数将大数字问题简化为小数字问题</p>
+
       
 
       
@@ -305,7 +253,7 @@ MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数学</a>
         		</li>
       		
 		</ul>
@@ -361,7 +309,7 @@ MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2015/01/14/Oracle学习之DML/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/03/21/程序员的数学/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -375,18 +323,9 @@ MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型
   
 <nav id="article-nav">
   
-    <a href="/2015/01/15/Oracle学习之高级查询/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Oracle学习之高级查询
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/01/13/Oracle学习之Oracle基础/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Oracle学习之Oracle基础</div>
+    <a href="/2017/03/21/数学基础之欧拉函数/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数学基础之欧拉函数</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -400,7 +339,7 @@ MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Oracle学习之DML" data-title="Oracle学习之DML" data-url="https://vvshyer.com/2015/01/14/Oracle学习之DML/"></div>
+	<div class="ds-thread" data-thread-key="程序员的数学" data-title="程序员的数学" data-url="https://vvshyer.com/2017/03/21/程序员的数学/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
