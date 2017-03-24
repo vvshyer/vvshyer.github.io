@@ -6,39 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://vvshyer.com">
-  <title>Oracle学习之常用函数 | MineMine</title>
+  <title>Tag: Hibernate | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.常用函数字符：
-    Lower：转小写       lower(&amp;apos;Name&amp;apos;);
-    Upper：转大写       upper(&amp;apos;name&amp;apos;);
-    Ltrim：去掉左空格
-    Rtrim：去掉右空格
-    Trim：去掉两边空格
-    Length：求长度
-    Instr：求字串的位置  instr(&amp;apos;I love">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Oracle学习之常用函数">
-<meta property="og:url" content="https://vvshyer.com/2015/01/16/Oracle学习之常用函数/index.html">
+  <meta name="description" content="Stay Hungry. Stay Foolish.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MineMine">
+<meta property="og:url" content="https://vvshyer.com/tags/Hibernate/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="1.常用函数字符：
-    Lower：转小写       lower(&amp;apos;Name&amp;apos;);
-    Upper：转大写       upper(&amp;apos;name&amp;apos;);
-    Ltrim：去掉左空格
-    Rtrim：去掉右空格
-    Trim：去掉两边空格
-    Length：求长度
-    Instr：求字串的位置  instr(&amp;apos;I love">
-<meta property="og:updated_time" content="2017-02-28T13:32:19.000Z">
+<meta property="og:description" content="Stay Hungry. Stay Foolish.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Oracle学习之常用函数">
-<meta name="twitter:description" content="1.常用函数字符：
-    Lower：转小写       lower(&amp;apos;Name&amp;apos;);
-    Upper：转大写       upper(&amp;apos;name&amp;apos;);
-    Ltrim：去掉左空格
-    Rtrim：去掉右空格
-    Trim：去掉两边空格
-    Length：求长度
-    Instr：求字串的位置  instr(&amp;apos;I love">
+<meta name="twitter:title" content="MineMine">
+<meta name="twitter:description" content="Stay Hungry. Stay Foolish.">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -178,230 +156,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Oracle学习之常用函数" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Oracle学习之常用函数
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/03/16/Hibernate_day01/" class="archive-article-date">
+  	<time datetime="2017-03-16T09:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/03/16/Hibernate_day01/">Hibernate框架01</a>
     </h1>
   
 
-        
-        <a href="/2015/01/16/Oracle学习之常用函数/" class="archive-article-date">
-  	<time datetime="2015-01-16T10:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-常用函数"><a href="#1-常用函数" class="headerlink" title="1.常用函数"></a>1.常用函数</h1><pre><code>字符：
-    Lower：转小写       lower(&apos;Name&apos;);
-    Upper：转大写       upper(&apos;name&apos;);
-    Ltrim：去掉左空格
-    Rtrim：去掉右空格
-    Trim：去掉两边空格
-    Length：求长度
-    Instr：求字串的位置  instr(&apos;I love china&apos;,&apos;china&apos;)  : 8
-    Substr：截取子串  substr(&apos;I love&apos;,3,4) ：love
-    Lpad：左边填充指定字符  lpad(&apos;hello&apos;,7,&apos;*&apos;) : **hello
-    Rpad：右边填充指定字符
-    Initcap：将字符串每个首字母大写，其余转为小写
-数字：
-    Round：四舍五入  round(34.44)
-    Trunc：直接截断
-    mod：取余
-日期：
-    Months_between：两个日期之间的越差
-        Months_between(date1,date2);
-    Add_months：为日期增加几个月
-        Add_months(sysdate,4);
-    sysdate：返回当前时间
-    Last_day：当前日期所在月的最后一天的日期
-        Last_day(sysdate);
-    Next_day：指定日期后第一个星期几的日期
-        Next_day(sysdate,1);
-    日期直接+数字：代表加的是天数
-转换：
-    To_Date：将字符串转换成日期
-        To_date(&apos;19980908&apos;,&apos;yyyyMMdd&apos;);
-    To_char：将日期转换成字符串
-        To_char(sysdate,&apos;yyyy-MM-dd&apos;);
-    To_number：转换成数字
-        To_number(&apos; 1234&apos;,&apos;990000&apos;);
-其他：
-    nvl：对null进行处理的函数
-        Nvl(comm,0)：如果comm的值为空，返回0，否则，返回的还是comm的值
-    decode：解码，相当于if else语句
-</code></pre><h1 id="2-case语句："><a href="#2-case语句：" class="headerlink" title="2.case语句："></a>2.case语句：</h1><pre><code>可以在查询中进行判断，语法是：
-    Select 
-        Case
-            When 条件1 then 结果
-            When 条件2 then 结果
-            Else 结果3
-        End score,name from emp;    
-</code></pre>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hibernate</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2015/01/16/Oracle学习之常用函数/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2015/01/17/Oracle学习之DCL/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Oracle学习之DCL
-        
-      </div>
-    </a>
   
   
-    <a href="/2015/01/15/Oracle学习之高级查询/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Oracle学习之高级查询</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Oracle学习之常用函数" data-title="Oracle学习之常用函数" data-url="https://vvshyer.com/2015/01/16/Oracle学习之常用函数/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"vvshyer"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
+    </div></section>
   
 
-
+    
 
 
           </div>
@@ -424,9 +232,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
