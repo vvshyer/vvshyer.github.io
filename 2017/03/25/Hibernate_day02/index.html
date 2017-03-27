@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://vvshyer.com/assets/hibernate02/01-三个状态转换.bmp">
 <meta property="og:image" content="https://vvshyer.com/assets/hibernate02/02-Session的快照机制.bmp">
 <meta property="og:image" content="https://vvshyer.com/assets/hibernate02vvshyer/03-丢失更新.bmp">
-<meta property="og:updated_time" content="2017-03-25T13:29:40.000Z">
+<meta property="og:updated_time" content="2017-03-26T05:19:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hibernate框架02">
 <meta name="twitter:description" content="Hibernate框架第二天
@@ -325,7 +325,7 @@
         * user.setId(null);
 
 4. 注意：持久态对象有自动更新数据库的能力!!!
-</code></pre><p><img src="assets/hibernate02/01-三个状态转换.bmp" alt="">    </p>
+</code></pre><p><img src="/assets/hibernate02/01-三个状态转换.bmp" alt="">    </p>
 <hr>
 <h3 id="Hibernate的一级缓存"><a href="#Hibernate的一级缓存" class="headerlink" title="Hibernate的一级缓存"></a>Hibernate的一级缓存</h3><hr>
 <p><strong>Session对象的一级缓存（重点）</strong></p>
@@ -347,7 +347,7 @@
     * 使用get方法查询User对象
     * 然后设置User对象的一个属性，注意：没有做update操作。发现，数据库中的记录也改变了。
     * 利用快照机制来完成的（SnapShot）
-</code></pre><p><img src="assets/hibernate02/02-Session的快照机制.bmp" alt="">    </p>
+</code></pre><p><img src="/assets/hibernate02/02-Session的快照机制.bmp" alt="">    </p>
 <hr>
 <p><strong>控制Session的一级缓存（了解）</strong></p>
 <pre><code>1. 学习Session接口中与一级缓存相关的方法
@@ -411,7 +411,7 @@
     * 乐观锁
         * 1.在对应的JavaBean中添加一个属性，名称可以是任意的。例如：private Integer version; 提供get和set方法
         * 2.在映射的配置文件中，提供&lt;version name=&quot;version&quot;/&gt;标签即可。
-</code></pre><p><img src="assets/hibernate02vvshyer/03-丢失更新.bmp" alt="">    </p>
+</code></pre><p><img src="/assets/hibernate02vvshyer/03-丢失更新.bmp" alt="">    </p>
 <hr>
 <p><strong>绑定本地的Session</strong></p>
 <pre><code>1. 之前在讲JavaWEB的事务的时候，需要在业务层使用Connection来开启事务，
@@ -729,11 +729,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
