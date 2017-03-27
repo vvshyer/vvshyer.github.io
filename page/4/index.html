@@ -158,6 +158,98 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Oracle学习之E-R图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/20/Oracle学习之E-R图/">Oracle学习之E-R图</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/20/Oracle学习之E-R图/" class="archive-article-date">
+  	<time datetime="2015-01-20T07:23:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="软件开发生命周期："><a href="#软件开发生命周期：" class="headerlink" title="软件开发生命周期："></a>软件开发生命周期：</h1><pre><code>1.可行性分析：做还是不做
+2.需求分析：做什么
+3.概要设计
+4.系统实现
+5.测试：单元测试，黑盒，白盒，集成测试，性能测试（压力测试）
+6.运行维护：（运维人员）
+</code></pre><h1 id="1-建模："><a href="#1-建模：" class="headerlink" title="1.建模："></a>1.建模：</h1><pre><code>E-R图：
+实体，关系图：
+    三要素：
+        实体：表
+        属性：列
+        关系：一对一，一对多，多对多
+</code></pre><h1 id="2-PowerDesinger"><a href="#2-PowerDesinger" class="headerlink" title="2.PowerDesinger"></a>2.PowerDesinger</h1><pre><code>简称：PD
+是一个建模工具软件，可以利用这个软件绘制E-R图
+</code></pre><h1 id="3-使用PD创建E-R图的步骤："><a href="#3-使用PD创建E-R图的步骤：" class="headerlink" title="3.使用PD创建E-R图的步骤："></a>3.使用PD创建E-R图的步骤：</h1><pre><code>1.新建一个概念E-R图
+2.创建实例，属性，并建立关系，如果是一对多，不要在多的那个实体中自定义外键列，
+只需要建立一对多关系即可，外键会自动生成
+3.将概念E-R图转换成Oracle的物理E-R图
+4.生成建表的sql语句
+
+思路：概念-&gt;物理-&gt;语句
+</code></pre><h1 id="4-多对多的实现方式："><a href="#4-多对多的实现方式：" class="headerlink" title="4.多对多的实现方式："></a>4.多对多的实现方式：</h1><pre><code>学生表                         科目表
+          中间表
+</code></pre><h1 id="5-一对一："><a href="#5-一对一：" class="headerlink" title="5.一对一："></a>5.一对一：</h1><pre><code>唯一外键：
+    是一对多的一个特例，在外键列上再增加一个unique约束即可；
+相同主键：
+    两个表的主键是一个列，从表的主键列还是外键
+</code></pre><h1 id="6-范式："><a href="#6-范式：" class="headerlink" title="6.范式："></a>6.范式：</h1><pre><code>1NF：主键，列的值不能为一组值（集合）
+2NF：满足1NF，消除部分依赖
+3NF：满足2NF，消除传递依赖
+BCNF
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/20/Oracle学习之E-R图/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Oracle学习之数据库对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
