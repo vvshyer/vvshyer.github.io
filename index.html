@@ -158,6 +158,977 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Struts2_day03" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/Struts2_day03/">Struts2第三天</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/28/Struts2_day03/" class="archive-article-date">
+  	<time datetime="2017-03-28T09:59:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Struts2第三天"><a href="#Struts2第三天" class="headerlink" title="Struts2第三天"></a>Struts2第三天</h2><hr>
+<p><strong>课程回顾：Struts2框架的第二天</strong></p>
+<pre><code>1. Servlet的API
+    * ActionContext对象
+    * ServletActionContext对象
+
+2. 结构类型的跳转
+    * 全局结果
+    * 局部结构，type属性
+
+3. 数据的封装
+    * 属性驱动方式
+    * 模型驱动方式
+
+4. 拦截器（自定义拦截器）
+</code></pre><hr>
+<p><strong>今天的课程内容</strong></p>
+<pre><code>1. OGNL表达式（了解）
+2. Struts2框架的值栈（值栈、存入值、取值）
+3. OGNL的特殊符号
+</code></pre><hr>
+<h3 id="案例一：使用Struts2框架查询所有的客户功能"><a href="#案例一：使用Struts2框架查询所有的客户功能" class="headerlink" title="案例一：使用Struts2框架查询所有的客户功能"></a>案例一：使用Struts2框架查询所有的客户功能</h3><hr>
+<p><strong>需求分析</strong></p>
+<pre><code>1. 使用Struts2框架查询所有的客户功能
+</code></pre><hr>
+<p><strong>技术分析之OGNL表达式概述（了解）</strong></p>
+<pre><code>1. OGNL是Object Graphic Navigation Language（对象图导航语言）的缩写
+    * 所谓对象图，即以任意一个对象为根，通过OGNL可以访问与这个对象关联的其它对象
+    * 通过它简单一致的表达式语法，可以存取对象的任意属性，调用对象的方法，遍历整个对象的结构图，实现字段类型转化等功能。它使用相同的表达式去存取对象的属性
+
+2. Struts2框架使用OGNL作为默认的表达式语言
+    * OGNL是一种比EL强大很多倍的语言
+    * xwork提供 OGNL表达式
+    * ognl-3.0.5.jar
+
+3. OGNL 提供五大类功能
+   * 支持对象方法调用
+   * 支持类静态的方法调用和值访问
+   * 访问OGNL上下文（OGNL context）和ActionContext
+   * 支持赋值操作和表达式串联
+   * 操作集合对象
+
+4. 测试的代码
+    // 访问对象的方法
+    @Test
+    public void run1() throws OgnlException{
+        OgnlContext context = new OgnlContext();
+        // 获取对象的方法
+        Object obj = Ognl.getValue(&quot;&apos;helloworld&apos;.length()&quot;, context, context.getRoot());
+        System.out.println(obj);
+    }
+
+    // 获取OGNL上下文件的对象
+    @Test
+    public void run3() throws OgnlException{
+        OgnlContext context = new OgnlContext();
+        context.put(&quot;name&quot;, &quot;美美&quot;);
+        // 获取对象的方法
+        Object obj = Ognl.getValue(&quot;#name&quot;, context, context.getRoot());
+        System.out.println(obj);
+    }
+
+    // 从root栈获取值
+    @Test
+    public void demo3() throws OgnlException{
+        OgnlContext context = new OgnlContext();
+        Customer c = new Customer();
+        c.setCust_name(&quot;haha&quot;);
+        context.setRoot(c);
+        String name = (String) Ognl.getValue(&quot;cust_name&quot;, context, context.getRoot());
+        System.out.println(name);
+    }
+</code></pre><hr>
+<p><strong>技术分析之在Struts2框架中使用OGNL表达式</strong></p>
+<pre><code>1. Struts2引入了OGNL表达式，主要是在JSP页面中获取值栈中的值
+2. 具体在Struts2中怎么使用呢？如下步骤
+    * 需要先引入Struts2的标签库
+        &gt; &lt;%@ taglib prefix=&quot;s&quot; uri=&quot;/struts-tags&quot; %&gt;
+
+    * 使用Struts2提供的标签中的标签
+        &gt; &lt;s:property value=&quot;OGNL表达式&quot;/&gt;
+
+3. 在JSP页面使用OGNL表达式
+    * 访问对象方法
+        &lt;s:property value=&quot;&apos;hello&apos;.length()&quot;/&gt;
+</code></pre><hr>
+<p><strong>技术分析之值栈的概述</strong></p>
+<pre><code>1. 问题一：什么是值栈？
+    * 值栈就相当于Struts2框架的数据的中转站，向值栈存入一些数据。从值栈中获取到数据。
+    * ValueStack 是 struts2 提供一个接口，实现类 OgnlValueStack ---- 值栈对象 （OGNL是从值栈中获取数据的 ）
+    * Action是多例的，有一起请求，创建Action实例，创建一个ActionContext对象，代表的是Action的上下文对象，还会创建一个ValueStack对象。
+    * 每个Action实例都有一个ValueStack对象 （一个请求 对应 一个ValueStack对象 ）
+    * 在其中保存当前Action 对象和其他相关对象
+    * Struts 框架把 ValueStack 对象保存在名为 “struts.valueStack” 的请求属性中,request中 （值栈对象 是 request一个属性）
+        * ValueStack vs = (ValueStack)request.getAttribute(&quot;struts.valueStack&quot;);
+</code></pre><hr>
+<p><strong>技术分析之值栈的内部结构</strong></p>
+<pre><code>2. 问题二 ： 值栈的内部结构 ？
+    * 值栈由两部分组成
+        &gt; root        -- Struts把动作和相关对象压入 ObjectStack 中--List
+        &gt; context      -- Struts把各种各样的映射关系(一些 Map 类型的对象) 压入 ContextMap 中
+
+    * Struts会默认把下面这些映射压入ContextMap（context）中
+        * 注意：request代表的是Map集合的key值，value的值其实也是一个Map集合。
+
+        &gt; parameters: 该 Map 中包含当前请求的请求参数  ?name=xxx&amp;password=123
+        &gt; request: 该 Map 中包含当前 request 对象中的所有属性
+        &gt; session: 该 Map 中包含当前 session 对象中的所有属性
+        &gt; application:该 Map 中包含当前 application  对象中的所有属性
+        &gt; attr: 该 Map 按如下顺序来检索某个属性: request, session, application
+
+    * ValueStack中 存在root属性 (CompoundRoot) 、 context 属性 （OgnlContext ）
+        &gt; CompoundRoot 就是ArrayList
+        &gt; OgnlContext 就是 Map
+
+    * context 对应Map 引入 root对象 
+        &gt; context中还存在 request、 session、application、 attr、 parameters 对象引用 
+        &gt; OGNL表达式访问值栈中的数据
+            * 访问root中数据时 不需要 #
+            * 访问 request、 session、application、 attr、 parameters 对象数据 必须写 # 
+
+        &gt; 操作值栈 默认指 操作 root 元素
+</code></pre><p><img src="/assets/struts203/01-值栈的内部结构.bmp" alt="">    </p>
+<hr>
+<p><strong>技术分析之值栈的创建和ActionContext对象的关系</strong></p>
+<pre><code>3. 问题三 ： 值栈对象的创建，ValueStack 和 ActionContext 是什么关系？
+    * 值栈对象是请求时创建的
+    * ActionContext是绑定到当前的线程上，那么在每个拦截器或者Action中获取到的ActionContext是同一个。
+    * ActionContext中存在一个Map集合，该Map集合和ValueStack的context是同一个地址。
+    * ActionContext中可以获取到ValueStack的引用，以后再开发，使用ActionContext来获取到值栈对象
+</code></pre><hr>
+<p><strong>技术分析之获取到值栈的对象</strong></p>
+<pre><code>4. 问题四 ： 如何获得值栈对象
+    * 获得值栈对象 有三种方法
+        * ValueStack vs1 = (ValueStack) ServletActionContext.getRequest().getAttribute(&quot;struts.valueStack&quot;);
+        * ValueStack vs2 = (ValueStack) ServletActionContext.getRequest().getAttribute(ServletActionContext.STRUTS_VALUESTACK_KEY);
+        * ValueStack vs3 = ActionContext.getContext().getValueStack();
+</code></pre><hr>
+<p><strong>技术分析之向值栈中保存数据</strong></p>
+<pre><code>5. 问题五： 向值栈保存数据 （主要针对root栈）
+    &gt; valueStack.push(Object obj);
+        * push方法的底层调用root对象的push方法（把元素添加到0位置）
+
+    &gt; valueStack.set(String key, Object obj);
+        * 源码获取map集合（map有可能是已经存在的，有可能是新创建的），把map集合push到栈顶，再把数据存入到map集合中。
+
+    &gt; 在jsp中 通过 &lt;s:debug /&gt; 查看值栈的内容
+</code></pre><hr>
+<p><strong>技术分析之从值栈中获取值</strong></p>
+<pre><code>6. 问题六： 在JSP中获取值栈的数据
+    * 总结几个小问题：
+        &gt; 访问root中数据 不需要#
+        &gt; 访问context其它对象数据 加 #
+        &gt; 如果向root中存入对象的话，优先使用push方法。
+        &gt; 如果向root中存入集合的话，优先要使用set方法。
+
+    * 在OgnlContext中获取数据
+        &gt; 在Action中向域对象中存入值
+        &gt; request:&lt;s:property value=&quot;#request.username&quot;/&gt;
+        &gt; session:&lt;s:property value=&quot;#session.username&quot;/&gt;
+        &gt; application:&lt;s:property value=&quot;#application.username&quot;/&gt;
+        &gt; attr:&lt;s:property value=&quot;#attr.username&quot;/&gt;
+        &gt; parameters:&lt;s:property value=&quot;#parameters.cid&quot;/&gt;
+
+6.1 代码如下
+    &lt;!--
+        // vs.push(&quot;美美&quot;);
+        // 获取到栈顶的值
+        &lt;s:property value=&quot;[0].top&quot;/&gt;
+    --&gt;
+
+    &lt;!--
+        // 栈顶是map集合，通过key获取值
+        vs.set(&quot;msg&quot;, &quot;小凤&quot;);
+        &lt;s:property value=&quot;[0].top.msg&quot;/&gt;
+    --&gt;
+
+    &lt;!--  
+        vs.push(user);
+        // 栈顶放user对象
+        &lt;s:property value=&quot;[0].top.username&quot;/&gt;
+        &lt;s:property value=&quot;[0].top.password&quot;/&gt;
+        // [0].top 关键字是可以省略的  findValue()
+        &lt;s:property value=&quot;username&quot;/&gt;
+    --&gt;
+
+    &lt;!--
+        vs.set(&quot;user&quot;, user);
+        &lt;s:property value=&quot;[0].top.user.username&quot;/&gt;
+        &lt;s:property value=&quot;[0].top.user.password&quot;/&gt;
+        // 省略关键字
+        &lt;s:property value=&quot;user.username&quot;/&gt;
+    --&gt;
+
+    &lt;!--  
+        // 在ValueStack1Action提供了成员的属性
+        private User user = new User(&quot;小泽&quot;,&quot;456&quot;);
+        public User getUser() {
+            return user;
+        }
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        User user = new User(&quot;小苍&quot;,&quot;123&quot;);
+        vs.set(&quot;user&quot;, user);
+        // 从栈顶开始查找，找user的属性，显示名称    返回的小苍
+        &lt;s:property value=&quot;user.username&quot;/&gt;
+
+        // [1].top获取ValueStack1Action [1].top.user返回user对象  [1].top.user.username获取对象的属性名称
+        &lt;s:property value=&quot;[1].top.user.username&quot;/&gt;
+    --&gt;
+
+    &lt;!--  
+        栈顶是list集合
+        vs.push(ulist);
+        &lt;s:property value=&quot;[0].top[0].username&quot;/&gt;
+        &lt;s:property value=&quot;[0].top[1].username&quot;/&gt;
+    --&gt;
+
+    &lt;!--
+        vs.set(&quot;ulist&quot;, ulist);
+        &lt;s:property value=&quot;ulist[0].username&quot;/&gt;
+    --&gt;
+
+    &lt;!-- 迭代的标签 
+        属性
+            * value    要迭代的集合，需要从值栈中获取
+            * var    迭代过程中，遍历的对象
+                * var编写上，把迭代产生的对象默认压入到context栈中，从context栈取值，加#号
+                * var不编写，默认把迭代产生的对象压入到root栈中
+
+        for(User user:ulist){}    
+        // 编写var的属性
+        &lt;s:iterator value=&quot;ulist&quot; var=&quot;u&quot;&gt;
+            &lt;s:property value=&quot;#u.username&quot;/&gt;
+            &lt;s:property value=&quot;#u.password&quot;/&gt;
+        &lt;/s:iterator&gt;
+
+        // 没有编写var关键字
+        &lt;s:iterator value=&quot;ulist&quot;&gt;
+            &lt;s:property value=&quot;username&quot;/&gt;
+            &lt;s:property value=&quot;password&quot;/&gt;
+        &lt;/s:iterator&gt;
+    --&gt;
+
+    &lt;!-- 从context栈中获取值，加#号
+
+    HttpServletRequest request = ServletActionContext.getRequest();
+    request.setAttribute(&quot;msg&quot;, &quot;美美&quot;);
+    request.getSession().setAttribute(&quot;msg&quot;, &quot;小风&quot;);
+
+    &lt;s:property value=&quot;#request.msg&quot;/&gt;
+    &lt;s:property value=&quot;#session.msg&quot;/&gt;
+    &lt;s:property value=&quot;#parameters.id&quot;/&gt;
+    &lt;s:property value=&quot;#attr.msg&quot;/&gt;
+    --&gt;
+
+    &lt;!-- 在JSP页面上，查看值栈的内部结构 --&gt;
+    &lt;s:debug&gt;&lt;/s:debug&gt;
+</code></pre><hr>
+<p><strong>技术分析之EL表达式也会获取到值栈中的数据</strong></p>
+<pre><code>7. 问题七：为什么EL也能访问值栈中的数据？
+    * StrutsPreparedAndExecuteFilter的doFilter代码中 request = prepare.wrapRequest(request);     
+        &gt; 对Request对象进行了包装 ，StrutsRequestWrapper
+        &gt; 增强了request的 getAttribute
+            Object attribute = super.getAttribute(s);
+            if (attribute == null) {
+               attribute = stack.findValue(s);
+            }
+           &gt; 访问request范围的数据时，如果数据找不到，去值栈中找 
+        &gt; request对象 具备访问值栈数据的能力 （查找root的数据）
+</code></pre><hr>
+<p><strong>总结OGNL表达式的特殊的符号</strong></p>
+<pre><code>1. # 符号的用法
+    * 获得contextMap中的数据
+        &gt; &lt;s:property value=&quot;#request.name&quot;/&gt;
+        &gt; &lt;s:property value=&quot;#session.name&quot;/&gt;
+        &gt; &lt;s:property value=&quot;#application.name&quot;/&gt;
+        &gt; &lt;s:property value=&quot;#attr.name&quot;/&gt;
+        &gt; &lt;s:property value=&quot;#parameters.id&quot;/&gt;
+        &gt; &lt;s:property value=&quot;#parameters.name&quot;/&gt;
+
+    * 构建一个map集合
+        * 例如：
+            * &lt;s:radio name=&quot;sex&quot; list=&quot;{&apos;男&apos;,&apos;女&apos;}&quot;&gt;&lt;/s:radio&gt;
+            * &lt;s:radio name=&quot;sex&quot; list=&quot;#{&apos;0&apos;:&apos;男&apos;,&apos;1&apos;:&apos;女&apos;}&quot;&gt;&lt;/s:radio&gt;
+
+2. % 符号的用法
+    * 强制字符串解析成OGNL表达式。
+        &gt; 例如：在request域中存入值，然后在文本框（&lt;s:textfield&gt;）中取值，现在到value上。
+        &gt; &lt;s:textfield value=&quot;%{#request.msg}&quot;/&gt;
+
+    * { }中值用&apos;&apos;引起来,此时不再是ognl表达式,而是普通的字符串
+        &gt; 例如：&lt;s:property value=&quot;%{&apos;#request.msg&apos;}&quot;/&gt;
+
+3. $ 符号的用法
+    * 在配置文件中可以使用OGNL表达式，例如：文件下载的配置文件。
+        &lt;action name=&quot;download1&quot; class=&quot;cn.itcast.demo2.DownloadAction&quot;&gt;
+            &lt;result name=&quot;success&quot; type=&quot;stream&quot;&gt;
+                &lt;param name=&quot;contentType&quot;&gt;${contentType}&lt;/param&gt;
+                &lt;param name=&quot;contentDisposition&quot;&gt;attachment;filename=${downFilename}&lt;/param&gt;
+            &lt;/result&gt;
+        &lt;/action&gt;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Struts2</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/28/Struts2_day03/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-struts2_day01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/struts2_day01/">Struts2第一天</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/28/struts2_day01/" class="archive-article-date">
+  	<time datetime="2017-03-28T09:59:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Struts2第一天"><a href="#Struts2第一天" class="headerlink" title="Struts2第一天"></a>Struts2第一天</h2><hr>
+<p><strong>Struts2的学习路线</strong></p>
+<pre><code>1. Struts2的入门：主要是学习Struts2的开发流程（Struts2的开发流程、常见的配置、Action类的编写）
+2. Struts2的Servlet的API、参数封装和拦截器
+3. Struts2的值栈和OGNL表达式
+</code></pre><hr>
+<h3 id="今天的课程内容"><a href="#今天的课程内容" class="headerlink" title="今天的课程内容"></a>今天的课程内容</h3><pre><code>1. Struts2框架的概述
+2. Struts2的快速入门
+3. Struts2的运行流程
+4. Struts2的常见配置（配置文件加载的顺序、struts.xml的常见配置（重点）、常量的配置等）
+5. Struts2的Action的访问（Action的三种编写方式、Action类的配置、方法的调用等）
+</code></pre><hr>
+<h3 id="案例一：使用Struts2框架完成登录功能"><a href="#案例一：使用Struts2框架完成登录功能" class="headerlink" title="案例一：使用Struts2框架完成登录功能"></a>案例一：使用Struts2框架完成登录功能</h3><hr>
+<p><strong>需求分析</strong></p>
+<pre><code>1. 使用Struts2完成登录的功能
+</code></pre><hr>
+<p><strong>技术分析之Struts2框架的概述</strong></p>
+<pre><code>1. 什么是Struts2的框架
+    * Struts2是Struts1的下一代产品，是在 struts1和WebWork的技术基础上进行了合并的全新的Struts 2框架。
+    * 其全新的Struts 2的体系结构与Struts 1的体系结构差别巨大。
+    * Struts 2以WebWork为核心，采用拦截器的机制来处理用户的请求，这样的设计也使得业务逻辑控制器能够与ServletAPI完全脱离开，所以Struts 2可以理解为WebWork的更新产品。
+    * 虽然从Struts 1到Struts 2有着太大的变化，但是相对于WebWork，Struts 2的变化很小。
+
+2. Struts2是一个基于MVC设计模式的Web层框架
+    * MVC和JavaEE的三层结构
+        * MVC设计模式:是由一些网站的开发人员提出来的
+        * JavaEE三层结构:SUN公司为EE开发划分的结构
+
+3. 常见的Web层的框架
+    * Struts1
+    * Struts2
+    * Webwork
+    * SpringMVC
+
+4. Web层框架的特点
+    * 都是一个特点，前端控制器模式
+    * 记住：前端控制器（核心的控制器）
+    * Struts2框架前端的控制器就是过滤器
+</code></pre><p><img src="/assets/struts201/01-前端控制器模式.bmp" alt=""></p>
+<hr>
+<p><strong>技术分析之Struts2快速入门的环境准备</strong></p>
+<pre><code>1. 创建WEB项目，编写JSP的页面，编写超链接，点击超链接发送请求，请求服务器，让服务器的方法去执行！！
+    &lt;h3&gt;Struts2的入门程序&lt;/h3&gt;
+    &lt;a href=&quot;${ pageContext.request.contextPath }/hello.action&quot;&gt;Struts2入门程序&lt;/a&gt;
+
+2. 下载Struts2的开发包
+    * https://struts.apache.org/        -- 官网地址
+
+3. 解压struts-2.3.24-all.zip包
+    * 解压后会看到有包和一些文件，大家需要掌握包相关的信息
+        * apps    -- Struts2框架提供了一些应用
+        * libs    -- Struts2框架开发的jar包
+        * docs    -- Struts2框架开发文档
+        * src    -- Struts2框架源码
+
+4. 引入需要开发的jar包
+    * Struts2框架的开发jar包非常多，但是不是所有都是必须要引入的，有一些必须要导入的jar包，这些jar包可以从Struts2框架提供的应用中找到。
+    * 大家可以打开apps目录，然后找到struts2-blank.war应用。war包和zip包的压缩格式是一样的，所以可以自己修改后缀名，解压。
+    * 找到解压后的应用，打开WEB-INF/lib目录下所以的jar包。复制到工程中，就可以了。
+
+5. 需要配置Struts2的前端控制器，注意：这一步是必须要做的操作，这是Struts2核心的控制器。
+    * Struts2的前端控制器就是一个过滤器，那么过滤器相关知识咱们都学习过，需要在web.xml中进行配置。
+    * 前端控制器的类的路径和名称：org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+    * 具体配置如下
+      &lt;filter&gt;
+          &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+          &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
+      &lt;/filter&gt;
+      &lt;filter-mapping&gt;
+          &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+          &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+      &lt;/filter-mapping&gt;
+</code></pre><hr>
+<p><strong>技术分析之编写Action类</strong>    </p>
+<pre><code>1. Action类是动作类，是Struts2处理请求，封装数据，响应页面的核心控制器。需要自己编写。
+    package cn.itcast.action;
+        public String sayHello(){
+        System.out.println(&quot;Hello Struts2!!&quot;);
+        return null;
+    }
+</code></pre><hr>
+<p><strong>技术分析之编写Struts的配置文件</strong></p>
+<pre><code>1. 配置文件名称是struts.xml（名称必须是struts.xml）
+2. 在src下引入struts.xml配置文件（配置文件的路径必须是在src的目录下）
+3. 配置如下
+    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+    &lt;!DOCTYPE struts PUBLIC
+        &quot;-//Apache Software Foundation//DTD Struts Configuration 2.3//EN&quot;
+        &quot;http://struts.apache.org/dtds/struts-2.3.dtd&quot;&gt;
+
+    &lt;struts&gt;
+        &lt;package name=&quot;default&quot; namespace=&quot;/&quot; extends=&quot;struts-default&quot;&gt;
+            &lt;action name=&quot;hello&quot; class=&quot;com.itheima.action.HelloAction&quot; method=&quot;sayHello&quot;&gt;
+            &lt;/action&gt;
+        &lt;/package&gt;
+    &lt;/struts&gt;
+</code></pre><hr>
+<p><strong>入门总结之Struts2的执行流程</strong></p>
+<pre><code>1. 执行的流程
+    * 编写的页面，点击超链接，请求提交到服务器端。
+    * 请求会先经过Struts2的核心过滤器（StrutsPrepareAndExecuteFilter）
+        * 过滤器的功能是完成了一部分代码功能
+        * 就是一系列的拦截器执行了，进行一些处理工作。
+        * 咱们可以在struts-default.xml配置文件中看到有很多的拦截器。可以通过断点的方式来演示。
+        * 拦截器执行完后，会根据struts.xml的配置文件找到请求路径，找到具体的类，通过反射的方式让方法执行。
+
+2. 总结
+    * JSP页面--&gt;StrutsPrepereAndExecuteFilter过滤器--&gt;执行一系列拦截器（完成了部分代码）--&gt;执行到目标Action--&gt;返回字符串--&gt;结果页面（result）--&gt;页面跳转
+</code></pre><p><img src="/assets/struts201/02-执行流程.bmp" alt="">    </p>
+<hr>
+<p><strong>入门总结之struts.xml的配置文件提示的问题</strong></p>
+<pre><code>1. 先找到struts.xml的配置文件，复制http://struts.apache.org/dtds/struts-2.3.dtd，注意，不要有双引号。
+    * http://struts.apache.org/dtds/struts-2.3.dtd
+
+2. 选择window -- 首选项 -- 搜索xml -- 选择xml Catalog
+3. 选择添加按钮（add按钮）
+    * key type 要选择URI
+    * key的位置把刚才复制的路径拷贝进去。http://struts.apache.org/dtds/struts-2.3.dtd
+    * Location要在本地能找到struts2-2.3.dtd的真实文件。点击File System，去资料中找到它
+
+4. 如果想查看源代码
+    * 选择资料/struts2/struts-2.3.24-all.zip
+</code></pre><hr>
+<p><strong>入门总结之Struts2框架配置文件加载的顺序</strong></p>
+<pre><code>0. 需要掌握
+    * 加载了哪些个配置文件（重点的）
+    * 配置文件的名称是什么
+    * 配置文件的位置
+    * 配置文件的作用
+
+1. Struts2框架的核心是StrutsPrepareAndExecuteFilter过滤器，该过滤器有两个功能
+    * Prepare        -- 预处理，加载核心的配置文件
+    * Execute        -- 执行，让部分拦截器执行
+
+2. StrutsPrepareAndExecuteFilter过滤器会加载哪些配置文件呢？
+    * 通过源代码可以看到具体加载的配置文件和加载配置文件的顺序
+        * init_DefaultProperties();                 -- 加载org/apache/struts2/default.properties
+        * init_TraditionalXmlConfigurations();        -- 加载struts-default.xml,struts-plugin.xml,struts.xml
+        * init_LegacyStrutsProperties();            -- 加载自定义的struts.properties.
+        * init_CustomConfigurationProviders();        -- 加载用户自定义配置提供者
+        * init_FilterInitParameters() ;                -- 加载web.xml
+
+3. 重点了解的配置文件
+    * default.properties        -- 在org/apache/struts2/目录下，代表的是配置的是Struts2的常量的值
+    * struts-default.xml        -- 在Struts2的核心包下，代表的是Struts2核心功能的配置（Bean、拦截器、结果类型等）
+    * struts.xml                -- 重点中的重点配置，代表WEB应用的默认配置，在工作中，基本就配置它就可以了！！（可以配置常量）
+    * web.xml                    -- 配置前端控制器（可以配置常量）
+
+    * 注意：
+        * 前3个配置文件是struts2框架的默认配置文件，基本不用修改。
+        * 后3个配置文件可以允许自己修改struts2的常量。但是有一个特点：后加载的配置文件修改的常量的值，会覆盖掉前面修改的常量的值。
+
+4. 总结（重点掌握的配置文件）
+    * 先加载default.properties文件，在org/apache/struts2/default.properties文件，都是常量。
+    * 又加载struts-default.xml配置文件，在核心的jar包最下方，struts2框架的核心功能都是在该配置文件中配置的。
+    * 再加载struts.xml的配置文件，在src的目录下，代表用户自己配置的配置文件
+    * 最后加载web.xml的配置文件
+
+    * 后加载的配置文件会覆盖掉之前加载的配置文件（在这些配置文件中可以配置常量）
+
+5. 注意一个问题
+    * 哪些配置文件中可以配置常量？
+        * default.properties        -- 默认值，咱们是不能修改的！！
+        * struts.xml                -- 可以配置，开发中基本上都在该配置文件中配置常量
+        * struts.properties            -- 可以配置，基本不会在该配置文件中配置
+        * web.xml                    -- 可以配置，基本不会在该配置文件中配置
+
+    * 后加载的配置文件会覆盖掉之前加载的配置！！
+</code></pre><hr>
+<p><strong>入门总结之struts.xml配置文件的配置</strong></p>
+<pre><code>1. &lt;package&gt;标签，如果要配置&lt;Action&gt;的标签，那么必须要先配置&lt;package&gt;标签，代表的包的概念
+    * 包含的属性
+        * name                    -- 包的名称，要求是唯一的，管理action配置
+        * extends                -- 继承，可以继承其他的包，只要继承了，那么该包就包含了其他包的功能，一般都是继承struts-default
+        * namespace                -- 名称空间，一般与&lt;action&gt;标签中的name属性共同决定访问路径（通俗话：怎么来访问action），常见的配置如下
+            * namespace=&quot;/&quot;        -- 根名称空间
+            * namespace=&quot;/aaa&quot;    -- 带有名称的名称空间
+        * abstract                -- 抽象的。这个属性基本很少使用，值如果是true，那么编写的包是被继承的
+
+2. &lt;action&gt;标签
+    * 代表配置action类，包含的属性
+        * name            -- 和&lt;package&gt;标签的namespace属性一起来决定访问路径的
+        * class            -- 配置Action类的全路径（默认值是ActionSupport类）
+        * method        -- Action类中执行的方法，如果不指定，默认值是execute
+
+3. &lt;result&gt;标签
+    * action类中方法执行，返回的结果跳转的页面
+        * name        -- 结果页面逻辑视图名称
+        * type        -- 结果类型（默认值是转发，也可以设置其他的值）
+</code></pre><hr>
+<p><strong>入门总结之Struts2配置常量</strong></p>
+<pre><code>1. 可以在Struts2框架中的哪些配置文件中配置常量？
+    * struts.xml（必须要掌握，开发中基本上就在该配置文件中编写常量）
+        * &lt;constant name=&quot;key&quot; value=&quot;value&quot;&gt;&lt;/constant&gt;
+    * web.xml
+        * 在StrutsPrepareAndExecuteFilter配置文件中配置初始化参数
+    * 注意：后加载的配置的文件的常量会覆盖之前加载的常量！！
+
+2. 需要大家了解的常量
+    * struts.i18n.encoding=UTF-8            -- 指定默认编码集,作用于HttpServletRequest的setCharacterEncoding方法 
+    * struts.action.extension=action,,        -- 该属性指定需要Struts 2处理的请求后缀，该属性的默认值是action，即所有匹配*.action的请求都由Struts2处理。如果用户需要指定多个请求后缀，则多个后缀之间以英文逗号（,）隔开
+    * struts.serve.static.browserCache=true        -- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 
+    * struts.configuration.xml.reload=false        -- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用) 
+    * struts.devMode = false                    -- 开发模式下使用,这样可以打印出更详细的错误信息 
+</code></pre><hr>
+<p><strong>入门总结之指定多个struts的配置文件（了解）</strong></p>
+<pre><code>1. 在大部分应用里，随着应用规模的增加，系统中Action的数量也会大量增加，导致struts.xml配置文件变得非常臃肿。
+    为了避免struts.xml文件过于庞大、臃肿，提高struts.xml文件的可读性，我们可以将一个struts.xml配置文件分解成多个配置文件，然后在struts.xml文件中包含其他配置文件。
+
+2. 可以在&lt;package&gt;标签中，使用&lt;include&gt;标签来引入其他的struts_xx.xml的配置文件。例如：
+    &lt;struts&gt;
+        &lt;include file=&quot;struts-part1.xml&quot;/&gt;
+        &lt;include file=&quot;struts-part2.xml&quot;/&gt;
+    &lt;/struts&gt;
+
+3. 注意注意注意（重要的事情说三遍）：&lt;include file=&quot;cn/itcast/demo2/struts-part1.xml&quot;/&gt;
+</code></pre><hr>
+<p><strong>技术分析之Action类的三种写法</strong></p>
+<pre><code>1. 配置文件学习完成，下面的重点是Action类的三种写法
+    * Action类就是一个POJO类
+        * 什么是POJO类，POJO（Plain Ordinary Java Object）简单的Java对象.简单记：没有继承某个类，没有实现接口，就是POJO的类。
+
+    * Action类可以实现Action接口
+        * Action接口中定义了5个常量，5个常量的值对应的是5个逻辑视图跳转页面（跳转的页面还是需要自己来配置），还定义了一个方法，execute方法。
+        * 大家需要掌握5个逻辑视图的常量
+            * SUCCESS        -- 成功.
+            * INPUT            -- 用于数据表单校验.如果校验失败,跳转INPUT视图.
+            * LOGIN            -- 登录.
+            * ERROR            -- 错误.
+            * NONE            -- 页面不转向.
+
+    * Action类可以去继承ActionSupport类（开发中这种方式使用最多）
+        * 设置错误信息
+</code></pre><hr>
+<p><strong>技术分析之Action的访问</strong></p>
+<pre><code>1. 通过&lt;action&gt;标签中的method属性，访问到Action中的具体的方法。
+    * 传统的配置方式，配置更清晰更好理解！但是扩展需要修改配置文件等！
+    * 具体的实例如下：
+        * 页面代码
+            * &lt;a href=&quot;${pageContext.request.contextPath}/addBook.action&quot;&gt;添加图书&lt;/a&gt;
+            * &lt;a href=&quot;${pageContext.request.contextPath}/deleteBook.action&quot;&gt;删除图书&lt;/a&gt;
+
+        * 配置文件的代码
+            &lt;package name=&quot;demo2&quot; extends=&quot;struts-default&quot; namespace=&quot;/&quot;&gt;
+                &lt;action name=&quot;addBook&quot; class=&quot;cn.itcast.demo2.BookAction&quot; method=&quot;add&quot;&gt;&lt;/action&gt;
+                &lt;action name=&quot;deleteBook&quot; class=&quot;cn.itcast.demo2.BookAction&quot; method=&quot;delete&quot;&gt;&lt;/action&gt;
+            &lt;/package&gt;
+
+        * Action的代码
+            public String add(){
+                System.out.println(&quot;添加图书&quot;);
+                return NONE;
+            }
+            public String delete(){
+                System.out.println(&quot;删除图书&quot;);
+                return NONE;
+            }
+
+2. 通配符的访问方式:(访问的路径和方法的名称必须要有某种联系.)    通配符就是 * 代表任意的字符
+    * 使用通配符的方式可以简化配置文件的代码编写，而且扩展和维护比较容易。
+    * 具体实例如下：
+        * 页面代码
+            &lt;a href=&quot;${pageContext.request.contextPath}/order_add.action&quot;&gt;添加订单&lt;/a&gt;
+            &lt;a href=&quot;${pageContext.request.contextPath}/order_delete.action&quot;&gt;删除订单&lt;/a&gt;
+
+        * 配置文件代码
+            * &lt;action name=&quot;order_*&quot; class=&quot;cn.itcast.demo2.OrderAction&quot; method=&quot;{1}&quot;&gt;&lt;/action&gt;
+
+        * Action的代码
+            public String add(){
+                System.out.println(&quot;添加订单&quot;);
+                return NONE;
+            }
+            public String delete(){
+                System.out.println(&quot;删除订单&quot;);
+                return NONE;
+            }
+
+    * 具体理解：在JSP页面发送请求，http://localhost/struts2_01/order_add.action，配置文件中的order_*可以匹配该请求，*就相当于变成了add，method属性的值使用{1}来代替，{1}就表示的是第一个*号的位置！！所以method的值就等于了add，那么就找到Action类中的add方法，那么add方法就执行了！
+
+3. 动态方法访问的方式（有的开发中也会使用这种方式）
+    * 如果想完成动态方法访问的方式，需要开启一个常量，struts.enable.DynamicMethodInvocation = false，把值设置成true。
+        * 注意：不同的Struts2框架的版本，该常量的值不一定是true或者false，需要自己来看一下。如果是false，需要自己开启。
+        * 在struts.xml中开启该常量。
+            * &lt;constant name=&quot;struts.enable.DynamicMethodInvocation&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;
+
+    * 具体代码如下
+        * 页面的代码
+            * &lt;a href=&quot;${pageContext.request.contextPath}/product!add.action&quot;&gt;添加商品&lt;/a&gt;
+            * &lt;a href=&quot;${pageContext.request.contextPath}/product!delete.action&quot;&gt;删除商品&lt;/a&gt;
+
+        * 配置文件代码
+            * &lt;action name=&quot;product&quot; class=&quot;cn.itcast.demo2.ProductAction&quot;&gt;&lt;/action&gt;
+
+        * Action的类的代码
+            public class ProductAction extends ActionSupport{
+                public String add(){
+                    System.out.println(&quot;添加订单&quot;);
+                    return NONE;
+                }
+                public String delete(){
+                    System.out.println(&quot;删除订单&quot;);
+                    return NONE;
+                }
+            }
+</code></pre><hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Struts2</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/28/struts2_day01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-Struts2_day02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/Struts2_day02/">Struts2第二天</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/28/Struts2_day02/" class="archive-article-date">
+  	<time datetime="2017-03-28T08:59:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Struts2的第二天"><a href="#Struts2的第二天" class="headerlink" title="Struts2的第二天"></a>Struts2的第二天</h2><hr>
+<p><strong>课程回顾：Struts2框架第一天</strong></p>
+<pre><code>1. Struts2框架的概述，前端控制器的模式，核心的过滤器
+2. 入门，编写struts.xml配置文件
+3. 配置文件
+    * 配置文件的加载
+4. Action类的编写和访问
+</code></pre><hr>
+<p><strong>Struts2的第二天的内容</strong></p>
+<pre><code>1. Struts2框架中的Servlet的API的使用
+2. Struts2中Action接收请求参数
+3. Struts2中自定义拦截器
+</code></pre><hr>
+<h3 id="案例一：使用Struts2作为WEB层完成客户的新增功能"><a href="#案例一：使用Struts2作为WEB层完成客户的新增功能" class="headerlink" title="案例一：使用Struts2作为WEB层完成客户的新增功能"></a>案例一：使用Struts2作为WEB层完成客户的新增功能</h3><hr>
+<p><strong>需求分析</strong></p>
+<pre><code>1. 原来是使用Servlet作为WEB层框架，现在需要使用Struts2作为WEB层完成客户的新增功能
+</code></pre><hr>
+<p><strong>技术分析之在Struts2框架中使用Servlet的API</strong></p>
+<pre><code>1. 在Action类中也可以获取到Servlet一些常用的API
+    * 需求：提供JSP的表单页面的数据，在Action中使用Servlet的API接收到，然后保存到三个域对象中，最后再显示到JSP的页面上。
+        * 提供JSP注册的页面，演示下面这三种方式
+            &lt;h3&gt;注册页面&lt;/h3&gt;
+            &lt;form action=&quot;${ pageContext.request.contextPath }/xxx.action&quot; method=&quot;post&quot;&gt;
+                姓名:&lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;&lt;br/&gt;
+                密码:&lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;&lt;br/&gt;
+                &lt;input type=&quot;submit&quot; value=&quot;注册&quot; /&gt;
+            &lt;/form&gt;
+
+2. 完全解耦合的方式
+    * 如果使用该种方式，Struts2框架中提供了一个类，ActionContext类，该类中提供一些方法，通过方法获取Servlet的API
+    * 一些常用的方法如下
+        * static ActionContext getContext()                                          -- 获取ActionContext对象实例
+        * java.util.Map&lt;java.lang.String,java.lang.Object&gt; getParameters()          -- 获取请求参数，相当于request.getParameterMap();
+        * java.util.Map&lt;java.lang.String,java.lang.Object&gt; getSession()              -- 获取的代表session域的Map集合，就相当于操作session域。
+        * java.util.Map&lt;java.lang.String,java.lang.Object&gt; getApplication()         -- 获取代表application域的Map集合
+        * void put(java.lang.String key, java.lang.Object value)                      -- 注意：向request域中存入值。
+
+3. 使用原生Servlet的API的方式
+    * Struts2框架提供了一个类，ServletActionContext，该类中提供了一些静态的方法
+    * 具体的方法如下
+        * getPageContext()
+        * getRequest()
+        * getResponse()
+        * getServletContext()
+</code></pre><hr>
+<p><strong>技术分析之结果页面的跳转</strong></p>
+<pre><code>1. 结果页面存在两种方式
+    * 全局结果页面
+        &gt; 条件：如果&lt;package&gt;包中的一些action都返回success，并且返回的页面都是同一个JSP页面，这样就可以配置全局的结果页面。
+        &gt; 全局结果页面针对的当前的包中的所有的Action，但是如果局部还有结果页面，会优先局部的。使用的标签是
+            &lt;global-results&gt;
+                &lt;result&gt;/demo3/suc.jsp&lt;/result&gt;
+            &lt;/global-results&gt;
+
+    * 局部结果页面
+        &lt;result&gt;/demo3/suc.jsp&lt;/result&gt;
+
+2. 结果页面的类型
+    * 结果页面使用&lt;result&gt;标签进行配置，包含两个属性
+        &gt; name    -- 逻辑视图的名称
+        &gt; type    -- 跳转的类型，值一些，需要掌握一些常用的类型。常见的结果类型去struts-default.xml中查找。
+            * dispatcher        -- 转发.type的默认值.Action---&gt;JSP
+            * redirect            -- 重定向.    Action---&gt;JSP
+            * chain                -- 多个action之间跳转.从一个Action转发到另一个Action.    Action---Action
+            * redirectAction    -- 多个action之间跳转.从一个Action重定向到另一个Action.    Action---Action
+            * stream            -- 文件下载时候使用的
+</code></pre><hr>
+<p><img src="/assets/struts202/01-拦截器.bmp" alt="">    </p>
+<p><strong>技术分析之Struts2框架的数据封装</strong></p>
+<pre><code>1. 为什么要使用数据的封装呢？
+    * 作为MVC框架，必须要负责解析HTTP请求参数，并将其封装到Model对象中
+    * 封装数据为开发提供了很多方便
+    * Struts2框架提供了很强大的数据封装的功能，不再需要使用Servlet的API完成手动封装了！！
+
+2. Struts2中提供了两类数据封装的方式？
+    * 第一种方式：属性驱动
+        &gt; 提供对应属性的set方法进行数据的封装。
+            * 表单的哪些属性需要封装数据，那么在对应的Action类中提供该属性的set方法即可。
+            * 表单中的数据提交，最终找到Action类中的setXxx的方法，最后赋值给全局变量。
+
+            * 注意0：Struts2的框架采用的拦截器完成数据的封装。
+            * 注意1：这种方式不是特别好:因为属性特别多,提供特别多的set方法,而且还需要手动将数据存入到对象中.
+            * 注意2：这种情况下，Action类就相当于一个JavaBean，就没有体现出MVC的思想，Action类又封装数据，又接收请求处理，耦合性较高。
+
+        &gt; 在页面上，使用OGNL表达式进行数据封装。
+            * 在页面中使用OGNL表达式进行数据的封装，就可以直接把属性封装到某一个JavaBean的对象中。
+            * 在页面中定义一个JavaBean，并且提供set方法：例如：private User user;
+            * 页面中的编写发生了变化，需要使用OGNL的方式，表单中的写法：&lt;input type=&quot;text&quot; name=&quot;user.username&quot;&gt;
+
+            * 注意：只提供一个set方法还不够，必须还需要提供user属性的get和set方法！！！
+                &gt; 先调用get方法，判断一下是否有user对象的实例对象，如果没有，调用set方法把拦截器创建的对象注入进来，
+
+    * 第二种方式：模型驱动
+        &gt; 使用模型驱动的方式，也可以把表单中的数据直接封装到一个JavaBean的对象中，并且表单的写法和之前的写法没有区别！
+        &gt; 编写的页面不需要任何变化，正常编写name属性的值
+        &gt; 模型驱动的编写步骤：
+            * 手动实例化JavaBean，即：private User user = new User();
+            * 必须实现ModelDriven&lt;T&gt;接口，实现getModel()的方法，在getModel()方法中返回user即可！！
+</code></pre><hr>
+<p><strong>技术分析之Struts2把数据封装到集合中</strong></p>
+<pre><code>1. 封装复杂类型的参数（集合类型 Collection 、Map接口等）
+2. 需求：页面中有可能想批量添加一些数据，那么现在就可以使用上述的技术了。把数据封装到集合中
+3. 把数据封装到Collection中
+    * 因为Collection接口都会有下标值，所有页面的写法会有一些区别，注意：
+        &gt; &lt;input type=&quot;text&quot; name=&quot;products[0].name&quot; /&gt;
+    * 在Action中的写法，需要提供products的集合，并且提供get和set方法。
+
+4. 把数据封装到Map中
+    * Map集合是键值对的形式，页面的写法
+        &gt; &lt;input type=&quot;text&quot; name=&quot;map[&apos;one&apos;].name&quot; /&gt;
+    * Action中提供map集合，并且提供get和set方法
+</code></pre><hr>
+<p><strong>案例：添加客户</strong></p>
+<pre><code>1. 功能
+</code></pre><hr>
+<p><strong>案例总结之Struts2的拦截器技术</strong></p>
+<pre><code>1. 拦截器的概述
+    * 拦截器就是AOP（Aspect-Oriented Programming）的一种实现。（AOP是指用于在某个方法或字段被访问之前，进行拦截然后在之前或之后加入某些操作。）
+    * 过滤器:过滤从客服端发送到服务器端请求的
+
+    * 拦截器:拦截对目标Action中的某些方法进行拦截
+        * 拦截器不能拦截JSP
+        * 拦截到Action中某些方法
+
+2. 拦截器和过滤器的区别
+    1）拦截器是基于JAVA反射机制的，而过滤器是基于函数回调的
+    2）过滤器依赖于Servlet容器，而拦截器不依赖于Servlet容器
+    3）拦截器只能对Action请求起作用（Action中的方法），而过滤器可以对几乎所有的请求起作用（CSS JSP JS）
+
+    * 拦截器 采用 责任链 模式
+        &gt; 在责任链模式里,很多对象由每一个对象对其下家的引用而连接起来形成一条链
+        &gt; 责任链每一个节点，都可以继续调用下一个节点，也可以阻止流程继续执行
+
+    * 在struts2 中可以定义很多个拦截器，将多个拦截器按照特定顺序 组成拦截器栈 （顺序调用 栈中的每一个拦截器 ）
+
+3. Struts2的核心是拦截器，看一下Struts2的运行流程
+</code></pre><p><img src="/assets/struts202/02-执行流程.bmp" alt="">    </p>
+<hr>
+<p><strong>案例总结之自定义拦截器和配置</strong></p>
+<pre><code>1. 编写拦截器，需要实现Interceptor接口，实现接口中的三个方法
+    protected String doIntercept(ActionInvocation invocation) throws Exception {
+        // 获取session对象
+        User user = (User) ServletActionContext.getRequest().getSession().getAttribute(&quot;existUser&quot;);
+        if(user == null){
+            // 说明，没有登录，后面就不会执行了
+            return &quot;login&quot;;
+        }
+        return invocation.invoke();
+    }
+
+2. 需要在struts.xml中进行拦截器的配置，配置一共有两种方式
+    &lt;!-- 定义了拦截器 第一种方式
+    &lt;interceptors&gt;
+        &lt;interceptor name=&quot;DemoInterceptor&quot; class=&quot;com.vvshyer.interceptor.DemoInterceptor&quot;/&gt;
+    &lt;/interceptors&gt;
+    --&gt;
+
+    &lt;!-- 第二种方式：定义拦截器栈 --&gt;
+    &lt;interceptors&gt;
+        &lt;interceptor name=&quot;DemoInterceptor&quot; class=&quot;com.vvshyer.interceptor.DemoInterceptor&quot;/&gt;
+        &lt;!-- 定义拦截器栈 --&gt;
+        &lt;interceptor-stack name=&quot;myStack&quot;&gt;
+            &lt;interceptor-ref name=&quot;DemoInterceptor&quot;/&gt;
+            &lt;interceptor-ref name=&quot;defaultStack&quot;/&gt;
+        &lt;/interceptor-stack&gt;
+    &lt;/interceptors&gt;
+
+    &lt;action name=&quot;userAction&quot; class=&quot;com.vvshyer.demo3.UserAction&quot;&gt;
+        &lt;!-- 只要是引用自己的拦截器，默认栈的拦截器就不执行了，必须要手动引入默认栈 
+        &lt;interceptor-ref name=&quot;DemoInterceptor&quot;/&gt;
+        &lt;interceptor-ref name=&quot;defaultStack&quot;/&gt;
+        --&gt;
+
+        &lt;!-- 引入拦截器栈就OK --&gt;
+        &lt;interceptor-ref name=&quot;myStack&quot;/&gt;
+    &lt;/action&gt;
+</code></pre><hr>
+<p><strong>案例二：使用拦截器判断用户是否已经登录</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Struts2</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/28/Struts2_day02/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Hibernate_day04" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1400,93 +2371,6 @@
 
 
   
-    <article id="post-CCF之201612-3权限查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/CCF之201612-3权限查询/">CCF之201612-3权限查询</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/16/CCF之201612-3权限查询/" class="archive-article-date">
-  	<time datetime="2017-03-16T09:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="授权查询"><a href="#授权查询" class="headerlink" title="授权查询"></a>授权查询</h1><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>授权 (authorization) 是各类业务系统不可缺少的组成部分，系统用户通过授权机制获得系统中各个模块的操作权限。</p>
-<p>本题中的授权机制是这样设计的：每位用户具有若干角色，每种角色具有若干权限。例如，用户 david 具有 manager 角色，manager 角色有 crm:2 权限，则用户 david 具有 crm:2 权限，也就是 crm 类权限的第 2 等级的权限。</p>
-<p>具体地，用户名和角色名称都是由小写字母组成的字符串，长度不超过 32。权限分为分等级权限和不分等级权限两大类。分等级权限由权限类名和权限等级构成，中间用冒号“:”分隔。其中权限类名也是由小写字母组成的字符串，长度不超过 32。权限等级是一位数字，从 0 到 9，数字越大表示权限等级越高。系统规定如果用户具有某类某一等级的权限，那么他也将自动具有该类更低等级的权限。例如在上面的例子中，除 crm:2 外，用户 david 也具有 crm:1 和 crm:0 权限。不分等级权限在描述权限时只有权限类名，没有权限等级（也没有用于分隔的冒号）。</p>
-<p>给出系统中用户、角色和权限的描述信息，你的程序需要回答多个关于用户和权限的查询。查询可分为以下几类：</p>
-<ul>
-<li>不分等级权限的查询：如果权限本身是不分等级的，则查询时不指定等级，返回是否具有该权限；</li>
-<li>分等级权限的带等级查询：如果权限本身分等级，查询也带等级，则返回是否具有该类的该等级权限；</li>
-<li>分等级权限的不带等级查询：如果权限本身分等级，查询不带等级，则返回具有该类权限的等级；如果不具有该类的任何等级权限，则返回“否”。<br>输入格式</li>
-</ul>
-<p>输入第一行是一个正整数 p，表示不同的权限类别的数量。紧接着的 p 行被称为 P 段，每行一个字符串，描述各个权限。对于分等级权限，格式为 category:level，其中 category是权限类名，level&gt;是该类权限的最高等级。对于不分等级权限，字符串只包含权限类名。</p>
-<p>接下来一行是一个正整数 r，表示不同的角色数量。紧接着的 r 行被称为 R 段，每行描述一种角色，格式为</p>
-<pre><code>&lt;role&gt; &lt;s&gt; &lt;privilege 1&gt; &lt;privilege 2&gt; ... &lt;privilege s&gt;
-</code></pre><p>其中 role 是角色名称，s 表示该角色具有多少种权限。后面 s 个字符串描述该角色具有的权限，格式同 P 段。</p>
-<p>接下来一行是一个正整数 u，表示用户数量。紧接着的 u 行被称为 U 段，每行描述一个用户，格式为</p>
-<pre><code>&lt;user&gt; &lt;t&gt; &lt;role 1&gt; &lt;role 2&gt; ... &lt;role t&gt;
-</code></pre><p>其中 user 是用户名，t 表示该用户具有多少种角色。后面 t 个字符串描述该用户具有的角色。</p>
-<p>接下来一行是一个正整数 q，表示权限查询的数量。紧接着的 q 行被称为 Q 段，每行描述一个授权查询，格式为 user privilege，表示查询用户 user 是否具有 privilege 权限。如果查询的权限是分等级权限，则查询中的 privilege 可指定等级，表示查询该用户是否具有该等级的权限；也可以不指定等级，表示查询该用户具有该权限的等级。对于不分等级权限，只能查询该用户是否具有该权限，查询中不能指定等级。<br>输出格式</p>
-<p>输出共 q 行，每行为 false、true，或者一个数字。false 表示相应的用户不具有相应的权限，true 表示相应的用户具有相应的权限。对于分等级权限的不带等级查询，如果具有权限，则结果是一个数字，表示该用户具有该权限的（最高）等级。如果用户不存在，或者查询的权限没有定义，则应该返回 false。</p>
-<ul>
-<li>样例输入</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">3</div><div class="line">crm:2</div><div class="line">git:3</div><div class="line">game</div><div class="line">4</div><div class="line">hr 1 crm:2</div><div class="line">it 3 crm:1 git:1 game</div><div class="line">dev 2 git:3 game</div><div class="line">qa 1 git:2</div><div class="line">3</div><div class="line">alice 1 hr</div><div class="line">bob 2 it qa</div><div class="line">charlie 1 dev</div><div class="line">9</div><div class="line">alice game</div><div class="line">alice crm:2</div><div class="line">alice git:0</div><div class="line">bob git</div><div class="line">bob poweroff</div><div class="line">charlie game</div><div class="line">charlie crm</div><div class="line">charlie git:3</div><div class="line">malice game</div></pre></td></tr></table></figure>
-<ul>
-<li>样例输出</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">false</div><div class="line">true</div><div class="line">false</div><div class="line">2</div><div class="line">false</div><div class="line">true</div><div class="line">false</div><div class="line">true</div><div class="line">false</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.main;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line"></div><div class="line">        <span class="comment">//输入权限类别的数量</span></div><div class="line">        <span class="keyword">int</span> p = cin.nextInt();</div><div class="line">        Privi[] arrayPrivi = <span class="keyword">new</span> Privi[p];</div><div class="line">        <span class="comment">//输入各个权限</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p; i++) &#123;</div><div class="line">            arrayPrivi[i] = <span class="keyword">new</span> Privi(cin.next());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 输入角色数量</span></div><div class="line">        <span class="keyword">int</span> r = cin.nextInt();</div><div class="line">        Role[] arrayRole = <span class="keyword">new</span> Role[r];</div><div class="line">        <span class="comment">//输入每个角色信息</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r; i++) &#123;</div><div class="line">            String name = cin.next();   <span class="comment">//角色名</span></div><div class="line">            <span class="keyword">int</span> countrole = cin.nextInt(); <span class="comment">//角色拥有的权限数</span></div><div class="line">            Role ro = <span class="keyword">new</span> Role(name, countrole);</div><div class="line">            <span class="comment">//输入该角色具有的权限</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; countrole; j++) &#123;</div><div class="line">                ro.addPrivi(j, <span class="keyword">new</span> Privi(cin.next()));</div><div class="line">            &#125;</div><div class="line">            arrayRole[i] = ro;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//输入用户数量</span></div><div class="line">        <span class="keyword">int</span> u = cin.nextInt();</div><div class="line">        User[] arrayUser = <span class="keyword">new</span> User[u];</div><div class="line">        <span class="comment">//输入每个用户信息</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; u; i++) &#123;</div><div class="line">            String name = cin.next();   <span class="comment">//用户名</span></div><div class="line">            <span class="keyword">int</span> countrole = cin.nextInt(); <span class="comment">//用户拥有角色数</span></div><div class="line">            User us = <span class="keyword">new</span> User(name,countrole);</div><div class="line">            <span class="comment">//输入该用户具有的角色</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; countrole; j++) &#123;</div><div class="line">                us.addRole(j, roleFactory(arrayRole,cin.next()));</div><div class="line">            &#125;</div><div class="line">            arrayUser[i] = us;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//输入权限查询数量</span></div><div class="line">        <span class="keyword">int</span> q = cin.nextInt();</div><div class="line">        Query[] arrayQuery = <span class="keyword">new</span> Query[q];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; q; i++) &#123;</div><div class="line">            <span class="comment">//输入查询用户和是否具有的权限</span></div><div class="line">            arrayQuery[i] = <span class="keyword">new</span> Query(cin.next(),cin.next());</div><div class="line">        &#125;</div><div class="line">        cin.close();</div><div class="line"></div><div class="line">        <span class="comment">//查询</span></div><div class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">        <span class="keyword">for</span> (Query query : arrayQuery) &#123;</div><div class="line">            <span class="comment">//查询结果拼接</span></div><div class="line">            sb.append(check(query,arrayUser) + <span class="string">"\n"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//输出查询结果</span></div><div class="line">        System.out.println(sb.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//角色工厂，如果已存在该角色直接返回，否则返回null</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Role <span class="title">roleFactory</span><span class="params">(Role[] arrayRole,String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(Role role : arrayRole) &#123;</div><div class="line">            <span class="keyword">if</span>(name.equals(role.getName())) &#123;</div><div class="line">                <span class="keyword">return</span> role;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//查询</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">check</span><span class="params">(Query query,User[] arrayUser)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> flag = -<span class="number">3</span>;</div><div class="line">        String uname = query.qUserName;</div><div class="line">        Privi up = query.qPrivi;</div><div class="line">        <span class="keyword">for</span> (User user : arrayUser) &#123;</div><div class="line">            flag = -<span class="number">3</span>;</div><div class="line">            <span class="comment">//找是否存在该用户</span></div><div class="line">            <span class="keyword">if</span> (uname.equals(user.getName())) &#123;</div><div class="line">                Role[] userRoleArr = user.getRoleArray();</div><div class="line">                <span class="comment">//是否有该角色</span></div><div class="line">                <span class="keyword">for</span> (Role role : userRoleArr) &#123;</div><div class="line">                    Privi[] userRolePriviArr = role.getPriviArray();</div><div class="line">                    <span class="comment">//是否有该权限，取权限最高级</span></div><div class="line">                    <span class="keyword">for</span> (Privi privi : userRolePriviArr) &#123;</div><div class="line">                        <span class="keyword">int</span> temp = up.equals(privi);</div><div class="line">                        flag = (temp &gt; flag) ? temp : flag;</div><div class="line">                        <span class="keyword">if</span>(flag == -<span class="number">1</span>) <span class="keyword">return</span> <span class="string">"true"</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (flag == -<span class="number">2</span> || flag == -<span class="number">3</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">"false"</span>;</div><div class="line">        &#125; <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> flag + <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Query</span> </span>&#123;</div><div class="line">        <span class="keyword">public</span> String qUserName;</div><div class="line">        <span class="keyword">public</span> Privi qPrivi;</div><div class="line">        Query(String username, String Priviname) &#123;</div><div class="line">            <span class="keyword">this</span>.qUserName = username;</div><div class="line">            <span class="keyword">this</span>.qPrivi = <span class="keyword">new</span> Privi(Priviname);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Privi</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> level;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Privi</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Privi</span><span class="params">(String per)</span> </span>&#123;</div><div class="line">        String[] p = per.split(<span class="string">":"</span>);</div><div class="line">        <span class="keyword">if</span> (p.length == <span class="number">1</span>) &#123;</div><div class="line">            Privi.<span class="keyword">this</span>.name = p[<span class="number">0</span>];</div><div class="line">            Privi.<span class="keyword">this</span>.level = -<span class="number">1</span>;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.length == <span class="number">2</span>) &#123;</div><div class="line">            Privi.<span class="keyword">this</span>.name = p[<span class="number">0</span>];</div><div class="line">            Privi.<span class="keyword">this</span>.level = Integer.parseInt(p[<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = s;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLevel</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.level;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLevel</span><span class="params">(<span class="keyword">int</span> l)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.level = l;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">equals</span><span class="params">(Privi p)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.name.equals(p.getName())) &#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.level == -<span class="number">1</span> &amp;&amp; <span class="keyword">this</span>.level &lt; p.getLevel())</div><div class="line">                <span class="keyword">return</span> p.getLevel();</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.level == -<span class="number">1</span> &amp;&amp; p.getLevel() == -<span class="number">1</span>)</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;<span class="comment">//bufendengji</span></div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.level != -<span class="number">1</span> &amp;&amp; <span class="keyword">this</span>.level &lt;= p.getLevel() )</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;<span class="comment">//fendengji</span></div><div class="line">            <span class="keyword">else</span></div><div class="line">                <span class="keyword">return</span> -<span class="number">2</span>; <span class="comment">//</span></div><div class="line">        &#125; <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> -<span class="number">2</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name +(<span class="keyword">this</span>.level != -<span class="number">1</span> ? (<span class="string">":"</span> + <span class="keyword">this</span>.level) : <span class="string">""</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> countPrivi;</div><div class="line">    <span class="keyword">private</span> Privi[] arrPrivi;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Role</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Role</span><span class="params">(String n,<span class="keyword">int</span> count)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = n;</div><div class="line">        <span class="keyword">this</span>.countPrivi = count;</div><div class="line">        <span class="keyword">this</span>.arrPrivi = <span class="keyword">new</span> Privi[count];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = s;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPriviCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrPrivi.length;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> Privi[] getPriviArray() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrPrivi;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addPrivi</span><span class="params">(<span class="keyword">int</span> n,Privi p)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.arrPrivi[n] = p;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        String s = <span class="keyword">this</span>.name + <span class="string">"~"</span> ;</div><div class="line">        <span class="keyword">for</span>(Privi p : <span class="keyword">this</span>.arrPrivi) &#123;</div><div class="line">            s += p.toString() + <span class="string">"+"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> countRole;</div><div class="line">    <span class="keyword">private</span> Role[] arrRole;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name, <span class="keyword">int</span> count)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.countRole = count;</div><div class="line">        <span class="keyword">this</span>.arrRole = <span class="keyword">new</span> Role[count];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> Role[] getRoleArray() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrRole;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addRole</span><span class="params">(<span class="keyword">int</span> n, Role role)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.arrRole[n] = role;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        String s = name + <span class="string">"~"</span>;</div><div class="line">        <span class="keyword">for</span>(Role role : arrRole) &#123;</div><div class="line">            s += role.toString() + <span class="string">"+"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CCF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/16/CCF之201612-3权限查询/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
     <article id="post-Hibernate_day01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1951,177 +2835,6 @@
 
 
   
-    <article id="post-算法之最长回文串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/算法之最长回文串/">算法之回文串</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/16/算法之最长回文串/" class="archive-article-date">
-  	<time datetime="2017-03-16T08:33:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1088-最长回文字串"><a href="#1088-最长回文字串" class="headerlink" title="1088 最长回文字串"></a>1088 最长回文字串</h1><h4 id="回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。"><a href="#回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。" class="headerlink" title="回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。"></a>回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。</h4><ul>
-<li>Input<ul>
-<li>输入Str（Str的长度 &lt;= 1000)</li>
-</ul>
-</li>
-<li>Output<ul>
-<li>输出最长回文子串的长度L。</li>
-</ul>
-</li>
-</ul>
-<h4 id="从中心向两边扩展"><a href="#从中心向两边扩展" class="headerlink" title="从中心向两边扩展"></a>从中心向两边扩展</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span>[] arr = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1001</span>];</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        String str = cin.nextLine();</div><div class="line">        arr = str.toCharArray();</div><div class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length();i++)&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; (i-j)&gt;=<span class="number">0</span> &amp;&amp; (i+j)&lt;str.length();j++) &#123;</div><div class="line">                <span class="keyword">if</span> (arr[i - j] != arr[i + j]) &#123;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">int</span> tmp = <span class="number">2</span> * j + <span class="number">1</span>;</div><div class="line">                <span class="keyword">if</span> (tmp &gt;= res) &#123;</div><div class="line">                    res = tmp;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; (i-j)&gt;=<span class="number">0</span> &amp;&amp; (i+j+<span class="number">1</span>)&lt;str.length();j++) &#123;</div><div class="line">                <span class="keyword">if</span> (arr[i - j] != arr[i + j + <span class="number">1</span>]) &#123;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">int</span> tmp = <span class="number">2</span> * j + <span class="number">2</span>;</div><div class="line">                <span class="keyword">if</span> (tmp &gt;= res) &#123;</div><div class="line">                    res = tmp;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(res);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/16/算法之最长回文串/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-算法之背包问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/算法之背包问题/">算法之背包问题</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/16/算法之背包问题/" class="archive-article-date">
-  	<time datetime="2017-03-16T06:17:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1085-背包问题"><a href="#1085-背包问题" class="headerlink" title="1085 背包问题"></a>1085 背包问题</h1><h4 id="在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1-W2……Wn（Wi为整数）。求背包能够容纳的最大价值。"><a href="#在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1-W2……Wn（Wi为整数）。求背包能够容纳的最大价值。" class="headerlink" title="在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1,W2……Wn（Wi为整数）。求背包能够容纳的最大价值。"></a>在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1,W2……Wn（Wi为整数）。求背包能够容纳的最大价值。</h4><ul>
-<li>Input<ul>
-<li>第1行，2个整数，N和V中间用空格隔开。N为物品的数量，V为背包的容量。(1 &lt;= N &lt;= 100，1 &lt;= V &lt;= 10000)</li>
-<li>第2 - N + 1行，每行2个整数，Ci和Wi，分别是物品的体积和物品的价值。(1 &lt;= Ci, Wi &lt;= 10000)</li>
-</ul>
-</li>
-<li>Output<ul>
-<li>输出可以容纳的最大价值。</li>
-</ul>
-</li>
-</ul>
-<h5 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h5><p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。</p>
-<p>用自问题定义状态：即</p>
-<pre><code>F[i,v] = max{F[i-1,v],F[i-1,v-Ci] + Wi}   
-</code></pre><p>这个方程非常重要，基本上所有跟背包相关的问题的方程都是由他衍生出来的。所以有必要将它仔细解释一下：“将前i件物品放入容量为v的背包中“这个字问题，若只考虑第i件物品的策略，那么就可以转化为一个只和前i-1件物品相关的问题。如果不放第i件物品，那么问题就转换为“前i-1件物品放入容量为v的背包中“，价值为F[i-1,v]；如果放第i件物品，那么问题就转换为“前i-1件物品放入剩下的容量为v-Ci的背包中，此时能获得的最大价值就是F[i-1,v-Ci]再加上通过放入第i件物品获得的价值Wi。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">F[0,0..V] ← 0</div><div class="line">for i←1 to N	for v←Ci to V		F[i,v] ← max&#123;F[i−1,v], F[i−1,v−Ci] + Wi&#125;</div></pre></td></tr></table></figure>
-<h5 id="优化空间复杂度"><a href="#优化空间复杂度" class="headerlink" title="优化空间复杂度"></a>优化空间复杂度</h5><p>以上方法的时间和空间复杂度均为O(VN)，其中时间复杂度应该不能再优化了，但空间复杂度却可以优化到O(V)。</p>
-<p>先考虑上面讲的基本思路如何实现，肯定是有一个主循环i ← 1…N，每次算出二维数组F[i,0…V]的所有值。那么，如果只用一个数组F[0…V]，能不能保证第i次循环结束后F[v]中表示的就是我们定义的状态F[i,v]呢？F[i,v]是由F[i-1,v]和F[i-1,v-Ci]两个字问题递推而来，能否保证在推F[i,v]时能够取用F[i-1,v]和F[i-1,v-Ci]的值呢？</p>
-<p>事实上，这要求在每次主循环中我们以 v ← V…0 的递减顺序计算F[v]，这样才能保证计算F[v]时F[v - Ci]保存的事状态F[i-1,v-Ci]的值。伪代码如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F[0..V] ← 0for i←1 to N	for v←V to Ci		F[v] ← max&#123;F[v], F[v−Ci] + Wi&#125;</div></pre></td></tr></table></figure>
-<p>其中的 F[v] ← max{F[v], F[v−Ci] + Wi} 一句，恰就对应于我们原来的转移方程，因为现在的F[v-Ci]就相当于原来的F[i-1,v-Ci]。如果将v的循环顺序从上面的逆序改成顺序的话，那么则成了F[i,v]由F[i,v-Ci]推导得到，与题意不符。</p>
-<p>事实上，使用以为数组解01背包问题在后面多次用到，以后不再说明。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def ZeroOnePack(F,C,W)</div><div class="line">	for v ← V to C		F[v] ← max(F[v], F[v−C] + W)</div></pre></td></tr></table></figure>
-<p>有了这个，01背包问题的伪代码可以这么写：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F [0..V ] ← 0for i ← 1 to N	ZeroOnePack(F, Ci, Wi)</div></pre></td></tr></table></figure>
-<h5 id="初始化的细节问题"><a href="#初始化的细节问题" class="headerlink" title="初始化的细节问题"></a>初始化的细节问题</h5><p>我们看到的求最优解的背包问题题目中，事实上有两种不太相同的问法。有的题目 要求“恰好装满背包”时的最优解，有的题目则并没有要求必须把背包装满。一种区别这两种问法的实现方法是在初始化的时候有所不同。</p>
-<p>如果是第一种问法，要求恰好装满背包，那么在初始化时除了 F[0] 为 0，其它 F [1..V ] 均设为 −∞，这样就可以保证最终得到的 F [V ] 是一种恰好装满背包的最优解。</p>
-<p>如果并没有要求必须把背包装满，而是只希望价格尽量大，初始化时应该将 F [0..V ] 全部设为 0。</p>
-<p>这是为什么呢?可以这样理解:初始化的 F 数组事实上就是在没有任何物品可以放 入背包时的合法状态。如果要求背包恰好装满，那么此时只有容量为 0 的背包可以在什 么也不装且价值为 0 的情况下被“恰好装满”，其它容量的背包均没有合法的解，属于 未定义的状态，应该被赋值为 -∞ 了。如果背包并非必须被装满，那么任何容量的背包 都有一个合法解“什么都不装”，这个解的价值为 0，所以初始时状态的值也就全部为 0 了。</p>
-<p>这个小技巧完全可以推广到其它类型的背包问题，后面不再对进行状态转移之前的 初始化进行讲解。</p>
-<h5 id="一个常数优化"><a href="#一个常数优化" class="headerlink" title="一个常数优化"></a>一个常数优化</h5><p>上面伪代码中的</p>
-<pre><code>for i←1 to N 
-    for v←V to Ci
-</code></pre><p>中第二重循环的下限可以改进。它可以被优化为</p>
-<pre><code>for i←1 to N 
-    for v←V to max(V−ΣNi Wi,Ci)
-</code></pre><p>这个优化之所以成立的原因请读者自己思考。(提示:使用二维的转移方程思考较易。)</p>
-<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><p>01背包问题是最基本的背包问题，它包含了背包问题中设计状态、方程的最基本思想。另外，别的类型的背包问题往往也可以转换成 01 背包问题求解。故一定要仔细体会上面基本思路的得出方法，状态转移方程的意义，以及空间复杂度怎样被优化。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法 | 数学</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/16/算法之背包问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -2252,6 +2965,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
@@ -2268,11 +2985,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
               </li>
             
             <div class="clearfix"></div>
