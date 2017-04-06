@@ -158,6 +158,148 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-数学基础之求最大公约数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/14/数学基础之求最大公约数/">数学基础之求最大公约数、最小公倍数</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/14/数学基础之求最大公约数/" class="archive-article-date">
+  	<time datetime="2017-03-14T11:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="用Java求最大公约数GCD"><a href="#用Java求最大公约数GCD" class="headerlink" title="用Java求最大公约数GCD"></a>用Java求最大公约数GCD</h1><h2 id="1011-最大公约数GCD"><a href="#1011-最大公约数GCD" class="headerlink" title="1011 最大公约数GCD"></a>1011 最大公约数GCD</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">long</span> A = cin.nextLong();</div><div class="line">        <span class="keyword">long</span> B = cin.nextLong();</div><div class="line">        System.out.println(gcd(A,B));</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">    * 辗转相除法：两个整数的最大公约数等于其中较小的数和两数的相除余数的最大公约数。</div><div class="line">    */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> m,<span class="keyword">long</span> n)</span></span>&#123;</div><div class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</div><div class="line">            <span class="keyword">if</span> ((m = m % n) == <span class="number">0</span>)</div><div class="line">                <span class="keyword">return</span> n;</div><div class="line">            <span class="keyword">if</span> ((n = n % m) == <span class="number">0</span>)</div><div class="line">                <span class="keyword">return</span> m;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="最小公倍数"><a href="#最小公倍数" class="headerlink" title="最小公倍数"></a>最小公倍数</h1><h2 id="1012-最小公倍数LCM"><a href="#1012-最小公倍数LCM" class="headerlink" title="1012 最小公倍数LCM"></a>1012 最小公倍数LCM</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">long</span> A = cin.nextLong();</div><div class="line">        <span class="keyword">long</span> B = cin.nextLong();</div><div class="line">        System.out.println(lcm(A,B));</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> m,<span class="keyword">long</span> n)</span></span>&#123;</div><div class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</div><div class="line">            <span class="keyword">if</span> ((m = m % n) == <span class="number">0</span>)</div><div class="line">                <span class="keyword">return</span> n;</div><div class="line">            <span class="keyword">if</span> ((n = n % m) == <span class="number">0</span>)</div><div class="line">                <span class="keyword">return</span> m;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">    * 在GCM基础上改动</div><div class="line">    * 最小公倍数 = n*m/最大公约数</div><div class="line">    */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">lcm</span><span class="params">(<span class="keyword">long</span> m,<span class="keyword">long</span> n)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> m*n/gcd(m,n);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数学</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/14/数学基础之求最大公约数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-算法之动态规划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/14/算法之动态规划/">算法之动态规划</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/14/算法之动态规划/" class="archive-article-date">
+  	<time datetime="2017-03-14T11:30:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1006-最长公共子序列LCS"><a href="#1006-最长公共子序列LCS" class="headerlink" title="1006 最长公共子序列LCS"></a>1006 最长公共子序列LCS</h1><p>给出两个字符串A B，求A与B的最长公共子序列（子序列不要求是连续的）。<br>比如两个串为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">abcicba</div><div class="line">abdkscab</div></pre></td></tr></table></figure>
+<p>ab是两个串的子序列，abc也是，abca也是，其中abca是这两个字符串最长的子序列。</p>
+<p>Input</p>
+<ul>
+<li>第1行：字符串A</li>
+<li>第2行：字符串B<br>(A,B的长度 &lt;= 1000)</li>
+</ul>
+<p>Output</p>
+<ul>
+<li>输出最长的子序列，如果有多个，随意输出1个。</li>
+</ul>
+<p>Input示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">abcicba</div><div class="line">abdkscab</div></pre></td></tr></table></figure>
+<p>Output示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">abca</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        String sA = cin.nextLine();</div><div class="line">        String sB = cin.nextLine();</div><div class="line">        <span class="keyword">char</span>[] A = sA.toCharArray();</div><div class="line">        <span class="keyword">char</span>[] B = sB.toCharArray();</div><div class="line"></div><div class="line">        <span class="keyword">int</span> len1 = A.length;</div><div class="line">        <span class="keyword">int</span> len2 = B.length;</div><div class="line">        <span class="keyword">int</span>[][] L = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1005</span>][<span class="number">1005</span>];</div><div class="line">        <span class="keyword">int</span>[][] M = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1005</span>][<span class="number">1005</span>];</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=len1;i++)&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j&lt;= len2;j++)&#123;</div><div class="line">                <span class="keyword">if</span> (A[i-<span class="number">1</span>]==B[j-<span class="number">1</span>])&#123;</div><div class="line">                    L[i][j] = L[i-<span class="number">1</span>][j-<span class="number">1</span>]+<span class="number">1</span>;</div><div class="line">                    M[i][j] = <span class="number">1</span>;</div><div class="line">                &#125;<span class="keyword">else</span> &#123;</div><div class="line">                    <span class="keyword">if</span> (L[i-<span class="number">1</span>][j] &gt;= L[i][j-<span class="number">1</span>])&#123;</div><div class="line">                        L[i][j] = L[i-<span class="number">1</span>][j];</div><div class="line">                        M[i][j] = <span class="number">2</span>;</div><div class="line">                    &#125;<span class="keyword">else</span> &#123;</div><div class="line">                        L[i][j] = L[i][j-<span class="number">1</span>];</div><div class="line">                        M[i][j] = <span class="number">3</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        LCS(M,len1,len2,A);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LCS</span><span class="params">(<span class="keyword">int</span>[][] M,<span class="keyword">int</span> i,<span class="keyword">int</span> j,<span class="keyword">char</span>[] x)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span> (i==<span class="number">0</span> || j==<span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="keyword">if</span> (M[i][j]==<span class="number">1</span>)&#123;</div><div class="line">            LCS(M,i-<span class="number">1</span>,j-<span class="number">1</span>,x);</div><div class="line">            System.out.print(x[i-<span class="number">1</span>]);</div><div class="line">        &#125;<span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span> (M[i][j] == <span class="number">2</span>)&#123;</div><div class="line">                LCS(M,i-<span class="number">1</span>,j,x);</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                LCS(M,i,j-<span class="number">1</span>,x);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="1049-最大子段和"><a href="#1049-最大子段和" class="headerlink" title="1049 最大子段和"></a>1049 最大子段和</h1><ul>
+<li>求和，每次判断和是否&gt;=0，若是，则加上a[i],否则sum=a[i],并更新最大值.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span>[] numbers = <span class="keyword">new</span> <span class="keyword">long</span>[<span class="number">50001</span>];</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">int</span> N = cin.nextInt();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;N;i++)&#123;</div><div class="line">            numbers[i] = cin.nextLong();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">long</span> max = -<span class="number">1</span>;</div><div class="line">        <span class="keyword">long</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;N;i++)&#123;</div><div class="line">            <span class="keyword">if</span> (sum &gt;= <span class="number">0</span>)&#123;</div><div class="line">                sum += numbers[i];</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                sum = numbers[i];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (sum &gt; max)&#123;</div><div class="line">                max = sum;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(max);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/14/算法之动态规划/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-机试笔记08Java中的表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -781,300 +923,9 @@
 
 
   
-    <article id="post-计算机网络笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/计算机网络笔记01/">计算机网络笔记01</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/计算机网络笔记01/" class="archive-article-date">
-  	<time datetime="2017-03-01T13:56:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第一章-概述"><a href="#第一章-概述" class="headerlink" title="第一章 概述"></a>第一章 概述</h1><ul>
-<li>1.三网：电信网络、有线电视网络、计算机网络</li>
-<li>2.起核心作用的是：计算机网络</li>
-<li>3.计算机网络：是计算机技术与通信技术相结合形成了一门新的技术，即计算机之间的数据通信</li>
-</ul>
-<h2 id="计算机网络发展的五大阶段"><a href="#计算机网络发展的五大阶段" class="headerlink" title="计算机网络发展的五大阶段"></a>计算机网络发展的五大阶段</h2><h3 id="面向终端的网络（1957-1968）"><a href="#面向终端的网络（1957-1968）" class="headerlink" title="面向终端的网络（1957 - 1968）"></a>面向终端的网络（1957 - 1968）</h3><h3 id="分组交换网络（1968-1984）"><a href="#分组交换网络（1968-1984）" class="headerlink" title="分组交换网络（1968 - 1984）"></a>分组交换网络（1968 - 1984）</h3><h3 id="网络体系结构的出现（1984-1986）"><a href="#网络体系结构的出现（1984-1986）" class="headerlink" title="网络体系结构的出现（1984 - 1986）"></a>网络体系结构的出现（1984 - 1986）</h3><h3 id="Internet的出现（1986-今）"><a href="#Internet的出现（1986-今）" class="headerlink" title="Internet的出现（1986 - 今）"></a>Internet的出现（1986 - 今）</h3><h3 id="新一代的计算机网络（ISDN）"><a href="#新一代的计算机网络（ISDN）" class="headerlink" title="新一代的计算机网络（ISDN）"></a>新一代的计算机网络（ISDN）</h3><h1 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h1><h3 id="电路交换必定是面向连接的"><a href="#电路交换必定是面向连接的" class="headerlink" title="电路交换必定是面向连接的"></a>电路交换必定是面向连接的</h3><h3 id="三个阶段"><a href="#三个阶段" class="headerlink" title="三个阶段"></a>三个阶段</h3><ul>
-<li>建立连接</li>
-<li>通信</li>
-<li>释放连接</li>
-</ul>
-<h1 id="分组交换网的工作原理"><a href="#分组交换网的工作原理" class="headerlink" title="分组交换网的工作原理"></a>分组交换网的工作原理</h1><ul>
-<li>子网划分： 通信子网和资源子网</li>
-<li>节点交换机工作方式： 存储转发</li>
-<li>在发送端，先把较长的报文划分成较短的、固定长度的数据段</li>
-<li>每一个数据段前面添加上首部构成分组</li>
-<li>分组交换网以“分组”作为数据传输单元</li>
-<li>依次把各分组发送到接收端</li>
-<li>接收端收到分组后剥去首部还原成报文</li>
-</ul>
-<h1 id="分组首部的重要性"><a href="#分组首部的重要性" class="headerlink" title="分组首部的重要性"></a>分组首部的重要性</h1><ul>
-<li>每一个分组的首部都含有地址等控制信息</li>
-<li>分组交换网中的节点交换机根据收到的分组的首部中的地址信息，把分组转发到下一个节点交换机</li>
-<li>用这样的存储转发方式，最后分组就能到达最终目的地</li>
-</ul>
-<h1 id="主机和结点交换机"><a href="#主机和结点交换机" class="headerlink" title="主机和结点交换机"></a>主机和结点交换机</h1><ul>
-<li>主机是为用户进行信息处理的，并向网络发送分组，从网络接收分组</li>
-<li>结点交换机对分组进行存储转发，最后把分组交付给目的主机</li>
-</ul>
-<h1 id="分组交换网"><a href="#分组交换网" class="headerlink" title="分组交换网"></a>分组交换网</h1><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
-<li>高效：动态或断续分配带宽</li>
-<li>灵活：每个节点具有智能，独立选择路由</li>
-<li>迅速：不太长的分组作为传输单位，每个节点能做出快速的处理</li>
-<li>可靠：分布式的通信子网和完善的网络协议<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
-<li>开销：分组携带信息带来的开销</li>
-<li>可靠：分组可能丢失的现象</li>
-<li>顺序：分组出现失序的现象</li>
-<li>时延：分组在存储转发时造成的时延</li>
-</ul>
-<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
-<li>把处在不同地理位置的独立计算机系统，用一定的通信设备和介质相连接，在完善的网络软件支持下，实现互相通信、资源共享，这样的多机系统称为计算机网络。</li>
-</ul>
-<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ul>
-<li>数据通信</li>
-<li>资源共享</li>
-<li>增强可靠性</li>
-<li>提高系统处理能力</li>
-</ul>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h4 id="从网络的交换功能进行分类"><a href="#从网络的交换功能进行分类" class="headerlink" title="从网络的交换功能进行分类"></a>从网络的交换功能进行分类</h4><ul>
-<li>电路交换<ul>
-<li>优点：时延小、透明传输</li>
-<li>缺点：网络资源利用率低</li>
-</ul>
-</li>
-<li>报文交换<ul>
-<li>优点：多路复用</li>
-<li>缺点：实时性差</li>
-</ul>
-</li>
-<li>分组交换<ul>
-<li>优点：多路复用</li>
-<li>缺点：实时性差</li>
-</ul>
-</li>
-<li>混合交换<h4 id="从网络的作用范围进行分类"><a href="#从网络的作用范围进行分类" class="headerlink" title="从网络的作用范围进行分类"></a>从网络的作用范围进行分类</h4></li>
-<li>广域网 WAN</li>
-<li>局域网 LAN</li>
-<li>城域网 MAN</li>
-<li>接入网 AN<h4 id="从网络的使用者进行分类"><a href="#从网络的使用者进行分类" class="headerlink" title="从网络的使用者进行分类"></a>从网络的使用者进行分类</h4></li>
-<li>公用网</li>
-<li>专用网<h4 id="从网络的拓扑结构进行分类"><a href="#从网络的拓扑结构进行分类" class="headerlink" title="从网络的拓扑结构进行分类"></a>从网络的拓扑结构进行分类</h4></li>
-<li>总线型</li>
-<li>星型</li>
-<li>环型</li>
-<li>网状<h4 id="从网络组件关系进行分类"><a href="#从网络组件关系进行分类" class="headerlink" title="从网络组件关系进行分类"></a>从网络组件关系进行分类</h4></li>
-<li>对等网</li>
-<li>基于服务器网络</li>
-</ul>
-<h2 id="主要性能指标"><a href="#主要性能指标" class="headerlink" title="主要性能指标"></a>主要性能指标</h2><h4 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h4><ul>
-<li>是数字信道所能传送的“最高数据率”的同义语，单位是“比特每秒”，或 b/s (bit/s)。<h4 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h4></li>
-<li>总时延 = 发送时延 + 传播时延 + 处理时延</li>
-</ul>
-<h2 id="体系结构形成"><a href="#体系结构形成" class="headerlink" title="体系结构形成"></a>体系结构形成</h2><h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><ul>
-<li>将复杂问题简单化</li>
-<li>各层之间是独立的</li>
-<li>结构上可分开</li>
-<li>灵活性好</li>
-<li>易于实现和维护</li>
-<li>能促进标准化的工作</li>
-</ul>
-<h4 id="分层的必要性"><a href="#分层的必要性" class="headerlink" title="分层的必要性"></a>分层的必要性</h4><ul>
-<li>计算机网络中的数据交换必须遵守事先约定好的规则。 </li>
-<li>这些规则明确规定了所交换的数据的格式以及有关的同步问题（同步含有时序的意思）。</li>
-<li>为进行网络中的数据交换而建立的规则、标准或约定即网络协议(network protocol)，简称为协议。  </li>
-</ul>
-<h2 id="五层协议的体系结构"><a href="#五层协议的体系结构" class="headerlink" title="五层协议的体系结构"></a>五层协议的体系结构</h2><ul>
-<li>应用层</li>
-<li>运输层</li>
-<li>网络层</li>
-<li>数据链路层</li>
-<li>物理层</li>
-</ul>
-<h4 id="实体、协议、服务和服务访问点"><a href="#实体、协议、服务和服务访问点" class="headerlink" title="实体、协议、服务和服务访问点"></a>实体、协议、服务和服务访问点</h4><ul>
-<li>实体(entity) 表示任何可发送或接收信息的硬件或软件进程。 </li>
-<li>协议是控制两个对等实体进行通信的规则的集合。 <ul>
-<li>协议是“水平的”</li>
-<li>服务是“垂直的”</li>
-</ul>
-</li>
-<li>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。</li>
-<li>要实现本层协议，还需要使用下层所提供的服务。 </li>
-<li>服务访问点：SAP 同一系统相邻两层的实体进行交互的地方</li>
-</ul>
-<h1 id="两种国际标准"><a href="#两种国际标准" class="headerlink" title="两种国际标准"></a>两种国际标准</h1><h2 id="OSI／RM"><a href="#OSI／RM" class="headerlink" title="OSI／RM"></a>OSI／RM</h2><h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h2><ul>
-<li>事实上的国际标准</li>
-</ul>
-<h2 id="面向连接服务"><a href="#面向连接服务" class="headerlink" title="面向连接服务"></a>面向连接服务</h2><h2 id="无连接服务"><a href="#无连接服务" class="headerlink" title="无连接服务"></a>无连接服务</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/计算机网络笔记01/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-OC学习之数学公式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/28/OC学习之数学公式/">OC学习之数学公式</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/28/OC学习之数学公式/" class="archive-article-date">
-  	<time datetime="2017-02-28T11:48:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1、-三角函数"><a href="#1、-三角函数" class="headerlink" title="1、 三角函数"></a>1、 三角函数</h1><ul>
-<li>double sin (double);正弦 </li>
-<li>double cos (double);余弦  </li>
-<li>double tan (double);正切  </li>
-</ul>
-<hr>
-<h1 id="2-、反三角函数"><a href="#2-、反三角函数" class="headerlink" title="2 、反三角函数　　"></a>2 、反三角函数　　</h1><ul>
-<li>double asin (double); 结果介于[-PI/2, PI/2] 　　</li>
-<li>double acos (double); 结果介于[0, PI]　　</li>
-<li>double atan (double); 反正切(主值), 结果介于[-PI/2, PI/2] 　　</li>
-<li>double atan2 (double, double); 反正切(整圆值), 结果介于[-PI, PI]</li>
-</ul>
-<hr>
-<h1 id="3-、双曲三角函数"><a href="#3-、双曲三角函数" class="headerlink" title="3 、双曲三角函数"></a>3 、双曲三角函数</h1><ul>
-<li>double sinh (double);　</li>
-<li>double cosh (double);  　　</li>
-<li>double tanh (double); 　　</li>
-</ul>
-<hr>
-<h1 id="4-、指数与对数"><a href="#4-、指数与对数" class="headerlink" title="4 、指数与对数　　"></a>4 、指数与对数　　</h1><ul>
-<li>double exp (double);求取自然数e的幂  　　</li>
-<li>double sqrt (double);开平方 　　</li>
-<li>double log (double); 以e为底的对数 　　</li>
-<li>double log10 (double);以10为底的对数 　　</li>
-<li>double pow(double x, double y;计算以x为底数的y次幂  　　</li>
-<li>float powf(float x, float y); 功能与pow一致，只是输入与输出皆为浮点数 </li>
-</ul>
-<hr>
-<h1 id="5-、取整"><a href="#5-、取整" class="headerlink" title="5 、取整　　"></a>5 、取整　　</h1><ul>
-<li>double ceil (double); 取上整 　　</li>
-<li>double floor (double); 取下整 </li>
-</ul>
-<hr>
-<h1 id="6-、绝对值"><a href="#6-、绝对值" class="headerlink" title="6 、绝对值 　　"></a>6 、绝对值 　　</h1><ul>
-<li>double fabs (double);求绝对值 　　</li>
-<li>double cabs(struct complex znum) ;求复数的绝对值 </li>
-</ul>
-<hr>
-<h1 id="7-、标准化浮点数"><a href="#7-、标准化浮点数" class="headerlink" title="7 、标准化浮点数　　"></a>7 、标准化浮点数　　</h1><ul>
-<li>double frexp (double f, int <em>p); 标准化浮点数, f = x </em> 2^p, 已知f求x, p ( x介于[0.5, 1] ) 　　</li>
-<li>double ldexp (double x, int p); 与frexp相反, 已知x, p求f </li>
-</ul>
-<hr>
-<h1 id="8-、取整与取余"><a href="#8-、取整与取余" class="headerlink" title="8 、取整与取余"></a>8 、取整与取余</h1><ul>
-<li>double modf (double, double*); 将参数的整数部分通过指针回传, 返回小数部分  </li>
-<li>double fmod (double, double); 返回两参数相除的余数  </li>
-</ul>
-<hr>
-<h1 id="9-、其他"><a href="#9-、其他" class="headerlink" title="9 、其他"></a>9 、其他</h1><ul>
-<li>double hypot(double x, double y);已知直角三角形两个直角边长度，求斜边长度　　</li>
-<li>double ldexp(double x, int exponent);计算x*(2的exponent次幂) 　　</li>
-<li>double poly(double x, int degree, double coeffs [] );计算多项式　　</li>
-<li>int matherr(struct exception *e);数学错误计算处理程序</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">iOS MAC Object-C</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/28/OC学习之数学公式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -1186,11 +1037,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1199,6 +1050,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1222,11 +1077,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
               </li>
             
             <div class="clearfix"></div>
