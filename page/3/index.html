@@ -158,6 +158,72 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-算法之归并" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/15/算法之归并/">算法之归并</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/15/算法之归并/" class="archive-article-date">
+  	<time datetime="2017-03-15T13:47:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1019-逆序数"><a href="#1019-逆序数" class="headerlink" title="1019 逆序数"></a>1019 逆序数</h1><ul>
+<li>在一个排列中，如果一对数的前后位置与大小顺序相反，即前面的数大于后面的数，那么它们就称为一个逆序。一个排列中逆序的总数就称为这个排列的逆序数。<br>如2 4 3 1中，2 1，4 3，4 1，3 1是逆序，逆序数是4。给出一个整数序列，求该序列的逆序数。</li>
+<li>解法：归并排序是将两个(或两个以上)有序表合并成一个新的有序表，即把待排序序列分为若干个子序列，每个子序列是有序的，然后再把有序的子序列合并为整体有序序列。归并排序是分治算法的一个典型的应用，而且是稳定的一种排序，这题利用归并排序的过程中，计算每个小区间的逆序数，进而得到大区间的逆序数。那么，问题就解决了</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> N = <span class="number">50005</span>;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span>[] a = <span class="keyword">new</span> <span class="keyword">long</span>[N];</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span>[] res = <span class="keyword">new</span> <span class="keyword">long</span>[N];</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(<span class="keyword">new</span> BufferedInputStream(System.in));</div><div class="line">        <span class="keyword">int</span> n = cin.nextInt();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=n;i++)&#123;</div><div class="line">            a[i] = cin.nextLong();</div><div class="line">        &#125;</div><div class="line">        ans = <span class="number">0</span>;</div><div class="line">        mer_sort(<span class="number">1</span>,n);</div><div class="line">        System.out.println(ans);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> mid = (left+right)&gt;&gt;<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> i = left,j = mid+<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> cur = left;</div><div class="line">        <span class="keyword">while</span>(i &lt;= mid &amp;&amp; j &lt;= right)&#123;</div><div class="line">            <span class="keyword">if</span>(a[i] &lt;= a[j])</div><div class="line">                res[cur++] = a[i++];</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                res[cur++] = a[j++];</div><div class="line">                ans += mid-i+<span class="number">1</span>;     <span class="comment">//找到逆序的个数</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(i &lt;= mid)  res[cur++] = a[i++];</div><div class="line">        <span class="keyword">while</span>(j &lt;= right)    res[cur++] = a[j++];</div><div class="line">        <span class="keyword">for</span>(i = left;i &lt;= right;i ++)   a[i] = res[i];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mer_sort</span><span class="params">(<span class="keyword">int</span> left ,<span class="keyword">int</span> right)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span> (left &lt; right)&#123;</div><div class="line">            <span class="keyword">int</span> mid = (left+right)&gt;&gt;<span class="number">1</span>;</div><div class="line">            mer_sort(left,mid);        <span class="comment">//分解</span></div><div class="line">            mer_sort(mid+<span class="number">1</span>,right);      <span class="comment">//分解</span></div><div class="line">            merge(left,right);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/15/算法之归并/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-数学基础之求最大公约数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -834,95 +900,6 @@
 
 
   
-    <article id="post-机试笔记01排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/07/机试笔记01排序/">机试笔记01排序</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/07/机试笔记01排序/" class="archive-article-date">
-  	<time datetime="2017-03-07T11:24:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#冒泡排序<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">int</span> buf[<span class="number">100</span>];</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)&#123;<span class="comment">//输入n,并实现多组数据输入</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n<span class="number">-1</span>-i; j++) &#123;</div><div class="line">                <span class="keyword">if</span> (buf[j]&gt;buf[j+<span class="number">1</span>]) &#123;</div><div class="line">                    <span class="keyword">int</span> tmp = buf[j];</div><div class="line">                    buf[j] = buf[j+<span class="number">1</span>];</div><div class="line">                    buf[j+<span class="number">1</span>] = tmp;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)</div></pre></td></tr></table></figure>
-<ul>
-<li>scanf函数是有返回值的，返回被输入函数成功复制的变量个数</li>
-<li>此例中，若成功对n赋值，返回值为1</li>
-<li>一般测试数据需要输入多组，需要对每组输入都输出相应答案</li>
-<li>当输入已经到达结尾，scanf函数无法再为n赋值，scanf返回EOF</li>
-</ul>
-<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>使用C++内置函数 sort</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123; <span class="comment">//定义排序规则</span></div><div class="line">    <span class="keyword">return</span> x&gt;y;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">int</span> buf[<span class="number">100</span>];</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;buf[i]);</div><div class="line">        &#125;</div><div class="line">            <span class="comment">//sort(buf,buf+n);//使用该重载形式，表明使用默认排序（递增）</span></div><div class="line">        sort(buf,buf+n,cmp);<span class="comment">//使用该重载形式，表明使用自定义规则</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>#成绩排序 利用sort</p>
-<ul>
-<li>题目描述</li>
-<li>N 个学生的数据，将学生数据按成绩高低排序，如果成绩相同则按姓名 字符的字母序排序，如果姓名的字母序也相同则按照学生的年龄排序，并输出 N 个学生排序后的信息。</li>
-<li>输入</li>
-<li>测试数据有多组，每组输入第一行有一个整数 N(N&lt;=1000)，接下来的 N 行包括 N 个学生的数据。每个学生的数据包括姓名(长度不超过 100 的字符串)、<br>年龄(整形数)、成绩(小于等于 100 的正数)。</li>
-<li>输出</li>
-<li>将学生信息按成绩进行排序，成绩相同的则按姓名的字母序进行排序。然后输出学生信息，按照如下格式:姓名 年龄 成绩</li>
-<li><p>样例输入：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3abc 20 99</div><div class="line">bcd 19 97 </div><div class="line">bed 20 97</div></pre></td></tr></table></figure>
-</li>
-<li><p>样例输出</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bcd 19 97 </div><div class="line">bed 20 97 </div><div class="line">abc 20 99</div></pre></td></tr></table></figure>
-</li>
-<li><p>提示</p>
-</li>
-<li>学生姓名的字母序区分字母的大小写，如 A 要比 a 的字母序靠前(因为 A 的 ASC 码比 a 的 ASC 码要小)。</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> E&#123;</div><div class="line">    <span class="keyword">char</span> name[<span class="number">101</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">int</span> score;</div><div class="line">    </div><div class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> E &amp;b) <span class="keyword">const</span>&#123;</div><div class="line">        <span class="comment">//重载小于运算符</span></div><div class="line">        <span class="keyword">if</span>(score != b.score) <span class="keyword">return</span> score &lt; b.score;</div><div class="line">        <span class="keyword">int</span> tmp = <span class="built_in">strcmp</span>(name, b.name);</div><div class="line">        <span class="keyword">if</span>(tmp != <span class="number">0</span>) <span class="keyword">return</span> tmp&lt;<span class="number">0</span>;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">return</span> age &lt; b.age;</div><div class="line">    &#125;</div><div class="line">&#125;buf[<span class="number">100</span>];</div><div class="line"></div><div class="line"><span class="comment">//bool cmp(E a,E b)&#123;</span></div><div class="line"><span class="comment">//    if (a.score != b.score) &#123;</span></div><div class="line"><span class="comment">//        return a.score &lt; b.score;</span></div><div class="line"><span class="comment">//    &#125;</span></div><div class="line"><span class="comment">//    int tmp = strcmp(a.name, b.name);</span></div><div class="line"><span class="comment">//    if (tmp != 0) &#123;</span></div><div class="line"><span class="comment">//        return tmp &lt; 0;</span></div><div class="line"><span class="comment">//    &#125;else&#123;</span></div><div class="line"><span class="comment">//        return a.age &lt; b.age;</span></div><div class="line"><span class="comment">//    &#125;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%s%d%d"</span>,buf[i].name,&amp;buf[i].age,&amp;buf[i].score);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//sort(buf, buf+n, cmp);</span></div><div class="line">        sort(buf,buf+n);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%s %d %d \n"</span>,buf[i].name,buf[i].age,buf[i].score);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/07/机试笔记01排序/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1045,15 +1022,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">iOS MAC Object-C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">iOS MAC Object-C</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1061,7 +1034,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1070,10 +1055,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

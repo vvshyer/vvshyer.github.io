@@ -158,6 +158,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-机试笔记01排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/07/机试笔记01排序/">机试笔记01排序</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/07/机试笔记01排序/" class="archive-article-date">
+  	<time datetime="2017-03-07T11:24:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#冒泡排序<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">int</span> buf[<span class="number">100</span>];</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)&#123;<span class="comment">//输入n,并实现多组数据输入</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n<span class="number">-1</span>-i; j++) &#123;</div><div class="line">                <span class="keyword">if</span> (buf[j]&gt;buf[j+<span class="number">1</span>]) &#123;</div><div class="line">                    <span class="keyword">int</span> tmp = buf[j];</div><div class="line">                    buf[j] = buf[j+<span class="number">1</span>];</div><div class="line">                    buf[j+<span class="number">1</span>] = tmp;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)</div></pre></td></tr></table></figure>
+<ul>
+<li>scanf函数是有返回值的，返回被输入函数成功复制的变量个数</li>
+<li>此例中，若成功对n赋值，返回值为1</li>
+<li>一般测试数据需要输入多组，需要对每组输入都输出相应答案</li>
+<li>当输入已经到达结尾，scanf函数无法再为n赋值，scanf返回EOF</li>
+</ul>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>使用C++内置函数 sort</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123; <span class="comment">//定义排序规则</span></div><div class="line">    <span class="keyword">return</span> x&gt;y;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">int</span> buf[<span class="number">100</span>];</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;buf[i]);</div><div class="line">        &#125;</div><div class="line">            <span class="comment">//sort(buf,buf+n);//使用该重载形式，表明使用默认排序（递增）</span></div><div class="line">        sort(buf,buf+n,cmp);<span class="comment">//使用该重载形式，表明使用自定义规则</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,buf[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>#成绩排序 利用sort</p>
+<ul>
+<li>题目描述</li>
+<li>N 个学生的数据，将学生数据按成绩高低排序，如果成绩相同则按姓名 字符的字母序排序，如果姓名的字母序也相同则按照学生的年龄排序，并输出 N 个学生排序后的信息。</li>
+<li>输入</li>
+<li>测试数据有多组，每组输入第一行有一个整数 N(N&lt;=1000)，接下来的 N 行包括 N 个学生的数据。每个学生的数据包括姓名(长度不超过 100 的字符串)、<br>年龄(整形数)、成绩(小于等于 100 的正数)。</li>
+<li>输出</li>
+<li>将学生信息按成绩进行排序，成绩相同的则按姓名的字母序进行排序。然后输出学生信息，按照如下格式:姓名 年龄 成绩</li>
+<li><p>样例输入：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3abc 20 99</div><div class="line">bcd 19 97 </div><div class="line">bed 20 97</div></pre></td></tr></table></figure>
+</li>
+<li><p>样例输出</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bcd 19 97 </div><div class="line">bed 20 97 </div><div class="line">abc 20 99</div></pre></td></tr></table></figure>
+</li>
+<li><p>提示</p>
+</li>
+<li>学生姓名的字母序区分字母的大小写，如 A 要比 a 的字母序靠前(因为 A 的 ASC 码比 a 的 ASC 码要小)。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> E&#123;</div><div class="line">    <span class="keyword">char</span> name[<span class="number">101</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">int</span> score;</div><div class="line">    </div><div class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> E &amp;b) <span class="keyword">const</span>&#123;</div><div class="line">        <span class="comment">//重载小于运算符</span></div><div class="line">        <span class="keyword">if</span>(score != b.score) <span class="keyword">return</span> score &lt; b.score;</div><div class="line">        <span class="keyword">int</span> tmp = <span class="built_in">strcmp</span>(name, b.name);</div><div class="line">        <span class="keyword">if</span>(tmp != <span class="number">0</span>) <span class="keyword">return</span> tmp&lt;<span class="number">0</span>;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">return</span> age &lt; b.age;</div><div class="line">    &#125;</div><div class="line">&#125;buf[<span class="number">100</span>];</div><div class="line"></div><div class="line"><span class="comment">//bool cmp(E a,E b)&#123;</span></div><div class="line"><span class="comment">//    if (a.score != b.score) &#123;</span></div><div class="line"><span class="comment">//        return a.score &lt; b.score;</span></div><div class="line"><span class="comment">//    &#125;</span></div><div class="line"><span class="comment">//    int tmp = strcmp(a.name, b.name);</span></div><div class="line"><span class="comment">//    if (tmp != 0) &#123;</span></div><div class="line"><span class="comment">//        return tmp &lt; 0;</span></div><div class="line"><span class="comment">//    &#125;else&#123;</span></div><div class="line"><span class="comment">//        return a.age &lt; b.age;</span></div><div class="line"><span class="comment">//    &#125;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%s%d%d"</span>,buf[i].name,&amp;buf[i].age,&amp;buf[i].score);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//sort(buf, buf+n, cmp);</span></div><div class="line">        sort(buf,buf+n);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%s %d %d \n"</span>,buf[i].name,buf[i].age,buf[i].score);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/07/机试笔记01排序/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-计算机网络笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -591,6 +680,138 @@
 
 
   
+    <article id="post-搭建FTP文件服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/22/搭建FTP文件服务/">搭建FTP文件服务</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/22/搭建FTP文件服务/" class="archive-article-date">
+  	<time datetime="2017-01-22T06:39:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-安装并启动FTP服务"><a href="#1-安装并启动FTP服务" class="headerlink" title="1.安装并启动FTP服务"></a>1.安装并启动FTP服务</h1><h2 id="安装VSFTPD"><a href="#安装VSFTPD" class="headerlink" title="安装VSFTPD"></a>安装VSFTPD</h2><p>使用yum安装vsftpd:<br><code>yum install vsftpd -y</code></p>
+<h2 id="启动VSFTPD"><a href="#启动VSFTPD" class="headerlink" title="启动VSFTPD"></a>启动VSFTPD</h2><p>安装完成后，启动FTP服务：<br><code>service vsftpd start</code><br>启动后，可以看到系统已经监听了21端口：<br><code>netstat -nltp | grep 21</code><br>此时，访问ftp://ip可浏览机器上的/var/ftp目录。</p>
+<h1 id="2-配置FTP权限"><a href="#2-配置FTP权限" class="headerlink" title="2.配置FTP权限"></a>2.配置FTP权限</h1><p>目前FTP服务登录允许匿名登录，也无法区分用户访问，我们需要配置FTP访问权限。</p>
+<h2 id="了解VSFTP配置"><a href="#了解VSFTP配置" class="headerlink" title="了解VSFTP配置"></a>了解VSFTP配置</h2><p>vsftpd 的配置目录为 /etc/vsftpd，包含下列的配置文件：</p>
+<ul>
+<li><code>vsftpd.conf</code> 为主要配置文件</li>
+<li><code>ftpusers</code> 配置禁止访问 FTP 服务器的用户列表</li>
+<li><code>user_list</code> 配置用户访问控制<br>阅读上述配置以了解更多信息。如果您准备好了，点击下一步开始修改配置来设置权限。<h2 id="阻止匿名访问和切换根目录"><a href="#阻止匿名访问和切换根目录" class="headerlink" title="阻止匿名访问和切换根目录"></a>阻止匿名访问和切换根目录</h2>匿名访问和切换根目录都会给服务器带来安全风险，我们把这两个功能关闭。编辑 /etc/vsftpd/vsftpd.conf，找到下面两处配置并修改：<br><code># 禁用匿名用户</code><br><code>anonymous_enable=NO</code><br><code># 禁止切换根目录</code><br><code>chroot_local_user=YES</code><br>编辑完成后，按 Ctrl + S 保存配置，重新启动 FTP 服务，如：<br><code>service vsftpd restart</code><h2 id="创建FTP用户"><a href="#创建FTP用户" class="headerlink" title="创建FTP用户"></a>创建FTP用户</h2>创建一个用户 ftpuser:<br><code>useradd ftpuser</code><br>为用户 ftpuser 设置密码:<br><code>echo &quot;NaOii3Qs | passwd ftpuser —stdin</code><h2 id="限制该用户仅能通过-FTP-访问"><a href="#限制该用户仅能通过-FTP-访问" class="headerlink" title="限制该用户仅能通过 FTP 访问"></a>限制该用户仅能通过 FTP 访问</h2>限制用户 ftpuser 只能通过 FTP 访问服务器，而不能直接登录服务器：<br><code>usermod -s /sbin/nologin ftpuser</code><h2 id="为用户分配主目录"><a href="#为用户分配主目录" class="headerlink" title="为用户分配主目录"></a>为用户分配主目录</h2>为用户 ftpuser 创建主目录并约定：<br>/data/ftp 为主目录, 该目录不可上传文件<br>/data/ftp/pub 文件只能上传到该目录下<br><code>mkdir -p /data/ftp/pub</code><br>创建登录欢迎文件 :<br><code>echo &quot;Welcome to use FTP service.&quot; &gt; /data/ftp/welcome.txt</code><br>设置访问权限：<br><code>chmod a-w /data/ftp &amp;&amp; chmod 777 -R /data/ftp/pub</code><br>设置为用户的主目录：<br><code>usermod -d /data/ftp ftpuser</code></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">FTP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/22/搭建FTP文件服务/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-无标题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/22/无标题/">算法学习之堆</a>
+    </h1>
+  
+
+        
+        <a href="/2015/07/22/无标题/" class="archive-article-date">
+  	<time datetime="2015-07-22T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序 Heap Sort"></a>堆排序 Heap Sort</h1><h2 id="堆和优先队列-Heap-and-Priority-Queue"><a href="#堆和优先队列-Heap-and-Priority-Queue" class="headerlink" title="堆和优先队列 Heap and Priority Queue"></a>堆和优先队列 Heap and Priority Queue</h2><h4 id="什么是优先队列？"><a href="#什么是优先队列？" class="headerlink" title="什么是优先队列？"></a>什么是优先队列？</h4><p>普通队列：先进先出，后进后出<br>优先队列：出队顺序和入队顺序无关，和优先级有关</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/07/22/无标题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Oracle学习之JDBC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -914,315 +1135,6 @@ Select rank() over(order by sal),emp.* from emp;
 
 
   
-    <article id="post-Oracle学习之DCL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/17/Oracle学习之DCL/">Oracle学习之DCL</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/17/Oracle学习之DCL/" class="archive-article-date">
-  	<time datetime="2015-01-17T05:24:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-oracle常用的用户："><a href="#1-oracle常用的用户：" class="headerlink" title="1.oracle常用的用户："></a>1.oracle常用的用户：</h1><pre><code>Sys：    系统管理员    创建数据库，启动数据库，关闭数据库
-System：    数据库管理员    数据库启动后，可以使用数据库的任何权限
-scott：    示例用户    
-</code></pre><h1 id="2-创建用户："><a href="#2-创建用户：" class="headerlink" title="2.创建用户："></a>2.创建用户：</h1><pre><code>Create user USER_NAME identified by PASSWORD;
-</code></pre><h1 id="3-oracle中权限的分类："><a href="#3-oracle中权限的分类：" class="headerlink" title="3.oracle中权限的分类："></a>3.oracle中权限的分类：</h1><pre><code>系统权限：    用户使用系统资源的权限，例如：登陆，创建表，修改表，创建函数等
-对象权限：    一个用户使用其他用户的资源，例如：利用scott来查询student用户的表
-</code></pre><h1 id="4-授权："><a href="#4-授权：" class="headerlink" title="4.授权："></a>4.授权：</h1><pre><code>Grant 权限 to 用户;
-Grant create session to student;
-</code></pre><h1 id="5-角色："><a href="#5-角色：" class="headerlink" title="5.角色："></a>5.角色：</h1><pre><code>即权限的组合（集合）
-常用的角色：
-    Connect    登陆
-    Resource    普通用户的常用权限的集合
-    dba    数据库管理员
-</code></pre><h1 id="6-撤销权限："><a href="#6-撤销权限：" class="headerlink" title="6.撤销权限："></a>6.撤销权限：</h1><pre><code>Revoke 权限 from 用户
-</code></pre><h1 id="7-对象权限："><a href="#7-对象权限：" class="headerlink" title="7.对象权限："></a>7.对象权限：</h1><pre><code>例如：
-    student能否删除，修改，查询scott.emp表
-Grant select/insert/all on emp to student;
-Revokde select/insert/all on emp from student;
-</code></pre><h1 id="8-事务："><a href="#8-事务：" class="headerlink" title="8.事务："></a>8.事务：</h1><pre><code>Transaction
-是用户自定义的一个操作序列，这个操作序列式一个最小的执行单元
-也就是说，要么全做，要么一个都不执行
-事务的四个特性：ACID
-原子性    最小的执行单位，不能再分
-一致性    执行前后，应该保持一致状态
-隔离性    多个事务之间，互不干扰
-持久性    一旦事务提交，不能回退
-</code></pre><h1 id="9-事务控制语句："><a href="#9-事务控制语句：" class="headerlink" title="9.事务控制语句："></a>9.事务控制语句：</h1><pre><code>Commit    提交
-Rollback    回退
-savepoint    设置保存点
-</code></pre><h1 id="10-事务所涉及的操作："><a href="#10-事务所涉及的操作：" class="headerlink" title="10.事务所涉及的操作："></a>10.事务所涉及的操作：</h1><pre><code>Update    
-Delete    
-Insert    
-</code></pre><h1 id="11-以下情况会提交事务："><a href="#11-以下情况会提交事务：" class="headerlink" title="11.以下情况会提交事务："></a>11.以下情况会提交事务：</h1><pre><code>手动commit提交
-正常退出sqlplus环境
-执行DDL语句
-执行DCL语句
-</code></pre><h1 id="12-解锁用户："><a href="#12-解锁用户：" class="headerlink" title="12.解锁用户："></a>12.解锁用户：</h1><pre><code>Alter user username account unlock;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/17/Oracle学习之DCL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之常用函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/16/Oracle学习之常用函数/">Oracle学习之常用函数</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/16/Oracle学习之常用函数/" class="archive-article-date">
-  	<time datetime="2015-01-16T10:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-常用函数"><a href="#1-常用函数" class="headerlink" title="1.常用函数"></a>1.常用函数</h1><pre><code>字符：
-    Lower：转小写       lower(&apos;Name&apos;);
-    Upper：转大写       upper(&apos;name&apos;);
-    Ltrim：去掉左空格
-    Rtrim：去掉右空格
-    Trim：去掉两边空格
-    Length：求长度
-    Instr：求字串的位置  instr(&apos;I love china&apos;,&apos;china&apos;)  : 8
-    Substr：截取子串  substr(&apos;I love&apos;,3,4) ：love
-    Lpad：左边填充指定字符  lpad(&apos;hello&apos;,7,&apos;*&apos;) : **hello
-    Rpad：右边填充指定字符
-    Initcap：将字符串每个首字母大写，其余转为小写
-数字：
-    Round：四舍五入  round(34.44)
-    Trunc：直接截断
-    mod：取余
-日期：
-    Months_between：两个日期之间的越差
-        Months_between(date1,date2);
-    Add_months：为日期增加几个月
-        Add_months(sysdate,4);
-    sysdate：返回当前时间
-    Last_day：当前日期所在月的最后一天的日期
-        Last_day(sysdate);
-    Next_day：指定日期后第一个星期几的日期
-        Next_day(sysdate,1);
-    日期直接+数字：代表加的是天数
-转换：
-    To_Date：将字符串转换成日期
-        To_date(&apos;19980908&apos;,&apos;yyyyMMdd&apos;);
-    To_char：将日期转换成字符串
-        To_char(sysdate,&apos;yyyy-MM-dd&apos;);
-    To_number：转换成数字
-        To_number(&apos; 1234&apos;,&apos;990000&apos;);
-其他：
-    nvl：对null进行处理的函数
-        Nvl(comm,0)：如果comm的值为空，返回0，否则，返回的还是comm的值
-    decode：解码，相当于if else语句
-</code></pre><h1 id="2-case语句："><a href="#2-case语句：" class="headerlink" title="2.case语句："></a>2.case语句：</h1><pre><code>可以在查询中进行判断，语法是：
-    Select 
-        Case
-            When 条件1 then 结果
-            When 条件2 then 结果
-            Else 结果3
-        End score,name from emp;    
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/16/Oracle学习之常用函数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之高级查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/15/Oracle学习之高级查询/">Oracle学习之高级查询</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/15/Oracle学习之高级查询/" class="archive-article-date">
-  	<time datetime="2015-01-15T10:29:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#1.表连接：<br>    内连接：<br>        (Oracle写法):select <em> from table_name,table_name2 [where 条件];<br>        (标准sql语法):select </em> from emp inner join dept on dept.deptno=emp.deptno;<br>        如果from后，加入多个表时，查询的结果应该是两个表中的乘积；(列的和，记录的积)<br>    外连接：<br>        左外连接：    以左边的表为准，将左表中的数据全都查询出来，如果右表没有对应的录，则在右表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept=dept.deptno(+);<br>            (标准sql语法)select </em> from emp left [outer] join dept on dept.deptno=emp.deptno;<br>        右外连接：    以右边的表为准，将右表中的数据全都查询出来，如果左表没有对应的录，则在左表的字段内显示null;<br>            (Oracle写法)select <em> from emp,dept where emp.dept(+)=dept.deptno;<br>            (标准sql语法)select </em> from emp right [outer] join dept on dept.deptno=emp.deptno;<br>        全外连接：    左右表中的数据都至少显示一次；<br>            (标准sql语法):select * from emp full [outer] join dept on dept.deptno=emp.deptno;</p>
-<h1 id="2-子查询-嵌套查询-："><a href="#2-子查询-嵌套查询-：" class="headerlink" title="2.子查询(嵌套查询)："></a>2.子查询(嵌套查询)：</h1><pre><code>    指一个查询中还包含另外一个查询体，也可以理解为，将一个查询结果作为另一个查询的查询条件；
-常用的谓词：
-    Any, all, in, not in
-    Exists 存在
-    select * from dept d where exists(sql查询); 
-    如果exists中的查询有记录，返回true，否则，返回false；
-实例：
-    --查询sales或者research部门的员工
-    select * from emp where deptno in (select deptno from dept where dname=&apos;SALES&apos; or dname=&apos;RESEARCH&apos;);
-    select * from dept;
-
-    --查询比平均工资高的员工信息
-    select * from emp where sal&gt;(select avg(sal) from emp);
-
-    --查询比20部门所有员工工资都高的员工信息
-    select * from emp where sal&lt;all(select sal from emp where deptno=30);
-    
-    --查询出没有员工的部门
-    1.select * from dept where deptno not in(
-        select distinct deptno from emp);
-    2.select * from dept d where not exists (select * from emp where d.deptno=emp.deptno);
-</code></pre><h1 id="3-集合查询："><a href="#3-集合查询：" class="headerlink" title="3.集合查询："></a>3.集合查询：</h1><pre><code>交，并，差
-要求：两个查询结果的列数一样，数据类型匹配
-Union [all]:    并 不排序
-Intersect:    交
-Minus:    差
-</code></pre><h1 id="4-递归查询-树查询-："><a href="#4-递归查询-树查询-：" class="headerlink" title="4.递归查询(树查询)："></a>4.递归查询(树查询)：</h1><pre><code>Connect by prior    后设置的是递归查询的连接条件
-Start with    后设置的是从哪个记录开始进行递归查询
-使用递归查询要求：
-    这个表中应该是一个自连接的表
-可以使用level这个伪列，来查询层级值
-
-实例：
-    select level,emp.* from emp connect by prior empno=mgr start with mgr is null;
-</code></pre><h1 id="5-两个伪列"><a href="#5-两个伪列" class="headerlink" title="5.两个伪列"></a>5.两个伪列</h1><pre><code>Rownum    行号 行号的算法不是先生成编号，而是满足条件后，才生成行号；
-        因此不能使用where rownum=2,rownum&gt;3这样的语法，这样不会查出任何记录
-Rowid    行的唯一标识    表空间     -&gt;段-&gt;区-&gt;块
-        比主键更唯一，在全局是唯一的
-</code></pre><h1 id="6-通过rownum可以实现Oracle的分页查询"><a href="#6-通过rownum可以实现Oracle的分页查询" class="headerlink" title="6.通过rownum可以实现Oracle的分页查询"></a>6.通过rownum可以实现Oracle的分页查询</h1><pre><code>实例：
-    select * from (
-        select rownum r,a.* from(
-        select * from emp order by sal desc) a 
-    where rownum&lt;11) b where b.r&lt;5;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/15/Oracle学习之高级查询/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1345,15 +1257,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">iOS MAC Object-C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">iOS MAC Object-C</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1361,7 +1269,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1370,10 +1290,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
