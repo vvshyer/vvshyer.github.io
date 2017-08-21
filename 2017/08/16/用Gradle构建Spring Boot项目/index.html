@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://vvshyer.com">
-  <title>算法学习之堆 | MineMine</title>
+  <title>用Gradle构建Spring Boot项目 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="堆排序 Heap Sort堆和优先队列 Heap and Priority Queue什么是优先队列？普通队列：先进先出，后进后出优先队列：出队顺序和入队顺序无关，和优先级有关">
+  <meta name="description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。
+创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法学习之堆">
-<meta property="og:url" content="https://vvshyer.com/2015/07/22/无标题/index.html">
+<meta property="og:title" content="用Gradle构建Spring Boot项目">
+<meta property="og:url" content="https://vvshyer.com/2017/08/16/用Gradle构建Spring Boot项目/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="堆排序 Heap Sort堆和优先队列 Heap and Priority Queue什么是优先队列？普通队列：先进先出，后进后出优先队列：出队顺序和入队顺序无关，和优先级有关">
-<meta property="og:updated_time" content="2017-07-27T04:56:00.232Z">
+<meta property="og:description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。
+创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
+<meta property="og:updated_time" content="2017-08-21T06:39:23.952Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="算法学习之堆">
-<meta name="twitter:description" content="堆排序 Heap Sort堆和优先队列 Heap and Priority Queue什么是优先队列？普通队列：先进先出，后进后出优先队列：出队顺序和入队顺序无关，和优先级有关">
+<meta name="twitter:title" content="用Gradle构建Spring Boot项目">
+<meta name="twitter:description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。
+创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -157,27 +160,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-无标题" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-用Gradle构建Spring Boot项目" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      算法学习之堆
+      用Gradle构建Spring Boot项目
     </h1>
   
 
         
-        <a href="/2015/07/22/无标题/" class="archive-article-date">
-  	<time datetime="2015-07-22T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-07-22</time>
+        <a href="/2017/08/16/用Gradle构建Spring Boot项目/" class="archive-article-date">
+  	<time datetime="2017-08-16T09:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序 Heap Sort"></a>堆排序 Heap Sort</h1><h2 id="堆和优先队列-Heap-and-Priority-Queue"><a href="#堆和优先队列-Heap-and-Priority-Queue" class="headerlink" title="堆和优先队列 Heap and Priority Queue"></a>堆和优先队列 Heap and Priority Queue</h2><h4 id="什么是优先队列？"><a href="#什么是优先队列？" class="headerlink" title="什么是优先队列？"></a>什么是优先队列？</h4><p>普通队列：先进先出，后进后出<br>优先队列：出队顺序和入队顺序无关，和优先级有关</p>
+        <p>相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。</p>
+<h1 id="创建Gradle工程"><a href="#创建Gradle工程" class="headerlink" title="创建Gradle工程"></a>创建Gradle工程</h1><p>Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是在本文中，我们将全部通过命令行操作创建Spring Boot工程。首先在命令行中创建如下目录结构：<br><figure class="highlight plain"><figcaption><span>src</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">`├── main</div><div class="line">│   └── java</div><div class="line">└── test</div><div class="line">└── java`</div><div class="line">`然后在src同级目录中添加一个build.gradle文件，内容如下：</div><div class="line">`apply plugin: &apos;java&apos;`</div><div class="line">大功告成，一个用Gradle构建的Java项目创建好了，尽情用以下命令编译并打包咱们的Java项目吧：</div><div class="line">`gradle build`</div><div class="line">只是现在咱们的Java项目还是一个空架子，不用急，在下文中我们将一步一步在这个空架子中搭建一个有血有肉的Spring Boot项目。</div><div class="line">值得一提的是，虽然此时的build.gradle文件中只有一行配置（apply plugin: &apos;java&apos;，作用是引入java插件），但是其背后已经帮我们做了很多事情，比如它使得我们能够运行gradle build命令。这里的build即为Gradle中的一个任务（Task），我们还可以运行以下命令查看到更多的Task。</div><div class="line">`gradle tasks`</div><div class="line">此时输出：</div></pre></td></tr></table></figure></p>
+<p>`…<br>Build tasks</p>
+<hr>
+<p>assemble - Assembles the outputs of this project.<br>build - Assembles and tests this project.<br>buildDependents - Assembles and tests this project and all projects that depend on it.<br>buildNeeded - Assembles and tests this project and all projects it depends on.<br>classes - Assembles main classes.<br>clean - Deletes the build directory.<br>jar - Assembles a jar archive containing the main classes.<br>testClasses - Assembles test classes.<br>…<br><code>
+</code>这里的assemble、build和jar等Task都是java插件引入的。build.gradle是Gradle的配置文件。</p>
+<h1 id="使用Gradle-Wrapper"><a href="#使用Gradle-Wrapper" class="headerlink" title="使用Gradle Wrapper"></a>使用Gradle Wrapper</h1><p>对于所有的Gradle项目来说，笔者都推荐使用Gradle Wrapper，甚至应该将其当做创建代码库之后的第一件事来做。使用Gradle Wrapper有以下好处：</p>
+<ol>
+<li>不用安装gradle也能运行gradle</li>
+<li>所有人使用相同的gradle版本<br>在build.gradle中加入以下配置：<figure class="highlight plain"><figcaption><span>wrapper(type: Wrapper) &#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">`gradleVersion = &apos;3.0&apos;</div><div class="line">&#125;`</div><div class="line">`然后在命令行运行：</div><div class="line">`gradle wrapper`</div><div class="line">此时会生成以下三个文件（夹）：gradlew、gradlew.bat和gradle目录。</div><div class="line">这里的gradlew和gradlew.bat其实只是脚本文件（前者用于Unix/Linux/Mac，后者用于Windows），在使用gradle命令的地方替换为gradlew或gradlew.bat，他们将自动下载指定的gradle版本，然后用该版本进行项目构建。如上文所示，本文中我们配置gradle版本为3.0。</div><div class="line">请注意，这三个文件（夹）都需要提交到代码库中。当项目其他人拿到代码之后，由于gradlew和gradlew.bat文件均在源代码中，他们本地即便没有gradle，依然可以通过以下命令进行项目构建：</div><div class="line">`./gradlew build`</div><div class="line">如果你的项目有持续集成（CI）服务器（你也应该有），那么你的CI机器也没有必要安装Gradle了。另外，此时所有人都是使用的相同版本的gradle，进而避免了由于版本不同所带来的问题。</div><div class="line"># 添加Spring Boot依赖</div><div class="line">在本文中，我们的业务非常简单———输出“Hello World！”。但是麻雀虽小，五脏俱全，首先需要在build.gradle中配置spring-boot插件，并引入Spring的Web组件，整个build.gradle如下：</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>`buildscript {<br>repositories {<br>jcenter()<br>}<br>dependencies {<br>classpath(“org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE”)<br>}<br>}</p>
+<p>repositories {<br>jcenter()<br>}</p>
+<p>apply plugin: ‘java’<br>apply plugin: ‘org.springframework.boot’</p>
+<p>sourceCompatibility = 1.8<br>targetCompatibility = 1.8</p>
+<p>task wrapper(type: Wrapper) {<br>gradleVersion = ‘3.0’<br>}</p>
+<p>dependencies {<br>compile(“org.springframework.boot:spring-boot-starter-web”)<br>testCompile(“org.springframework.boot:spring-boot-starter-test”)<br>}<code>
+</code>然后创建Application类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">`@SpringBootApplication</div><div class="line">public class Application &#123;</div><div class="line"></div><div class="line">public static void main(String[]() args) &#123;</div><div class="line">SpringApplication.run(Application.class, args);</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">`</div><div class="line">`依然很简单，是吧？！这个Application类便是Spring Boot程序的入口。另外我们还需要一个Controller和一个业务类HelloWorld：</div></pre></td></tr></table></figure></p>
+<p>`HelloWorldController:<br>@RestController(“/helloworld”)<br>public class HelloController {</p>
+<p>private HelloWorld helloWorld;</p>
+<p>public HelloController(HelloWorld helloWorld) {<br>this.helloWorld = helloWorld;<br>}</p>
+<p>@GetMapping<br>public String hello() {<br>return helloWorld.hello();<br>}<br>}<br>HelloWorld:<br>@Component<br>public class HelloWorld {</p>
+<p>public String hello() {<br>return “Hello World!”;<br>}<br>}<br><code>`此时工程的目录结构为：
+```
+</code>├── README.md<br>├── build.gradle<br>├── gradle<br>│   └── wrapper<br>│       ├── gradle-wrapper.jar<br>│       └── gradle-wrapper.properties<br>├── gradlew<br>├── gradlew.bat<br>└── src<br>├── main<br>│   └── java<br>│       └── davenkin<br>│           ├── Application.java<br>│           ├── HelloController.java<br>│           └── HelloWorld.java<br>└── test<br>└── java<br><code>`然后运行：</code>./gradlew bootRun`<br>在浏览器或者Postman中打开<em><a href="http://localhost:8080/gradle-spring-boot/helloworld" target="_blank" rel="external">http://localhost:8080/gradle-spring-boot/helloworld</a></em>，便可以看到久违的”Hello World！”了。</p>
 
       
 
@@ -222,7 +250,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Gradle</a>
         		</li>
       		
 		</ul>
@@ -278,7 +306,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2015/07/22/无标题/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://vvshyer.com/2017/08/16/用Gradle构建Spring Boot项目/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -292,18 +320,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/01/22/搭建FTP文件服务/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          搭建FTP文件服务
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/01/22/Oracle学习之JDBC/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Oracle学习之JDBC</div>
+    <a href="/2017/07/19/Spring Boot/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Boot</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -317,7 +336,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="无标题" data-title="算法学习之堆" data-url="https://vvshyer.com/2015/07/22/无标题/"></div>
+	<div class="ds-thread" data-thread-key="用Gradle构建Spring Boot项目" data-title="用Gradle构建Spring Boot项目" data-url="https://vvshyer.com/2017/08/16/用Gradle构建Spring Boot项目/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -446,15 +465,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,7 +477,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -470,7 +485,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -478,7 +493,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,6 +502,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

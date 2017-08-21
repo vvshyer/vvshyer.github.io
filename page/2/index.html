@@ -158,6 +158,389 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Hibernate_day02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/25/Hibernate_day02/">Hibernate框架02</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/25/Hibernate_day02/" class="archive-article-date">
+  	<time datetime="2017-03-25T13:25:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hibernate框架第二天"><a href="#Hibernate框架第二天" class="headerlink" title="Hibernate框架第二天"></a>Hibernate框架第二天</h2><hr>
+<p><strong>课程回顾：Hibernate框架的第一天</strong></p>
+<pre><code>1. Hibernate框架的概述：ORM
+2. 框架的入门的程序
+    * 编写映射的配置文件
+    * 编写核心的配置文件
+    * 编写程序
+
+3. 配置的文件
+4. 使用的接口和方法
+</code></pre><hr>
+<p><strong>今天内容</strong></p>
+<pre><code>1. Hibernate持久化对象的状态
+2. Hibernate的一级缓存
+3. Hibernate操作持久化对象的方法
+4. Hibernate的基本查询
+</code></pre><hr>
+<h3 id="Hibernate的持久化类"><a href="#Hibernate的持久化类" class="headerlink" title="Hibernate的持久化类"></a>Hibernate的持久化类</h3><hr>
+<p><strong>什么是持久化类</strong></p>
+<pre><code>1. 持久化类:就是一个Java类（咱们编写的JavaBean），这个Java类与表建立了映射关系就可以成为是持久化类。
+    * 持久化类 = JavaBean + xxx.hbm.xml
+</code></pre><hr>
+<p><strong>持久化类的编写规则</strong></p>
+<pre><code>1. 提供一个无参数 public访问控制符的构造器                -- 底层需要进行反射.
+2. 提供一个标识属性，映射数据表主键字段                    -- 唯一标识OID.数据库中通过主键.Java对象通过地址确定对象.持久化类通过唯一标识OID确定记录
+3. 所有属性提供public访问控制符的 set或者get 方法
+4. 标识属性应尽量使用基本数据类型的包装类型
+</code></pre><hr>
+<p><strong>区分自然主键和代理主键</strong></p>
+<pre><code>1. 创建表的时候
+    * 自然主键:对象本身的一个属性.创建一个人员表,每个人都有一个身份证号.(唯一的)使用身份证号作为表的主键.自然主键.（开发中不会使用这种方式）
+    * 代理主键:不是对象本身的一个属性.创建一个人员表,为每个人员单独创建一个字段.用这个字段作为主键.代理主键.（开发中推荐使用这种方式）
+
+2. 创建表的时候尽量使用代理主键创建表
+</code></pre><hr>
+<p><strong>主键的生成策略</strong></p>
+<pre><code>1. increment:适用于short,int,long作为主键.不是使用的数据库自动增长机制.
+    * Hibernate中提供的一种增长机制.
+        * 先进行查询    :select max(id) from user;
+        * 再进行插入    :获得最大值+1作为新的记录的主键.
+
+    * 问题:不能在集群环境下或者有并发访问的情况下使用.
+
+2. identity:适用于short,int,long作为主键。但是这个必须使用在有自动增长数据库中.采用的是数据库底层的自动增长机制.
+    * 底层使用的是数据库的自动增长(auto_increment).像Oracle数据库没有自动增长.
+
+3. sequence:适用于short,int,long作为主键.底层使用的是序列的增长方式.
+    * Oracle数据库底层没有自动增长,想自动增长需要使用序列.
+
+4. uuid:适用于char,varchar类型的作为主键.
+    * 使用随机的字符串作为主键.
+
+5. native:本地策略.根据底层的数据库不同,自动选择适用于该种数据库的生成策略.(short,int,long)
+    * 如果底层使用的MySQL数据库:相当于identity.
+    * 如果底层使用Oracle数据库:相当于sequence.
+
+6. assigned:主键的生成不用Hibernate管理了.必须手动设置主键.    
+</code></pre><hr>
+<h3 id="Hibernate持久化对象的状态"><a href="#Hibernate持久化对象的状态" class="headerlink" title="Hibernate持久化对象的状态"></a>Hibernate持久化对象的状态</h3><hr>
+<p><strong>持久化对象的状态</strong></p>
+<pre><code>1. Hibernate的持久化类
+    * 持久化类:Java类与数据库的某个表建立了映射关系.这个类就称为是持久化类.
+        * 持久化类 = Java类 + hbm的配置文件
+
+2. Hibernate的持久化类的状态
+    * Hibernate为了管理持久化类：将持久化类分成了三个状态
+        * 瞬时态:Transient  Object
+            * 没有持久化标识OID, 没有被纳入到Session对象的管理.
+
+        * 持久态:Persistent Object
+            * 有持久化标识OID,已经被纳入到Session对象的管理.
+
+        * 脱管态:Detached Object
+            * 有持久化标识OID,没有被纳入到Session对象的管理.
+</code></pre><hr>
+<p><strong>Hibernate持久化对象的状态的转换</strong></p>
+<pre><code>1. 瞬时态    -- 没有持久化标识OID, 没有被纳入到Session对象的管理
+    * 获得瞬时态的对象
+        * User user = new User()
+    * 瞬时态对象转换持久态
+        * save()/saveOrUpdate();
+    * 瞬时态对象转换成脱管态
+        * user.setId(1)
+
+2. 持久态    -- 有持久化标识OID,已经被纳入到Session对象的管理
+    * 获得持久态的对象
+        * get()/load();
+    * 持久态转换成瞬时态对象
+        * delete();  --- 比较有争议的，进入特殊的状态(删除态:Hibernate中不建议使用的)
+    * 持久态对象转成脱管态对象
+        * session的close()/evict()/clear();
+
+3. 脱管态    -- 有持久化标识OID,没有被纳入到Session对象的管理
+    * 获得托管态对象:不建议直接获得脱管态的对象.
+        * User user = new User();
+        * user.setId(1);
+    * 脱管态对象转换成持久态对象
+        * update();/saveOrUpdate()/lock();
+    * 脱管态对象转换成瞬时态对象
+        * user.setId(null);
+
+4. 注意：持久态对象有自动更新数据库的能力!!!
+</code></pre><p><img src="/assets/hibernate02/01-三个状态转换.bmp" alt="">    </p>
+<hr>
+<h3 id="Hibernate的一级缓存"><a href="#Hibernate的一级缓存" class="headerlink" title="Hibernate的一级缓存"></a>Hibernate的一级缓存</h3><hr>
+<p><strong>Session对象的一级缓存（重点）</strong></p>
+<pre><code>1. 什么是缓存？
+    * 其实就是一块内存空间,将数据源（数据库或者文件）中的数据存放到缓存中.再次获取的时候 ,直接从缓存中获取.可以提升程序的性能！
+
+2. Hibernate框架提供了两种缓存
+    * 一级缓存    -- 自带的不可卸载的.一级缓存的生命周期与session一致.一级缓存称为session级别的缓存.
+    * 二级缓存    -- 默认没有开启，需要手动配置才可以使用的.二级缓存可以在多个session中共享数据,二级缓存称为是sessionFactory级别的缓存.
+
+3. Session对象的缓存概述
+    * Session接口中,有一系列的java的集合,这些java集合构成了Session级别的缓存(一级缓存).将对象存入到一级缓存中,session没有结束生命周期,那么对象在session中存放着
+    * 内存中包含Session实例 --&gt; Session的缓存（一些集合） --&gt; 集合中包含的是缓存对象！
+
+4. 证明一级缓存的存在，编写查询的代码即可证明
+    * 在同一个Session对象中两次查询，可以证明使用了缓存
+
+5. Hibernate框架是如何做到数据发生变化时进行同步操作的呢？
+    * 使用get方法查询User对象
+    * 然后设置User对象的一个属性，注意：没有做update操作。发现，数据库中的记录也改变了。
+    * 利用快照机制来完成的（SnapShot）
+</code></pre><p><img src="/assets/hibernate02/02-Session的快照机制.bmp" alt="">    </p>
+<hr>
+<p><strong>控制Session的一级缓存（了解）</strong></p>
+<pre><code>1. 学习Session接口中与一级缓存相关的方法
+    * Session.clear()                        -- 清空缓存。
+    * Session.evict(Object entity)            -- 从一级缓存中清除指定的实体对象。
+    * Session.flush()                        -- 刷出缓存
+</code></pre><hr>
+<h3 id="Hibernate中的事务与并发"><a href="#Hibernate中的事务与并发" class="headerlink" title="Hibernate中的事务与并发"></a>Hibernate中的事务与并发</h3><hr>
+<p><strong>事务相关的概念</strong></p>
+<pre><code>1. 什么是事务
+    * 事务就是逻辑上的一组操作，组成事务的各个执行单元，操作要么全都成功，要么全都失败.
+    * 转账的例子：冠希给美美转钱，扣钱，加钱。两个操作组成了一个事情！
+
+2. 事务的特性
+    * 原子性    -- 事务不可分割.
+    * 一致性    -- 事务执行的前后数据的完整性保持一致.
+    * 隔离性    -- 一个事务执行的过程中,不应该受到其他的事务的干扰.
+    * 持久性    -- 事务一旦提交,数据就永久保持到数据库中.
+
+3. 如果不考虑隔离性:引发一些读的问题
+    * 脏读            -- 一个事务读到了另一个事务未提交的数据.
+    * 不可重复读    -- 一个事务读到了另一个事务已经提交的update数据,导致多次查询结果不一致.
+    * 虚读            -- 一个事务读到了另一个事务已经提交的insert数据,导致多次查询结构不一致.
+
+4. 通过设置数据库的隔离级别来解决上述读的问题
+    * 未提交读:以上的读的问题都有可能发生.
+    * 已提交读:避免脏读,但是不可重复读，虚读都有可能发生.
+    * 可重复读:避免脏读，不可重复读.但是虚读是有可能发生.
+    * 串行化:以上读的情况都可以避免.
+
+5. 如果想在Hibernate的框架中来设置隔离级别，需要在hibernate.cfg.xml的配置文件中通过标签来配置
+    * 通过：hibernate.connection.isolation = 4 来配置
+    * 取值
+        * 1—Read uncommitted isolation
+        * 2—Read committed isolation
+        * 4—Repeatable read isolation
+        * 8—Serializable isolation
+</code></pre><hr>
+<p><strong>丢失更新的问题</strong></p>
+<pre><code>1. 如果不考虑隔离性，也会产生写入数据的问题，这一类的问题叫丢失更新的问题。
+2. 例如：两个事务同时对某一条记录做修改，就会引发丢失更新的问题。
+    * A事务和B事务同时获取到一条数据，同时再做修改
+    * 如果A事务修改完成后，提交了事务
+    * B事务修改完成后，不管是提交还是回滚，如果不做处理，都会对数据产生影响
+
+3. 解决方案有两种
+    * 悲观锁
+        * 采用的是数据库提供的一种锁机制，如果采用做了这种机制，在SQL语句的后面添加 for update 子句
+            * 当A事务在操作该条记录时，会把该条记录锁起来，其他事务是不能操作这条记录的。
+            * 只有当A事务提交后，锁释放了，其他事务才能操作该条记录
+
+    * 乐观锁
+        * 采用版本号的机制来解决的。会给表结构添加一个字段version=0，默认值是0
+            * 当A事务在操作完该条记录，提交事务时，会先检查版本号，如果发生版本号的值相同时，才可以提交事务。同时会更新版本号version=1.
+            * 当B事务操作完该条记录时，提交事务时，会先检查版本号，如果发现版本不同时，程序会出现错误。
+
+4. 使用Hibernate框架解决丢失更新的问题
+    * 悲观锁
+        * 使用session.get(Customer.class, 1,LockMode.UPGRADE); 方法
+
+    * 乐观锁
+        * 1.在对应的JavaBean中添加一个属性，名称可以是任意的。例如：private Integer version; 提供get和set方法
+        * 2.在映射的配置文件中，提供&lt;version name=&quot;version&quot;/&gt;标签即可。
+</code></pre><p><img src="/assets/hibernate02/03-丢失更新.bmp" alt="">    </p>
+<hr>
+<p><strong>绑定本地的Session</strong></p>
+<pre><code>1. 之前在讲JavaWEB的事务的时候，需要在业务层使用Connection来开启事务，
+    * 一种是通过参数的方式传递下去
+    * 另一种是把Connection绑定到ThreadLocal对象中
+
+2. 现在的Hibernate框架中，使用session对象开启事务，所以需要来传递session对象，框架提供了ThreadLocal的方式
+    * 需要在hibernate.cfg.xml的配置文件中提供配置
+        * &lt;property name=&quot;hibernate.current_session_context_class&quot;&gt;thread&lt;/property&gt;
+
+    * 重新HibernateUtil的工具类，使用SessionFactory的getCurrentSession()方法，获取当前的Session对象。并且该Session对象不用手动关闭，线程结束了，会自动关闭。
+        public static Session getCurrentSession(){
+            return factory.getCurrentSession();
+        }
+
+    * 注意：想使用getCurrentSession()方法，必须要先配置才能使用。
+</code></pre><hr>
+<h3 id="Hibernate框架的查询方式"><a href="#Hibernate框架的查询方式" class="headerlink" title="Hibernate框架的查询方式"></a>Hibernate框架的查询方式</h3><hr>
+<p><strong>Query查询接口</strong></p>
+<pre><code>1. 具体的查询代码如下
+    // 1.查询所有记录
+    /*Query query = session.createQuery(&quot;from Customer&quot;);
+    List&lt;Customer&gt; list = query.list();
+    System.out.println(list);*/
+
+    // 2.条件查询:
+    /*Query query = session.createQuery(&quot;from Customer where name = ?&quot;);
+    query.setString(0, &quot;李健&quot;);
+    List&lt;Customer&gt; list = query.list();
+    System.out.println(list);*/
+
+    // 3.条件查询:
+    /*Query query = session.createQuery(&quot;from Customer where name = :aaa and age = :bbb&quot;);
+    query.setString(&quot;aaa&quot;, &quot;李健&quot;);
+    query.setInteger(&quot;bbb&quot;, 38);
+    List&lt;Customer&gt; list = query.list();
+    System.out.println(list);*/
+</code></pre><hr>
+<p><strong>Criteria查询接口（做条件查询非常合适）</strong></p>
+<pre><code>1. 具体的查询代码如下
+    // 1.查询所有记录
+    /*Criteria criteria = session.createCriteria(Customer.class);
+    List&lt;Customer&gt; list = criteria.list();
+    System.out.println(list);*/
+
+    // 2.条件查询
+    /*Criteria criteria = session.createCriteria(Customer.class);
+    criteria.add(Restrictions.eq(&quot;name&quot;, &quot;李健&quot;));
+    List&lt;Customer&gt; list = criteria.list();
+    System.out.println(list);*/
+
+    // 3.条件查询
+    /*Criteria criteria = session.createCriteria(Customer.class);
+    criteria.add(Restrictions.eq(&quot;name&quot;, &quot;李健&quot;));
+    criteria.add(Restrictions.eq(&quot;age&quot;, 38));
+    List&lt;Customer&gt; list = criteria.list();
+    System.out.println(list);*/
+</code></pre><hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hibernate</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/25/Hibernate_day02/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-程序员的数学" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/21/程序员的数学/">程序员的数学</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/21/程序员的数学/" class="archive-article-date">
+  	<time datetime="2017-03-21T12:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="乘方的思考题"><a href="#乘方的思考题" class="headerlink" title="乘方的思考题"></a>乘方的思考题</h1><h4 id="1234567的987654321次方-的个位数是什么？"><a href="#1234567的987654321次方-的个位数是什么？" class="headerlink" title="1234567的987654321次方 的个位数是什么？"></a>1234567的987654321次方 的个位数是什么？</h4><pre><code>1234567 0次方的个位 = 7的0次方 = 1
+1234567 1次方的个位 = 7的1次方 = 7
+1234567 2次方的个位 = 7的2次方 = 9
+1234567 3次方的个位 = 7的3次方 = 3
+1234567 4次方的个位 = 7的4次方 = 1
+1234567 5次方的个位 = 7的5次方 = 7
+1234567 6次方的个位 = 7的6次方 = 9
+1234567 7次方的个位 = 7的7次方 = 3
+1234567 8次方的个位 = 7的8次方 = 1
+</code></pre><ul>
+<li>发现规律：个位时1、7、9、3四个数字的循环</li>
+<li>用987654321 % 4 = 1, 所以答案为7</li>
+</ul>
+<p>##Tip: 运用余数将大数字问题简化为小数字问题</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数学</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/21/程序员的数学/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-数学基础之欧拉函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -300,6 +683,93 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/03/17/计算机网络笔记02/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-CCF之201612-3权限查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/16/CCF之201612-3权限查询/">CCF之201612-3权限查询</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/16/CCF之201612-3权限查询/" class="archive-article-date">
+  	<time datetime="2017-03-16T09:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="授权查询"><a href="#授权查询" class="headerlink" title="授权查询"></a>授权查询</h1><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>授权 (authorization) 是各类业务系统不可缺少的组成部分，系统用户通过授权机制获得系统中各个模块的操作权限。</p>
+<p>本题中的授权机制是这样设计的：每位用户具有若干角色，每种角色具有若干权限。例如，用户 david 具有 manager 角色，manager 角色有 crm:2 权限，则用户 david 具有 crm:2 权限，也就是 crm 类权限的第 2 等级的权限。</p>
+<p>具体地，用户名和角色名称都是由小写字母组成的字符串，长度不超过 32。权限分为分等级权限和不分等级权限两大类。分等级权限由权限类名和权限等级构成，中间用冒号“:”分隔。其中权限类名也是由小写字母组成的字符串，长度不超过 32。权限等级是一位数字，从 0 到 9，数字越大表示权限等级越高。系统规定如果用户具有某类某一等级的权限，那么他也将自动具有该类更低等级的权限。例如在上面的例子中，除 crm:2 外，用户 david 也具有 crm:1 和 crm:0 权限。不分等级权限在描述权限时只有权限类名，没有权限等级（也没有用于分隔的冒号）。</p>
+<p>给出系统中用户、角色和权限的描述信息，你的程序需要回答多个关于用户和权限的查询。查询可分为以下几类：</p>
+<ul>
+<li>不分等级权限的查询：如果权限本身是不分等级的，则查询时不指定等级，返回是否具有该权限；</li>
+<li>分等级权限的带等级查询：如果权限本身分等级，查询也带等级，则返回是否具有该类的该等级权限；</li>
+<li>分等级权限的不带等级查询：如果权限本身分等级，查询不带等级，则返回具有该类权限的等级；如果不具有该类的任何等级权限，则返回“否”。<br>输入格式</li>
+</ul>
+<p>输入第一行是一个正整数 p，表示不同的权限类别的数量。紧接着的 p 行被称为 P 段，每行一个字符串，描述各个权限。对于分等级权限，格式为 category:level，其中 category是权限类名，level&gt;是该类权限的最高等级。对于不分等级权限，字符串只包含权限类名。</p>
+<p>接下来一行是一个正整数 r，表示不同的角色数量。紧接着的 r 行被称为 R 段，每行描述一种角色，格式为</p>
+<pre><code>&lt;role&gt; &lt;s&gt; &lt;privilege 1&gt; &lt;privilege 2&gt; ... &lt;privilege s&gt;
+</code></pre><p>其中 role 是角色名称，s 表示该角色具有多少种权限。后面 s 个字符串描述该角色具有的权限，格式同 P 段。</p>
+<p>接下来一行是一个正整数 u，表示用户数量。紧接着的 u 行被称为 U 段，每行描述一个用户，格式为</p>
+<pre><code>&lt;user&gt; &lt;t&gt; &lt;role 1&gt; &lt;role 2&gt; ... &lt;role t&gt;
+</code></pre><p>其中 user 是用户名，t 表示该用户具有多少种角色。后面 t 个字符串描述该用户具有的角色。</p>
+<p>接下来一行是一个正整数 q，表示权限查询的数量。紧接着的 q 行被称为 Q 段，每行描述一个授权查询，格式为 user privilege，表示查询用户 user 是否具有 privilege 权限。如果查询的权限是分等级权限，则查询中的 privilege 可指定等级，表示查询该用户是否具有该等级的权限；也可以不指定等级，表示查询该用户具有该权限的等级。对于不分等级权限，只能查询该用户是否具有该权限，查询中不能指定等级。<br>输出格式</p>
+<p>输出共 q 行，每行为 false、true，或者一个数字。false 表示相应的用户不具有相应的权限，true 表示相应的用户具有相应的权限。对于分等级权限的不带等级查询，如果具有权限，则结果是一个数字，表示该用户具有该权限的（最高）等级。如果用户不存在，或者查询的权限没有定义，则应该返回 false。</p>
+<ul>
+<li>样例输入</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">3</div><div class="line">crm:2</div><div class="line">git:3</div><div class="line">game</div><div class="line">4</div><div class="line">hr 1 crm:2</div><div class="line">it 3 crm:1 git:1 game</div><div class="line">dev 2 git:3 game</div><div class="line">qa 1 git:2</div><div class="line">3</div><div class="line">alice 1 hr</div><div class="line">bob 2 it qa</div><div class="line">charlie 1 dev</div><div class="line">9</div><div class="line">alice game</div><div class="line">alice crm:2</div><div class="line">alice git:0</div><div class="line">bob git</div><div class="line">bob poweroff</div><div class="line">charlie game</div><div class="line">charlie crm</div><div class="line">charlie git:3</div><div class="line">malice game</div></pre></td></tr></table></figure>
+<ul>
+<li>样例输出</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">false</div><div class="line">true</div><div class="line">false</div><div class="line">2</div><div class="line">false</div><div class="line">true</div><div class="line">false</div><div class="line">true</div><div class="line">false</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.main;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line"></div><div class="line">        <span class="comment">//输入权限类别的数量</span></div><div class="line">        <span class="keyword">int</span> p = cin.nextInt();</div><div class="line">        Privi[] arrayPrivi = <span class="keyword">new</span> Privi[p];</div><div class="line">        <span class="comment">//输入各个权限</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p; i++) &#123;</div><div class="line">            arrayPrivi[i] = <span class="keyword">new</span> Privi(cin.next());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 输入角色数量</span></div><div class="line">        <span class="keyword">int</span> r = cin.nextInt();</div><div class="line">        Role[] arrayRole = <span class="keyword">new</span> Role[r];</div><div class="line">        <span class="comment">//输入每个角色信息</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r; i++) &#123;</div><div class="line">            String name = cin.next();   <span class="comment">//角色名</span></div><div class="line">            <span class="keyword">int</span> countrole = cin.nextInt(); <span class="comment">//角色拥有的权限数</span></div><div class="line">            Role ro = <span class="keyword">new</span> Role(name, countrole);</div><div class="line">            <span class="comment">//输入该角色具有的权限</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; countrole; j++) &#123;</div><div class="line">                ro.addPrivi(j, <span class="keyword">new</span> Privi(cin.next()));</div><div class="line">            &#125;</div><div class="line">            arrayRole[i] = ro;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//输入用户数量</span></div><div class="line">        <span class="keyword">int</span> u = cin.nextInt();</div><div class="line">        User[] arrayUser = <span class="keyword">new</span> User[u];</div><div class="line">        <span class="comment">//输入每个用户信息</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; u; i++) &#123;</div><div class="line">            String name = cin.next();   <span class="comment">//用户名</span></div><div class="line">            <span class="keyword">int</span> countrole = cin.nextInt(); <span class="comment">//用户拥有角色数</span></div><div class="line">            User us = <span class="keyword">new</span> User(name,countrole);</div><div class="line">            <span class="comment">//输入该用户具有的角色</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; countrole; j++) &#123;</div><div class="line">                us.addRole(j, roleFactory(arrayRole,cin.next()));</div><div class="line">            &#125;</div><div class="line">            arrayUser[i] = us;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//输入权限查询数量</span></div><div class="line">        <span class="keyword">int</span> q = cin.nextInt();</div><div class="line">        Query[] arrayQuery = <span class="keyword">new</span> Query[q];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; q; i++) &#123;</div><div class="line">            <span class="comment">//输入查询用户和是否具有的权限</span></div><div class="line">            arrayQuery[i] = <span class="keyword">new</span> Query(cin.next(),cin.next());</div><div class="line">        &#125;</div><div class="line">        cin.close();</div><div class="line"></div><div class="line">        <span class="comment">//查询</span></div><div class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">        <span class="keyword">for</span> (Query query : arrayQuery) &#123;</div><div class="line">            <span class="comment">//查询结果拼接</span></div><div class="line">            sb.append(check(query,arrayUser) + <span class="string">"\n"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//输出查询结果</span></div><div class="line">        System.out.println(sb.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//角色工厂，如果已存在该角色直接返回，否则返回null</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Role <span class="title">roleFactory</span><span class="params">(Role[] arrayRole,String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(Role role : arrayRole) &#123;</div><div class="line">            <span class="keyword">if</span>(name.equals(role.getName())) &#123;</div><div class="line">                <span class="keyword">return</span> role;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//查询</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">check</span><span class="params">(Query query,User[] arrayUser)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> flag = -<span class="number">3</span>;</div><div class="line">        String uname = query.qUserName;</div><div class="line">        Privi up = query.qPrivi;</div><div class="line">        <span class="keyword">for</span> (User user : arrayUser) &#123;</div><div class="line">            flag = -<span class="number">3</span>;</div><div class="line">            <span class="comment">//找是否存在该用户</span></div><div class="line">            <span class="keyword">if</span> (uname.equals(user.getName())) &#123;</div><div class="line">                Role[] userRoleArr = user.getRoleArray();</div><div class="line">                <span class="comment">//是否有该角色</span></div><div class="line">                <span class="keyword">for</span> (Role role : userRoleArr) &#123;</div><div class="line">                    Privi[] userRolePriviArr = role.getPriviArray();</div><div class="line">                    <span class="comment">//是否有该权限，取权限最高级</span></div><div class="line">                    <span class="keyword">for</span> (Privi privi : userRolePriviArr) &#123;</div><div class="line">                        <span class="keyword">int</span> temp = up.equals(privi);</div><div class="line">                        flag = (temp &gt; flag) ? temp : flag;</div><div class="line">                        <span class="keyword">if</span>(flag == -<span class="number">1</span>) <span class="keyword">return</span> <span class="string">"true"</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (flag == -<span class="number">2</span> || flag == -<span class="number">3</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">"false"</span>;</div><div class="line">        &#125; <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> flag + <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Query</span> </span>&#123;</div><div class="line">        <span class="keyword">public</span> String qUserName;</div><div class="line">        <span class="keyword">public</span> Privi qPrivi;</div><div class="line">        Query(String username, String Priviname) &#123;</div><div class="line">            <span class="keyword">this</span>.qUserName = username;</div><div class="line">            <span class="keyword">this</span>.qPrivi = <span class="keyword">new</span> Privi(Priviname);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Privi</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> level;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Privi</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Privi</span><span class="params">(String per)</span> </span>&#123;</div><div class="line">        String[] p = per.split(<span class="string">":"</span>);</div><div class="line">        <span class="keyword">if</span> (p.length == <span class="number">1</span>) &#123;</div><div class="line">            Privi.<span class="keyword">this</span>.name = p[<span class="number">0</span>];</div><div class="line">            Privi.<span class="keyword">this</span>.level = -<span class="number">1</span>;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.length == <span class="number">2</span>) &#123;</div><div class="line">            Privi.<span class="keyword">this</span>.name = p[<span class="number">0</span>];</div><div class="line">            Privi.<span class="keyword">this</span>.level = Integer.parseInt(p[<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = s;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLevel</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.level;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLevel</span><span class="params">(<span class="keyword">int</span> l)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.level = l;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">equals</span><span class="params">(Privi p)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.name.equals(p.getName())) &#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.level == -<span class="number">1</span> &amp;&amp; <span class="keyword">this</span>.level &lt; p.getLevel())</div><div class="line">                <span class="keyword">return</span> p.getLevel();</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.level == -<span class="number">1</span> &amp;&amp; p.getLevel() == -<span class="number">1</span>)</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;<span class="comment">//bufendengji</span></div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.level != -<span class="number">1</span> &amp;&amp; <span class="keyword">this</span>.level &lt;= p.getLevel() )</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;<span class="comment">//fendengji</span></div><div class="line">            <span class="keyword">else</span></div><div class="line">                <span class="keyword">return</span> -<span class="number">2</span>; <span class="comment">//</span></div><div class="line">        &#125; <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> -<span class="number">2</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name +(<span class="keyword">this</span>.level != -<span class="number">1</span> ? (<span class="string">":"</span> + <span class="keyword">this</span>.level) : <span class="string">""</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> countPrivi;</div><div class="line">    <span class="keyword">private</span> Privi[] arrPrivi;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Role</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Role</span><span class="params">(String n,<span class="keyword">int</span> count)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = n;</div><div class="line">        <span class="keyword">this</span>.countPrivi = count;</div><div class="line">        <span class="keyword">this</span>.arrPrivi = <span class="keyword">new</span> Privi[count];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = s;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPriviCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrPrivi.length;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> Privi[] getPriviArray() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrPrivi;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addPrivi</span><span class="params">(<span class="keyword">int</span> n,Privi p)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.arrPrivi[n] = p;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        String s = <span class="keyword">this</span>.name + <span class="string">"~"</span> ;</div><div class="line">        <span class="keyword">for</span>(Privi p : <span class="keyword">this</span>.arrPrivi) &#123;</div><div class="line">            s += p.toString() + <span class="string">"+"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> countRole;</div><div class="line">    <span class="keyword">private</span> Role[] arrRole;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name, <span class="keyword">int</span> count)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.countRole = count;</div><div class="line">        <span class="keyword">this</span>.arrRole = <span class="keyword">new</span> Role[count];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> Role[] getRoleArray() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrRole;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addRole</span><span class="params">(<span class="keyword">int</span> n, Role role)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.arrRole[n] = role;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        String s = name + <span class="string">"~"</span>;</div><div class="line">        <span class="keyword">for</span>(Role role : arrRole) &#123;</div><div class="line">            s += role.toString() + <span class="string">"+"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CCF</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/16/CCF之201612-3权限查询/">展开全文 >></a>
         </p>
       
 
@@ -781,93 +1251,6 @@
 
 
   
-    <article id="post-CCF之201612-3权限查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/CCF之201612-3权限查询/">CCF之201612-3权限查询</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/16/CCF之201612-3权限查询/" class="archive-article-date">
-  	<time datetime="2017-03-16T09:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="授权查询"><a href="#授权查询" class="headerlink" title="授权查询"></a>授权查询</h1><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>授权 (authorization) 是各类业务系统不可缺少的组成部分，系统用户通过授权机制获得系统中各个模块的操作权限。</p>
-<p>本题中的授权机制是这样设计的：每位用户具有若干角色，每种角色具有若干权限。例如，用户 david 具有 manager 角色，manager 角色有 crm:2 权限，则用户 david 具有 crm:2 权限，也就是 crm 类权限的第 2 等级的权限。</p>
-<p>具体地，用户名和角色名称都是由小写字母组成的字符串，长度不超过 32。权限分为分等级权限和不分等级权限两大类。分等级权限由权限类名和权限等级构成，中间用冒号“:”分隔。其中权限类名也是由小写字母组成的字符串，长度不超过 32。权限等级是一位数字，从 0 到 9，数字越大表示权限等级越高。系统规定如果用户具有某类某一等级的权限，那么他也将自动具有该类更低等级的权限。例如在上面的例子中，除 crm:2 外，用户 david 也具有 crm:1 和 crm:0 权限。不分等级权限在描述权限时只有权限类名，没有权限等级（也没有用于分隔的冒号）。</p>
-<p>给出系统中用户、角色和权限的描述信息，你的程序需要回答多个关于用户和权限的查询。查询可分为以下几类：</p>
-<ul>
-<li>不分等级权限的查询：如果权限本身是不分等级的，则查询时不指定等级，返回是否具有该权限；</li>
-<li>分等级权限的带等级查询：如果权限本身分等级，查询也带等级，则返回是否具有该类的该等级权限；</li>
-<li>分等级权限的不带等级查询：如果权限本身分等级，查询不带等级，则返回具有该类权限的等级；如果不具有该类的任何等级权限，则返回“否”。<br>输入格式</li>
-</ul>
-<p>输入第一行是一个正整数 p，表示不同的权限类别的数量。紧接着的 p 行被称为 P 段，每行一个字符串，描述各个权限。对于分等级权限，格式为 category:level，其中 category是权限类名，level&gt;是该类权限的最高等级。对于不分等级权限，字符串只包含权限类名。</p>
-<p>接下来一行是一个正整数 r，表示不同的角色数量。紧接着的 r 行被称为 R 段，每行描述一种角色，格式为</p>
-<pre><code>&lt;role&gt; &lt;s&gt; &lt;privilege 1&gt; &lt;privilege 2&gt; ... &lt;privilege s&gt;
-</code></pre><p>其中 role 是角色名称，s 表示该角色具有多少种权限。后面 s 个字符串描述该角色具有的权限，格式同 P 段。</p>
-<p>接下来一行是一个正整数 u，表示用户数量。紧接着的 u 行被称为 U 段，每行描述一个用户，格式为</p>
-<pre><code>&lt;user&gt; &lt;t&gt; &lt;role 1&gt; &lt;role 2&gt; ... &lt;role t&gt;
-</code></pre><p>其中 user 是用户名，t 表示该用户具有多少种角色。后面 t 个字符串描述该用户具有的角色。</p>
-<p>接下来一行是一个正整数 q，表示权限查询的数量。紧接着的 q 行被称为 Q 段，每行描述一个授权查询，格式为 user privilege，表示查询用户 user 是否具有 privilege 权限。如果查询的权限是分等级权限，则查询中的 privilege 可指定等级，表示查询该用户是否具有该等级的权限；也可以不指定等级，表示查询该用户具有该权限的等级。对于不分等级权限，只能查询该用户是否具有该权限，查询中不能指定等级。<br>输出格式</p>
-<p>输出共 q 行，每行为 false、true，或者一个数字。false 表示相应的用户不具有相应的权限，true 表示相应的用户具有相应的权限。对于分等级权限的不带等级查询，如果具有权限，则结果是一个数字，表示该用户具有该权限的（最高）等级。如果用户不存在，或者查询的权限没有定义，则应该返回 false。</p>
-<ul>
-<li>样例输入</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">3</div><div class="line">crm:2</div><div class="line">git:3</div><div class="line">game</div><div class="line">4</div><div class="line">hr 1 crm:2</div><div class="line">it 3 crm:1 git:1 game</div><div class="line">dev 2 git:3 game</div><div class="line">qa 1 git:2</div><div class="line">3</div><div class="line">alice 1 hr</div><div class="line">bob 2 it qa</div><div class="line">charlie 1 dev</div><div class="line">9</div><div class="line">alice game</div><div class="line">alice crm:2</div><div class="line">alice git:0</div><div class="line">bob git</div><div class="line">bob poweroff</div><div class="line">charlie game</div><div class="line">charlie crm</div><div class="line">charlie git:3</div><div class="line">malice game</div></pre></td></tr></table></figure>
-<ul>
-<li>样例输出</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">false</div><div class="line">true</div><div class="line">false</div><div class="line">2</div><div class="line">false</div><div class="line">true</div><div class="line">false</div><div class="line">true</div><div class="line">false</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.main;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line"></div><div class="line">        <span class="comment">//输入权限类别的数量</span></div><div class="line">        <span class="keyword">int</span> p = cin.nextInt();</div><div class="line">        Privi[] arrayPrivi = <span class="keyword">new</span> Privi[p];</div><div class="line">        <span class="comment">//输入各个权限</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p; i++) &#123;</div><div class="line">            arrayPrivi[i] = <span class="keyword">new</span> Privi(cin.next());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 输入角色数量</span></div><div class="line">        <span class="keyword">int</span> r = cin.nextInt();</div><div class="line">        Role[] arrayRole = <span class="keyword">new</span> Role[r];</div><div class="line">        <span class="comment">//输入每个角色信息</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r; i++) &#123;</div><div class="line">            String name = cin.next();   <span class="comment">//角色名</span></div><div class="line">            <span class="keyword">int</span> countrole = cin.nextInt(); <span class="comment">//角色拥有的权限数</span></div><div class="line">            Role ro = <span class="keyword">new</span> Role(name, countrole);</div><div class="line">            <span class="comment">//输入该角色具有的权限</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; countrole; j++) &#123;</div><div class="line">                ro.addPrivi(j, <span class="keyword">new</span> Privi(cin.next()));</div><div class="line">            &#125;</div><div class="line">            arrayRole[i] = ro;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//输入用户数量</span></div><div class="line">        <span class="keyword">int</span> u = cin.nextInt();</div><div class="line">        User[] arrayUser = <span class="keyword">new</span> User[u];</div><div class="line">        <span class="comment">//输入每个用户信息</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; u; i++) &#123;</div><div class="line">            String name = cin.next();   <span class="comment">//用户名</span></div><div class="line">            <span class="keyword">int</span> countrole = cin.nextInt(); <span class="comment">//用户拥有角色数</span></div><div class="line">            User us = <span class="keyword">new</span> User(name,countrole);</div><div class="line">            <span class="comment">//输入该用户具有的角色</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; countrole; j++) &#123;</div><div class="line">                us.addRole(j, roleFactory(arrayRole,cin.next()));</div><div class="line">            &#125;</div><div class="line">            arrayUser[i] = us;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//输入权限查询数量</span></div><div class="line">        <span class="keyword">int</span> q = cin.nextInt();</div><div class="line">        Query[] arrayQuery = <span class="keyword">new</span> Query[q];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; q; i++) &#123;</div><div class="line">            <span class="comment">//输入查询用户和是否具有的权限</span></div><div class="line">            arrayQuery[i] = <span class="keyword">new</span> Query(cin.next(),cin.next());</div><div class="line">        &#125;</div><div class="line">        cin.close();</div><div class="line"></div><div class="line">        <span class="comment">//查询</span></div><div class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">        <span class="keyword">for</span> (Query query : arrayQuery) &#123;</div><div class="line">            <span class="comment">//查询结果拼接</span></div><div class="line">            sb.append(check(query,arrayUser) + <span class="string">"\n"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//输出查询结果</span></div><div class="line">        System.out.println(sb.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//角色工厂，如果已存在该角色直接返回，否则返回null</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Role <span class="title">roleFactory</span><span class="params">(Role[] arrayRole,String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(Role role : arrayRole) &#123;</div><div class="line">            <span class="keyword">if</span>(name.equals(role.getName())) &#123;</div><div class="line">                <span class="keyword">return</span> role;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//查询</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">check</span><span class="params">(Query query,User[] arrayUser)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> flag = -<span class="number">3</span>;</div><div class="line">        String uname = query.qUserName;</div><div class="line">        Privi up = query.qPrivi;</div><div class="line">        <span class="keyword">for</span> (User user : arrayUser) &#123;</div><div class="line">            flag = -<span class="number">3</span>;</div><div class="line">            <span class="comment">//找是否存在该用户</span></div><div class="line">            <span class="keyword">if</span> (uname.equals(user.getName())) &#123;</div><div class="line">                Role[] userRoleArr = user.getRoleArray();</div><div class="line">                <span class="comment">//是否有该角色</span></div><div class="line">                <span class="keyword">for</span> (Role role : userRoleArr) &#123;</div><div class="line">                    Privi[] userRolePriviArr = role.getPriviArray();</div><div class="line">                    <span class="comment">//是否有该权限，取权限最高级</span></div><div class="line">                    <span class="keyword">for</span> (Privi privi : userRolePriviArr) &#123;</div><div class="line">                        <span class="keyword">int</span> temp = up.equals(privi);</div><div class="line">                        flag = (temp &gt; flag) ? temp : flag;</div><div class="line">                        <span class="keyword">if</span>(flag == -<span class="number">1</span>) <span class="keyword">return</span> <span class="string">"true"</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (flag == -<span class="number">2</span> || flag == -<span class="number">3</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">"false"</span>;</div><div class="line">        &#125; <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> flag + <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Query</span> </span>&#123;</div><div class="line">        <span class="keyword">public</span> String qUserName;</div><div class="line">        <span class="keyword">public</span> Privi qPrivi;</div><div class="line">        Query(String username, String Priviname) &#123;</div><div class="line">            <span class="keyword">this</span>.qUserName = username;</div><div class="line">            <span class="keyword">this</span>.qPrivi = <span class="keyword">new</span> Privi(Priviname);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Privi</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> level;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Privi</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Privi</span><span class="params">(String per)</span> </span>&#123;</div><div class="line">        String[] p = per.split(<span class="string">":"</span>);</div><div class="line">        <span class="keyword">if</span> (p.length == <span class="number">1</span>) &#123;</div><div class="line">            Privi.<span class="keyword">this</span>.name = p[<span class="number">0</span>];</div><div class="line">            Privi.<span class="keyword">this</span>.level = -<span class="number">1</span>;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.length == <span class="number">2</span>) &#123;</div><div class="line">            Privi.<span class="keyword">this</span>.name = p[<span class="number">0</span>];</div><div class="line">            Privi.<span class="keyword">this</span>.level = Integer.parseInt(p[<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = s;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLevel</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.level;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLevel</span><span class="params">(<span class="keyword">int</span> l)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.level = l;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">equals</span><span class="params">(Privi p)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.name.equals(p.getName())) &#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.level == -<span class="number">1</span> &amp;&amp; <span class="keyword">this</span>.level &lt; p.getLevel())</div><div class="line">                <span class="keyword">return</span> p.getLevel();</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.level == -<span class="number">1</span> &amp;&amp; p.getLevel() == -<span class="number">1</span>)</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;<span class="comment">//bufendengji</span></div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.level != -<span class="number">1</span> &amp;&amp; <span class="keyword">this</span>.level &lt;= p.getLevel() )</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;<span class="comment">//fendengji</span></div><div class="line">            <span class="keyword">else</span></div><div class="line">                <span class="keyword">return</span> -<span class="number">2</span>; <span class="comment">//</span></div><div class="line">        &#125; <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> -<span class="number">2</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name +(<span class="keyword">this</span>.level != -<span class="number">1</span> ? (<span class="string">":"</span> + <span class="keyword">this</span>.level) : <span class="string">""</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> countPrivi;</div><div class="line">    <span class="keyword">private</span> Privi[] arrPrivi;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Role</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Role</span><span class="params">(String n,<span class="keyword">int</span> count)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = n;</div><div class="line">        <span class="keyword">this</span>.countPrivi = count;</div><div class="line">        <span class="keyword">this</span>.arrPrivi = <span class="keyword">new</span> Privi[count];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = s;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPriviCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrPrivi.length;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> Privi[] getPriviArray() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrPrivi;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addPrivi</span><span class="params">(<span class="keyword">int</span> n,Privi p)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.arrPrivi[n] = p;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        String s = <span class="keyword">this</span>.name + <span class="string">"~"</span> ;</div><div class="line">        <span class="keyword">for</span>(Privi p : <span class="keyword">this</span>.arrPrivi) &#123;</div><div class="line">            s += p.toString() + <span class="string">"+"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> countRole;</div><div class="line">    <span class="keyword">private</span> Role[] arrRole;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name, <span class="keyword">int</span> count)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.countRole = count;</div><div class="line">        <span class="keyword">this</span>.arrRole = <span class="keyword">new</span> Role[count];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> Role[] getRoleArray() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.arrRole;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addRole</span><span class="params">(<span class="keyword">int</span> n, Role role)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.arrRole[n] = role;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        String s = name + <span class="string">"~"</span>;</div><div class="line">        <span class="keyword">for</span>(Role role : arrRole) &#123;</div><div class="line">            s += role.toString() + <span class="string">"+"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CCF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/16/CCF之201612-3权限查询/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
     <article id="post-算法之最长回文串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1201,167 +1584,6 @@
 
 
   
-    <article id="post-算法之博弈论初探" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/15/算法之博弈论初探/">算法之博弈论初探</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/15/算法之博弈论初探/" class="archive-article-date">
-  	<time datetime="2017-03-15T13:56:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1066-Bash游戏"><a href="#1066-Bash游戏" class="headerlink" title="1066 Bash游戏"></a>1066 Bash游戏</h1><h4 id="有一堆石子共有N个。A-B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。"><a href="#有一堆石子共有N个。A-B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。" class="headerlink" title="有一堆石子共有N个。A B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。"></a>有一堆石子共有N个。A B两个人轮流拿，A先拿。每次最少拿1颗，最多拿K颗，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N和K，问最后谁能赢得比赛。</h4><ul>
-<li>例如N = 3，K = 2。无论A如何拿，B都可以拿到最后1颗石子。</li>
-<li>Input<ul>
-<li>第1行：一个数T，表示后面用作输入测试的数的数量。（1 &lt;= T &lt;= 10000)</li>
-<li>第2 - T + 1行：每行2个数N，K。中间用空格分隔。（1 &lt;= N,K &lt;= 10^9)</li>
-</ul>
-</li>
-<li>Output<ul>
-<li>共T行，如果A获胜输出A，如果B获胜输出B。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span>[] ans = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">10000</span>];</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">int</span> T = cin.nextInt();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt; T ;i++)&#123;</div><div class="line">            <span class="keyword">int</span> N = cin.nextInt();</div><div class="line">            <span class="keyword">int</span> K = cin.nextInt();</div><div class="line">            <span class="keyword">if</span> ((N % (K+<span class="number">1</span>)) == <span class="number">0</span>)</div><div class="line">                ans[i] = <span class="string">'B'</span>;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                ans[i] = <span class="string">'A'</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;T;i++)&#123;</div><div class="line">            System.out.println(ans[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="1069-Nim游戏"><a href="#1069-Nim游戏" class="headerlink" title="1069 Nim游戏"></a>1069 Nim游戏</h1><h4 id="有N堆石子。A-B两个人轮流拿，A先拿。每次只能从一堆中取若干个，可将一堆全取走，但不可不取，拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出N及每堆石子的数量，问最后谁能赢得比赛。"><a href="#有N堆石子。A-B两个人轮流拿，A先拿。每次只能从一堆中取若干个，可将一堆全取走，但不可不取，拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出N及每堆石子的数量，问最后谁能赢得比赛。" class="headerlink" title="有N堆石子。A B两个人轮流拿，A先拿。每次只能从一堆中取若干个，可将一堆全取走，但不可不取，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N及每堆石子的数量，问最后谁能赢得比赛。"></a>有N堆石子。A B两个人轮流拿，A先拿。每次只能从一堆中取若干个，可将一堆全取走，但不可不取，拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出N及每堆石子的数量，问最后谁能赢得比赛。</h4><ul>
-<li>例如：3堆石子，每堆1颗。A拿1颗，B拿1颗，此时还剩1堆，所以A可以拿到最后1颗石子。</li>
-<li>Input<ul>
-<li>第1行：一个数N，表示有N堆石子。（1 &lt;= N &lt;= 1000)</li>
-<li>第2 - N + 1行：N堆石子的数量。(1 &lt;= A[i] &lt;= 10^9)</li>
-</ul>
-</li>
-<li>Output<ul>
-<li>如果A获胜输出A，如果B获胜输出B。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">int</span> T = cin.nextInt();</div><div class="line">        <span class="keyword">int</span> tmp , ret = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt; T ;i++)&#123;</div><div class="line">            tmp = cin.nextInt();</div><div class="line">            <span class="keyword">if</span> (i==<span class="number">0</span>) ret = tmp;</div><div class="line">            <span class="keyword">else</span> ret = ret ^ tmp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">char</span> ans;</div><div class="line">        <span class="keyword">if</span> (ret==<span class="number">0</span>) ans = <span class="string">'B'</span>;</div><div class="line">        <span class="keyword">else</span>  ans = <span class="string">'A'</span>;</div><div class="line">        System.out.println(ans);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="1072-威左夫游戏"><a href="#1072-威左夫游戏" class="headerlink" title="1072 威左夫游戏"></a>1072 威左夫游戏</h1><h4 id="有2堆石子。A-B两个人轮流拿，A先拿。每次可以从一堆中取任意个或从2堆中取相同数量的石子，但不可不取。拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出2堆石子的数量，问最后谁能赢得比赛。"><a href="#有2堆石子。A-B两个人轮流拿，A先拿。每次可以从一堆中取任意个或从2堆中取相同数量的石子，但不可不取。拿到最后1颗石子的人获胜。假设A-B都非常聪明，拿石子的过程中不会出现失误。给出2堆石子的数量，问最后谁能赢得比赛。" class="headerlink" title="有2堆石子。A B两个人轮流拿，A先拿。每次可以从一堆中取任意个或从2堆中取相同数量的石子，但不可不取。拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出2堆石子的数量，问最后谁能赢得比赛。"></a>有2堆石子。A B两个人轮流拿，A先拿。每次可以从一堆中取任意个或从2堆中取相同数量的石子，但不可不取。拿到最后1颗石子的人获胜。假设A B都非常聪明，拿石子的过程中不会出现失误。给出2堆石子的数量，问最后谁能赢得比赛。</h4><ul>
-<li>例如：2堆石子分别为3颗和5颗。那么不论A怎样拿，B都有对应的方法拿到最后1颗。</li>
-<li>Input<ul>
-<li>第1行：一个数T，表示后面用作输入测试的数的数量。（1 &lt;= T &lt;= 10000)</li>
-<li>第2 - T + 1行：每行2个数分别是2堆石子的数量，中间用空格分隔。(1 &lt;= N &lt;= 2000000)</li>
-</ul>
-</li>
-<li>Output<ul>
-<li>共T行，如果A获胜输出A，如果B获胜输出B。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> t,n,m,temp;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;t);</div><div class="line">	<span class="keyword">while</span>(t--) &#123;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</div><div class="line">		<span class="keyword">if</span>(n&gt;m) swap(n,m);</div><div class="line">		temp=(m-n)*(<span class="built_in">sqrt</span>(<span class="number">5</span>)+<span class="number">1</span>)/<span class="number">2</span>;</div><div class="line">		<span class="keyword">if</span>(n==temp) <span class="built_in">printf</span>(<span class="string">"B\n"</span>);</div><div class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"A\n"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/15/算法之博弈论初探/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-数学基础之log的巧用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/15/数学基础之log的巧用/">数学基础之log的巧用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/15/数学基础之log的巧用/" class="archive-article-date">
-  	<time datetime="2017-03-15T13:52:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1058-N的阶乘的长度"><a href="#1058-N的阶乘的长度" class="headerlink" title="1058 N的阶乘的长度"></a>1058 N的阶乘的长度</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">double</span> N = cin.nextLong();</div><div class="line">        <span class="keyword">double</span> ans = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">double</span> i = <span class="number">1</span>; i &lt;= N;i++)&#123;</div><div class="line"></div><div class="line">            ans = ans + Math.log10(i);</div><div class="line">        &#125;</div><div class="line">        System.out.println((<span class="keyword">int</span>)ans);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数学</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/15/数学基础之log的巧用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1476,15 +1698,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1492,7 +1710,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1500,7 +1718,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1508,7 +1726,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1517,6 +1735,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

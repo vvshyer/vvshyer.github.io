@@ -158,6 +158,149 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-机试笔记03Hash的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/09/机试笔记03Hash的应用/">机试笔记03Hash的应用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/09/机试笔记03Hash的应用/" class="archive-article-date">
+  	<time datetime="2017-03-09T07:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="统计同成绩学生人数"><a href="#统计同成绩学生人数" class="headerlink" title="统计同成绩学生人数"></a>统计同成绩学生人数</h1><ul>
+<li>读入 N 名学生的成绩，将获得某一给定分数的学生人数输出。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n) != EOF &amp;&amp; n != <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">int</span> Hash[<span class="number">101</span>] = &#123;<span class="number">0</span>&#125;;<span class="comment">//建立一个初始为0的Hash数组</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">            Hash[x]++;<span class="comment">//统计分数出现次数</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Hash[x]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h1><ul>
+<li>给你 n 个整数，请按从大到小的顺序输出其中前 m 大的数。</li>
+<li>每组测试数据有两行，第一行有两个数 n,m(0&lt;n,m&lt;1000000)，第二行包含 n 个各不相同，且都处于区间[-500000,500000]的整数。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> OFFSET 500000</span></div><div class="line"><span class="keyword">int</span> Hash[<span class="number">1000001</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n,m;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m) != EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">-500000</span>;i&lt;=<span class="number">500000</span>; i++) &#123;</div><div class="line">            Hash[i+OFFSET] = <span class="number">0</span>;</div><div class="line">        &#125;<span class="comment">//初始化 将每个数字都标记为未出现</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</div><div class="line">            Hash[x+OFFSET] = <span class="number">1</span>;<span class="comment">//凡是出现过的数字，该数组元素均为1</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">500000</span>; i&gt;=<span class="number">-500000</span>; i--) &#123;<span class="comment">//输出前m个数</span></div><div class="line">            <span class="keyword">if</span> (Hash[i+OFFSET]==<span class="number">1</span>) &#123;<span class="comment">//若该数字在输入中出现</span></div><div class="line">                <span class="built_in">printf</span>(<span class="string">"%d"</span>,i);<span class="comment">//输出该数字</span></div><div class="line">                m--;<span class="comment">//输出一个数字后，m--</span></div><div class="line">                <span class="keyword">if</span> (m!=<span class="number">0</span>) &#123;</div><div class="line">                    <span class="built_in">printf</span>(<span class="string">" "</span>);</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/09/机试笔记03Hash的应用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-机试笔记02日期类问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/08/机试笔记02日期类问题/">机试笔记02日期类问题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/08/机试笔记02日期类问题/" class="archive-article-date">
+  	<time datetime="2017-03-08T13:39:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="日期差值"><a href="#日期差值" class="headerlink" title="日期差值"></a>日期差值</h1><ul>
+<li>在保存某个特定日期与原点日期的天数差时，用了三位数组</li>
+<li>输入采用技巧</li>
+<li>涉及开辟大量内存空间的情况，必须在函数体外定义或者动态malloc</li>
+<li></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ISYEAP(x) x % 100 != 0 &amp;&amp; x % 4 == 0 || x % 400 == 0 ? 1 : 0</span></div><div class="line"><span class="comment">//定义宏判断是否是闰年，方便计算每月天数</span></div><div class="line"><span class="keyword">int</span> dayOfMonth[<span class="number">13</span>][<span class="number">2</span>]&#123;</div><div class="line">    <span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//1</span></div><div class="line">    <span class="number">28</span>,<span class="number">29</span>, <span class="comment">//2</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//3</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//4</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//5</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//6</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//7</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//8</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//9</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//10</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//11</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>  <span class="comment">//12</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> Date&#123;</div><div class="line">    <span class="keyword">int</span> Day;</div><div class="line">    <span class="keyword">int</span> Month;</div><div class="line">    <span class="keyword">int</span> Year;</div><div class="line">    <span class="comment">//计算下一天的日期</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">nextDay</span><span class="params">()</span></span>&#123;</div><div class="line">        Day++;</div><div class="line">        <span class="keyword">if</span>(Day &gt; dayOfMonth[Month][ISYEAP(Year)])&#123;</div><div class="line">            <span class="comment">//若日数超过最大日数</span></div><div class="line">            Day = <span class="number">1</span>;</div><div class="line">            Month++;<span class="comment">//进入下一月</span></div><div class="line">            <span class="keyword">if</span>(Month &gt; <span class="number">12</span>)&#123;<span class="comment">//月数超过12</span></div><div class="line">                Month = <span class="number">1</span>;</div><div class="line">                Year++; <span class="comment">//进入下一年</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> buf[<span class="number">5001</span>][<span class="number">13</span>][<span class="number">32</span>];<span class="comment">//保存预处理天数</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Abs</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</div><div class="line">    <span class="comment">//求绝对值</span></div><div class="line">    <span class="keyword">return</span> x &lt; <span class="number">0</span> ? -x : x;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    Date tmp;</div><div class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>; <span class="comment">//天数计数</span></div><div class="line">    tmp.Day = <span class="number">1</span>;</div><div class="line">    tmp.Month = <span class="number">1</span>;</div><div class="line">    tmp.Year = <span class="number">0</span>;<span class="comment">//初始化日期类对象为0年1月1日</span></div><div class="line">    <span class="keyword">while</span>(tmp.Year != <span class="number">5001</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//将该日与0年1月1日的天数差保存起来</span></div><div class="line">        buf[tmp.Year][tmp.Month][tmp.Day] = cnt;</div><div class="line">        tmp.nextDay();<span class="comment">//计算下一天日期</span></div><div class="line">        cnt++;<span class="comment">//计算器累加，每经过一天计数器+1,代表与原点日期的间隔又增加一天</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> d1, m1, y1;</div><div class="line">    <span class="keyword">int</span> d2, m2, y2;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%4d%2d%2d"</span>,&amp;y1,&amp;m1,&amp;d1) != EOF) &#123;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%4d%2d%2d"</span>,&amp;y2,&amp;m2,&amp;d2);<span class="comment">//读入要计算的两个日期</span></div><div class="line">        <span class="comment">//用预处理的数据计算两日期差值，取绝对值</span></div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Abs(buf[y2][m2][d2] - buf[y1][m1][d1] + <span class="number">1</span>));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Day-of-Week"><a href="#Day-of-Week" class="headerlink" title="Day of Week"></a>Day of Week</h1><ul>
+<li>输入一个日期，要求输出该日期为星期几</li>
+<li>1.今天是星期几;</li>
+<li>2.今天和所给定的那天相隔几天。利用其对7求余数，我们便可以轻易的知道所给定的那天是星期几了。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ISYEAP(x) x % 100 != 0 &amp;&amp; x % 4 == 0 || x % 400 == 0 ? 1 : 0</span></div><div class="line"><span class="comment">//定义宏判断是否是闰年，方便计算每月天数</span></div><div class="line"><span class="keyword">int</span> dayOfMonth[<span class="number">13</span>][<span class="number">2</span>]&#123;</div><div class="line">    <span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//1</span></div><div class="line">    <span class="number">28</span>,<span class="number">29</span>, <span class="comment">//2</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//3</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//4</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//5</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//6</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//7</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//8</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//9</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>, <span class="comment">//10</span></div><div class="line">    <span class="number">30</span>,<span class="number">30</span>, <span class="comment">//11</span></div><div class="line">    <span class="number">31</span>,<span class="number">31</span>  <span class="comment">//12</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> Date&#123;</div><div class="line">    <span class="keyword">int</span> Day;</div><div class="line">    <span class="keyword">int</span> Month;</div><div class="line">    <span class="keyword">int</span> Year;</div><div class="line">    <span class="comment">//计算下一天的日期</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">nextDay</span><span class="params">()</span></span>&#123;</div><div class="line">        Day++;</div><div class="line">        <span class="keyword">if</span>(Day &gt; dayOfMonth[Month][ISYEAP(Year)])&#123;</div><div class="line">            <span class="comment">//若日数超过最大日数</span></div><div class="line">            Day = <span class="number">1</span>;</div><div class="line">            Month++;<span class="comment">//进入下一月</span></div><div class="line">            <span class="keyword">if</span>(Month &gt; <span class="number">12</span>)&#123;<span class="comment">//月数超过12</span></div><div class="line">                Month = <span class="number">1</span>;</div><div class="line">                Year++; <span class="comment">//进入下一年</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> buf[<span class="number">3001</span>][<span class="number">13</span>][<span class="number">32</span>];<span class="comment">//保存预处理天数</span></div><div class="line"></div><div class="line"><span class="keyword">char</span> monthName[<span class="number">13</span>][<span class="number">20</span>] = &#123;</div><div class="line">    <span class="string">""</span>,</div><div class="line">    <span class="string">"January"</span>,</div><div class="line">    <span class="string">"February"</span>,</div><div class="line">    <span class="string">"March"</span>,</div><div class="line">    <span class="string">"April"</span>,</div><div class="line">    <span class="string">"May"</span>,</div><div class="line">    <span class="string">"June"</span>,</div><div class="line">    <span class="string">"July"</span>,</div><div class="line">    <span class="string">"August"</span>,</div><div class="line">    <span class="string">"September"</span>,</div><div class="line">    <span class="string">"October"</span>,</div><div class="line">    <span class="string">"November"</span>,</div><div class="line">    <span class="string">"December"</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">char</span> weekName[<span class="number">7</span>][<span class="number">20</span>] = &#123;</div><div class="line">    <span class="string">"Sunday"</span>,</div><div class="line">    <span class="string">"Monday"</span>,</div><div class="line">    <span class="string">"Tuesday"</span>,</div><div class="line">    <span class="string">"Wednesday"</span>,</div><div class="line">    <span class="string">"Thursday"</span>,</div><div class="line">    <span class="string">"Friday"</span>,</div><div class="line">    <span class="string">"Saturday"</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    Date tmp;</div><div class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>; <span class="comment">//天数计数</span></div><div class="line">    tmp.Day = <span class="number">1</span>;</div><div class="line">    tmp.Month = <span class="number">1</span>;</div><div class="line">    tmp.Year = <span class="number">0</span>;<span class="comment">//初始化日期类对象为0年1月1日</span></div><div class="line">    <span class="keyword">while</span>(tmp.Year != <span class="number">3001</span>)&#123;</div><div class="line">        <span class="comment">//将该日与0年1月1日的天数差保存起来</span></div><div class="line">        buf[tmp.Year][tmp.Month][tmp.Day] = cnt;</div><div class="line">        tmp.nextDay();<span class="comment">//计算下一天日期</span></div><div class="line">        cnt++;<span class="comment">//计算器累加，每经过一天计数器+1,代表与原点日期的间隔又增加一天</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> d, m, y;</div><div class="line">    <span class="keyword">char</span> s[<span class="number">20</span>];</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d%s%d"</span>,&amp;d,s,&amp;y) != EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (m = <span class="number">1</span>; m &lt;= <span class="number">12</span>; m++) &#123;</div><div class="line">            <span class="keyword">if</span> (<span class="built_in">strcmp</span>(s,monthName[m]) == <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//计算给定日期与今日日期的天数间隔</span></div><div class="line">        <span class="keyword">int</span> days = buf[y][m][d] - buf[<span class="number">2017</span>][<span class="number">3</span>][<span class="number">6</span>];</div><div class="line">        <span class="comment">//今天2017年3月6日为星期一，对应数组下标为1，则计算1经过days天后的下标</span></div><div class="line">        days = days+<span class="number">1</span>;</div><div class="line">        <span class="built_in">puts</span>(weekName[(days % <span class="number">7</span> + <span class="number">7</span>)%<span class="number">7</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/08/机试笔记02日期类问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-机试笔记01排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -750,19 +893,19 @@
 
 
   
-    <article id="post-无标题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法学习之堆" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/22/无标题/">算法学习之堆</a>
+      <a class="article-title" href="/2015/07/22/算法学习之堆/">算法学习之堆</a>
     </h1>
   
 
         
-        <a href="/2015/07/22/无标题/" class="archive-article-date">
+        <a href="/2015/07/22/算法学习之堆/" class="archive-article-date">
   	<time datetime="2015-07-22T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-07-22</time>
 </a>
         
@@ -771,7 +914,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序 Heap Sort"></a>堆排序 Heap Sort</h1><h2 id="堆和优先队列-Heap-and-Priority-Queue"><a href="#堆和优先队列-Heap-and-Priority-Queue" class="headerlink" title="堆和优先队列 Heap and Priority Queue"></a>堆和优先队列 Heap and Priority Queue</h2><h4 id="什么是优先队列？"><a href="#什么是优先队列？" class="headerlink" title="什么是优先队列？"></a>什么是优先队列？</h4><p>普通队列：先进先出，后进后出<br>优先队列：出队顺序和入队顺序无关，和优先级有关</p>
-
+<h4 id="优先队列主要操作"><a href="#优先队列主要操作" class="headerlink" title="优先队列主要操作"></a>优先队列主要操作</h4><p>入队<br>出队（取出优先级最高的元素）</p>
+<h4 id="优先队列的实现"><a href="#优先队列的实现" class="headerlink" title="优先队列的实现"></a>优先队列的实现</h4><p>入队                              出队<br>普通数组          O(1)                               O(n)<br>顺序数组          O(n)                               O(1)<br>   堆                  O(lgn)                            O(lgn)<br><strong>对于总共N个请求</strong><br><strong>使用普通数组或者顺序数组，最差情况是：O(n^2)</strong><br><strong>使用堆：O(nlgn)</strong> </p>
+<h3 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h3><p>堆中某个节点的值总是不大于其父节点的值；<br>堆总是一棵完全二叉树（最大堆）<br><em>用数组存储二叉堆 从根节点按行依次从左至右</em></p>
+<h4 id="Heapify的复杂度"><a href="#Heapify的复杂度" class="headerlink" title="Heapify的复杂度"></a>Heapify的复杂度</h4><p><em>将n个元素逐个插入到一个空堆中，算法复杂度为O(nlogn)</em><br><em>heapify的过程算法复杂度为O(n)</em></p>
+<h3 id="原地堆排序"><a href="#原地堆排序" class="headerlink" title="原地堆排序"></a>原地堆排序</h3>
       
 
       
@@ -794,7 +941,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2015/07/22/无标题/">展开全文 >></a>
+          <a class="article-more-a" href="/2015/07/22/算法学习之堆/">展开全文 >></a>
         </p>
       
 
@@ -932,209 +1079,6 @@ VO:Value Object
 
 
   
-    <article id="post-Oracle学习之E-R图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/20/Oracle学习之E-R图/">Oracle学习之E-R图</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/20/Oracle学习之E-R图/" class="archive-article-date">
-  	<time datetime="2015-01-20T07:23:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="软件开发生命周期："><a href="#软件开发生命周期：" class="headerlink" title="软件开发生命周期："></a>软件开发生命周期：</h1><pre><code>1.可行性分析：做还是不做
-2.需求分析：做什么
-3.概要设计
-4.系统实现
-5.测试：单元测试，黑盒，白盒，集成测试，性能测试（压力测试）
-6.运行维护：（运维人员）
-</code></pre><h1 id="1-建模："><a href="#1-建模：" class="headerlink" title="1.建模："></a>1.建模：</h1><pre><code>E-R图：
-实体，关系图：
-    三要素：
-        实体：表
-        属性：列
-        关系：一对一，一对多，多对多
-</code></pre><h1 id="2-PowerDesinger"><a href="#2-PowerDesinger" class="headerlink" title="2.PowerDesinger"></a>2.PowerDesinger</h1><pre><code>简称：PD
-是一个建模工具软件，可以利用这个软件绘制E-R图
-</code></pre><h1 id="3-使用PD创建E-R图的步骤："><a href="#3-使用PD创建E-R图的步骤：" class="headerlink" title="3.使用PD创建E-R图的步骤："></a>3.使用PD创建E-R图的步骤：</h1><pre><code>1.新建一个概念E-R图
-2.创建实例，属性，并建立关系，如果是一对多，不要在多的那个实体中自定义外键列，
-只需要建立一对多关系即可，外键会自动生成
-3.将概念E-R图转换成Oracle的物理E-R图
-4.生成建表的sql语句
-
-思路：概念-&gt;物理-&gt;语句
-</code></pre><h1 id="4-多对多的实现方式："><a href="#4-多对多的实现方式：" class="headerlink" title="4.多对多的实现方式："></a>4.多对多的实现方式：</h1><pre><code>学生表                         科目表
-          中间表
-</code></pre><h1 id="5-一对一："><a href="#5-一对一：" class="headerlink" title="5.一对一："></a>5.一对一：</h1><pre><code>唯一外键：
-    是一对多的一个特例，在外键列上再增加一个unique约束即可；
-相同主键：
-    两个表的主键是一个列，从表的主键列还是外键
-</code></pre><h1 id="6-范式："><a href="#6-范式：" class="headerlink" title="6.范式："></a>6.范式：</h1><pre><code>1NF：主键，列的值不能为一组值（集合）
-2NF：满足1NF，消除部分依赖
-3NF：满足2NF，消除传递依赖
-BCNF
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/20/Oracle学习之E-R图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Oracle学习之数据库对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/18/Oracle学习之数据库对象/">Oracle学习之数据库对象</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/18/Oracle学习之数据库对象/" class="archive-article-date">
-  	<time datetime="2015-01-18T06:35:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-数据库对象："><a href="#1-数据库对象：" class="headerlink" title="1.数据库对象："></a>1.数据库对象：</h1><pre><code>表是最基本的数据库对象，作用是用来存储数据
-</code></pre><h1 id="2-其它常用的数据库对象："><a href="#2-其它常用的数据库对象：" class="headerlink" title="2.其它常用的数据库对象："></a>2.其它常用的数据库对象：</h1><pre><code>同义词：
-序列：
-视图：
-索引：
-函数：
-存储过程：
-触发器：
-</code></pre><h1 id="3-序列："><a href="#3-序列：" class="headerlink" title="3.序列："></a>3.序列：</h1><pre><code>用来产生唯一，连续的序号；
-生成主键；
-Create sequence 序列名
-    Start with
-    Increment by：增量
-    Maxvalue：最大值
-    Minvalue：最小值
-    Cycle | nocycle：是否循环
-    cache：缓存
-
-如何使用序列：
-    一定要在sql语句中使用；
-    序列名.nextVal：下一个值
-    序列名.currVal：当前值
-</code></pre><h1 id="4-分析函数："><a href="#4-分析函数：" class="headerlink" title="4.分析函数："></a>4.分析函数：</h1><pre><code>Rank() over() 一起使用
-Rank()：生成序号，如果比较大小时相同，则序号相同，下一个序列会空出来，的例如 1 1 3
-Dense_rank()：生成序号，与rank相比，值相同，序号相同，但不同有空余的序号 1 1 2
-Row_number()：函数与rownum伪列相同
-
-Select rank() over(order by sal),emp.* from emp;
-</code></pre><h1 id="5-视图："><a href="#5-视图：" class="headerlink" title="5.视图："></a>5.视图：</h1><pre><code>一个命名的查询语句，也可称为虚拟表
-优点：
-    安全
-    隔离基表的改变
-
-创建视图：
-    Create view view_name as 查询语句;
-创建一个只读视图：
-    Create view view_name as 查询语句 with read only;
-对视图中的字段进行重命名：
-    Create view view_name(新名) as 查询语句
-对视图进行删除，插入，修改的操作：
-    如果对视图进行以上操作，实际上是对视图所关联的表进行操作，并不是所有的视图都可以做以上操作；
-    视图中的数据中的数据必须来自表中的真实数据才可以
-</code></pre><h1 id="6-索引："><a href="#6-索引：" class="headerlink" title="6.索引："></a>6.索引：</h1><pre><code>用来提高查询速度的一个对象：
-    Create index 索引名 on 表名（列名）
-</code></pre><h1 id="7-数据库备份："><a href="#7-数据库备份：" class="headerlink" title="7.数据库备份："></a>7.数据库备份：</h1><pre><code>dos下直接输入两个命令
-导入：    Imp
-导出：    Exp
-</code></pre><h1 id="8-数据字典："><a href="#8-数据字典：" class="headerlink" title="8.数据字典："></a>8.数据字典：</h1><pre><code>元数据的数据：
-    $
-    Dba_        all_       user_tables…
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/18/Oracle学习之数据库对象/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1249,15 +1193,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1265,7 +1205,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1273,7 +1213,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1281,7 +1221,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1290,6 +1230,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
