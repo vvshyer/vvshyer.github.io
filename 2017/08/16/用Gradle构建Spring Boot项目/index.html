@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="MineMine">
 <meta property="og:description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。
 创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
-<meta property="og:updated_time" content="2017-08-21T06:39:23.952Z">
+<meta property="og:updated_time" content="2017-08-21T06:46:42.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Gradle构建Spring Boot项目">
 <meta name="twitter:description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。
@@ -181,31 +181,80 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。</p>
-<h1 id="创建Gradle工程"><a href="#创建Gradle工程" class="headerlink" title="创建Gradle工程"></a>创建Gradle工程</h1><p>Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是在本文中，我们将全部通过命令行操作创建Spring Boot工程。首先在命令行中创建如下目录结构：<br><figure class="highlight plain"><figcaption><span>src</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">`├── main</div><div class="line">│   └── java</div><div class="line">└── test</div><div class="line">└── java`</div><div class="line">`然后在src同级目录中添加一个build.gradle文件，内容如下：</div><div class="line">`apply plugin: &apos;java&apos;`</div><div class="line">大功告成，一个用Gradle构建的Java项目创建好了，尽情用以下命令编译并打包咱们的Java项目吧：</div><div class="line">`gradle build`</div><div class="line">只是现在咱们的Java项目还是一个空架子，不用急，在下文中我们将一步一步在这个空架子中搭建一个有血有肉的Spring Boot项目。</div><div class="line">值得一提的是，虽然此时的build.gradle文件中只有一行配置（apply plugin: &apos;java&apos;，作用是引入java插件），但是其背后已经帮我们做了很多事情，比如它使得我们能够运行gradle build命令。这里的build即为Gradle中的一个任务（Task），我们还可以运行以下命令查看到更多的Task。</div><div class="line">`gradle tasks`</div><div class="line">此时输出：</div></pre></td></tr></table></figure></p>
-<p>`…<br>Build tasks</p>
-<hr>
-<p>assemble - Assembles the outputs of this project.<br>build - Assembles and tests this project.<br>buildDependents - Assembles and tests this project and all projects that depend on it.<br>buildNeeded - Assembles and tests this project and all projects it depends on.<br>classes - Assembles main classes.<br>clean - Deletes the build directory.<br>jar - Assembles a jar archive containing the main classes.<br>testClasses - Assembles test classes.<br>…<br><code>
-</code>这里的assemble、build和jar等Task都是java插件引入的。build.gradle是Gradle的配置文件。</p>
+<h1 id="创建Gradle工程"><a href="#创建Gradle工程" class="headerlink" title="创建Gradle工程"></a>创建Gradle工程</h1><p>Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是在本文中，我们将全部通过命令行操作创建Spring Boot工程。首先在命令行中创建如下目录结构：<br>    └── src<br>        ├── main<br>        │   └── java<br>        └── test<br>            └── java<br>然后在src同级目录中添加一个build.gradle文件，内容如下：<br><code>apply plugin: &#39;java&#39;</code><br>大功告成，一个用Gradle构建的Java项目创建好了，尽情用以下命令编译并打包咱们的Java项目吧：<br><code>gradle build</code><br>只是现在咱们的Java项目还是一个空架子，不用急，在下文中我们将一步一步在这个空架子中搭建一个有血有肉的Spring Boot项目。<br>值得一提的是，虽然此时的build.gradle文件中只有一行配置（apply plugin: ‘java’，作用是引入java插件），但是其背后已经帮我们做了很多事情，比如它使得我们能够运行gradle build命令。这里的build即为Gradle中的一个任务（Task），我们还可以运行以下命令查看到更多的Task。<br><code>gradle tasks</code><br>此时输出：<br>    …</p>
+<pre><code>Build tasks
+    -----------
+assemble - Assembles the outputs of this project.
+build - Assembles and tests this project.
+buildDependents - Assembles and tests this project and all projects that depend on it.
+buildNeeded - Assembles and tests this project and all projects it depends on.
+classes - Assembles main classes.
+clean - Deletes the build directory.
+jar - Assembles a jar archive containing the main classes.
+testClasses - Assembles test classes.
+...
+</code></pre><p>这里的assemble、build和jar等Task都是java插件引入的。build.gradle是Gradle的配置文件。</p>
 <h1 id="使用Gradle-Wrapper"><a href="#使用Gradle-Wrapper" class="headerlink" title="使用Gradle Wrapper"></a>使用Gradle Wrapper</h1><p>对于所有的Gradle项目来说，笔者都推荐使用Gradle Wrapper，甚至应该将其当做创建代码库之后的第一件事来做。使用Gradle Wrapper有以下好处：</p>
 <ol>
 <li>不用安装gradle也能运行gradle</li>
-<li>所有人使用相同的gradle版本<br>在build.gradle中加入以下配置：<figure class="highlight plain"><figcaption><span>wrapper(type: Wrapper) &#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">`gradleVersion = &apos;3.0&apos;</div><div class="line">&#125;`</div><div class="line">`然后在命令行运行：</div><div class="line">`gradle wrapper`</div><div class="line">此时会生成以下三个文件（夹）：gradlew、gradlew.bat和gradle目录。</div><div class="line">这里的gradlew和gradlew.bat其实只是脚本文件（前者用于Unix/Linux/Mac，后者用于Windows），在使用gradle命令的地方替换为gradlew或gradlew.bat，他们将自动下载指定的gradle版本，然后用该版本进行项目构建。如上文所示，本文中我们配置gradle版本为3.0。</div><div class="line">请注意，这三个文件（夹）都需要提交到代码库中。当项目其他人拿到代码之后，由于gradlew和gradlew.bat文件均在源代码中，他们本地即便没有gradle，依然可以通过以下命令进行项目构建：</div><div class="line">`./gradlew build`</div><div class="line">如果你的项目有持续集成（CI）服务器（你也应该有），那么你的CI机器也没有必要安装Gradle了。另外，此时所有人都是使用的相同版本的gradle，进而避免了由于版本不同所带来的问题。</div><div class="line"># 添加Spring Boot依赖</div><div class="line">在本文中，我们的业务非常简单———输出“Hello World！”。但是麻雀虽小，五脏俱全，首先需要在build.gradle中配置spring-boot插件，并引入Spring的Web组件，整个build.gradle如下：</div></pre></td></tr></table></figure>
+<li><p>所有人使用相同的gradle版本<br>在build.gradle中加入以下配置：<br>task wrapper(type: Wrapper) {<br>gradleVersion = ‘3.0’<br>}<br>然后在命令行运行：<br><code>gradle wrapper</code><br>此时会生成以下三个文件（夹）：gradlew、gradlew.bat和gradle目录。<br>这里的gradlew和gradlew.bat其实只是脚本文件（前者用于Unix/Linux/Mac，后者用于Windows），在使用gradle命令的地方替换为gradlew或gradlew.bat，他们将自动下载指定的gradle版本，然后用该版本进行项目构建。如上文所示，本文中我们配置gradle版本为3.0。<br>请注意，这三个文件（夹）都需要提交到代码库中。当项目其他人拿到代码之后，由于gradlew和gradlew.bat文件均在源代码中，他们本地即便没有gradle，依然可以通过以下命令进行项目构建：<br><code>./gradlew build</code><br>如果你的项目有持续集成（CI）服务器（你也应该有），那么你的CI机器也没有必要安装Gradle了。另外，此时所有人都是使用的相同版本的gradle，进而避免了由于版本不同所带来的问题。</p>
+<h1 id="添加Spring-Boot依赖"><a href="#添加Spring-Boot依赖" class="headerlink" title="添加Spring Boot依赖"></a>添加Spring Boot依赖</h1><p>在本文中，我们的业务非常简单———输出“Hello World！”。但是麻雀虽小，五脏俱全，首先需要在build.gradle中配置spring-boot插件，并引入Spring的Web组件，整个build.gradle如下：<br>buildscript {<br>  repositories {</p>
+<pre><code>jcenter()
+</code></pre><p>  }<br>  dependencies {</p>
+<pre><code>classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE&quot;)
+</code></pre><p>  }<br>}</p>
+<p>repositories {<br>  jcenter()<br>}</p>
+<p>apply plugin: ‘java’<br>apply plugin: ‘org.springframework.boot’</p>
 </li>
 </ol>
-<p>`buildscript {<br>repositories {<br>jcenter()<br>}<br>dependencies {<br>classpath(“org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE”)<br>}<br>}</p>
-<p>repositories {<br>jcenter()<br>}</p>
-<p>apply plugin: ‘java’<br>apply plugin: ‘org.springframework.boot’</p>
-<p>sourceCompatibility = 1.8<br>targetCompatibility = 1.8</p>
-<p>task wrapper(type: Wrapper) {<br>gradleVersion = ‘3.0’<br>}</p>
-<p>dependencies {<br>compile(“org.springframework.boot:spring-boot-starter-web”)<br>testCompile(“org.springframework.boot:spring-boot-starter-test”)<br>}<code>
-</code>然后创建Application类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">`@SpringBootApplication</div><div class="line">public class Application &#123;</div><div class="line"></div><div class="line">public static void main(String[]() args) &#123;</div><div class="line">SpringApplication.run(Application.class, args);</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">`</div><div class="line">`依然很简单，是吧？！这个Application类便是Spring Boot程序的入口。另外我们还需要一个Controller和一个业务类HelloWorld：</div></pre></td></tr></table></figure></p>
-<p>`HelloWorldController:<br>@RestController(“/helloworld”)<br>public class HelloController {</p>
-<p>private HelloWorld helloWorld;</p>
-<p>public HelloController(HelloWorld helloWorld) {<br>this.helloWorld = helloWorld;<br>}</p>
-<p>@GetMapping<br>public String hello() {<br>return helloWorld.hello();<br>}<br>}<br>HelloWorld:<br>@Component<br>public class HelloWorld {</p>
-<p>public String hello() {<br>return “Hello World!”;<br>}<br>}<br><code>`此时工程的目录结构为：
-```
-</code>├── README.md<br>├── build.gradle<br>├── gradle<br>│   └── wrapper<br>│       ├── gradle-wrapper.jar<br>│       └── gradle-wrapper.properties<br>├── gradlew<br>├── gradlew.bat<br>└── src<br>├── main<br>│   └── java<br>│       └── davenkin<br>│           ├── Application.java<br>│           ├── HelloController.java<br>│           └── HelloWorld.java<br>└── test<br>└── java<br><code>`然后运行：</code>./gradlew bootRun`<br>在浏览器或者Postman中打开<em><a href="http://localhost:8080/gradle-spring-boot/helloworld" target="_blank" rel="external">http://localhost:8080/gradle-spring-boot/helloworld</a></em>，便可以看到久违的”Hello World！”了。</p>
+<pre><code>sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &apos;3.0&apos;
+}
+
+dependencies {
+    compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;)
+    testCompile(&quot;org.springframework.boot:spring-boot-starter-test&quot;)
+}
+
+然后创建Application类：
+@SpringBootApplication
+public class Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+}
+</code></pre><p>依然很简单，是吧？！这个Application类便是Spring Boot程序的入口。另外我们还需要一个Controller和一个业务类HelloWorld：</p>
+<pre><code>HelloWorldController:
+@RestController(&quot;/helloworld&quot;)
+public class HelloController {
+
+    private HelloWorld helloWorld;
+
+    public HelloController(HelloWorld helloWorld) {
+        this.helloWorld = helloWorld;
+    }
+
+    @GetMapping
+    public String hello() {
+        return helloWorld.hello();
+    }
+}
+HelloWorld:
+@Component
+public class HelloWorld {
+
+    public String hello() {
+        return &quot;Hello World!&quot;;
+    }
+}
+</code></pre><p>此时工程的目录结构为：<br>    ├── README.md<br>    ├── build.gradle<br>    ├── gradle<br>    │   └── wrapper<br>    │       ├── gradle-wrapper.jar<br>    │       └── gradle-wrapper.properties<br>    ├── gradlew<br>    ├── gradlew.bat<br>    └── src<br>        ├── main<br>        │   └── java<br>        │       └── davenkin<br>        │           ├── Application.java<br>        │           ├── HelloController.java<br>        │           └── HelloWorld.java<br>        └── test<br>            └── java<br>            `</p>
+<p>然后运行：<br><code>./gradlew bootRun</code><br>在浏览器或者Postman中打开<em><a href="http://localhost:8080/gradle-spring-boot/helloworld" target="_blank" rel="external">http://localhost:8080/gradle-spring-boot/helloworld</a></em>，便可以看到久违的”Hello World！”了。</p>
 
       
 
@@ -465,11 +514,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,11 +538,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数学</a>
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,11 +562,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
             
             <div class="clearfix"></div>
