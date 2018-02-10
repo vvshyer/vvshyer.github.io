@@ -8,49 +8,18 @@
   <link rel="dns-prefetch" href="https://sunhuayan.tech">
   <title>数学基础之约瑟夫环 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1073 约瑟夫环N个人坐成一个圆环（编号为1 - N），从第1个人开始报数，数到K的人出列，后面的人重新从1开始报数。问最后剩下的人的编号。
-例如：N = 3，K = 2。2号先出列，然后是1号，最后剩下的是3号。
-Input
-2个数N和K，表示N个人，数到K出列。(2 &amp;lt;= N, K &amp;lt;= 10^6)
-
-
-Output
-最后剩下的人的编号
-
-
-
-解法一：思路：建立一个有N个元素的循">
+  <meta name="description" content="1073 约瑟夫环N个人坐成一个圆环（编号为1 - N），从第1个人开始报数，数到K的人出列，后面的人重新从1开始报数。问最后剩下的人的编号。 例如：N = 3，K = 2。2号先出列，然后是1号，最后剩下的是3号。 Input 2个数N和K，表示N个人，数到K出列。(2 &amp;lt;= N, K &amp;lt;= 10^6)   Output 最后剩下的人的编号    解法一：思路：建立一个有N个元素的循">
+<meta name="keywords" content="数学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数学基础之约瑟夫环">
 <meta property="og:url" content="https://sunhuayan.tech/2017/03/15/数学基础之约瑟夫环/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="1073 约瑟夫环N个人坐成一个圆环（编号为1 - N），从第1个人开始报数，数到K的人出列，后面的人重新从1开始报数。问最后剩下的人的编号。
-例如：N = 3，K = 2。2号先出列，然后是1号，最后剩下的是3号。
-Input
-2个数N和K，表示N个人，数到K出列。(2 &amp;lt;= N, K &amp;lt;= 10^6)
-
-
-Output
-最后剩下的人的编号
-
-
-
-解法一：思路：建立一个有N个元素的循">
+<meta property="og:description" content="1073 约瑟夫环N个人坐成一个圆环（编号为1 - N），从第1个人开始报数，数到K的人出列，后面的人重新从1开始报数。问最后剩下的人的编号。 例如：N = 3，K = 2。2号先出列，然后是1号，最后剩下的是3号。 Input 2个数N和K，表示N个人，数到K出列。(2 &amp;lt;= N, K &amp;lt;= 10^6)   Output 最后剩下的人的编号    解法一：思路：建立一个有N个元素的循">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-03-15T14:06:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数学基础之约瑟夫环">
-<meta name="twitter:description" content="1073 约瑟夫环N个人坐成一个圆环（编号为1 - N），从第1个人开始报数，数到K的人出列，后面的人重新从1开始报数。问最后剩下的人的编号。
-例如：N = 3，K = 2。2号先出列，然后是1号，最后剩下的是3号。
-Input
-2个数N和K，表示N个人，数到K出列。(2 &amp;lt;= N, K &amp;lt;= 10^6)
-
-
-Output
-最后剩下的人的编号
-
-
-
-解法一：思路：建立一个有N个元素的循">
+<meta name="twitter:description" content="1073 约瑟夫环N个人坐成一个圆环（编号为1 - N），从第1个人开始报数，数到K的人出列，后面的人重新从1开始报数。问最后剩下的人的编号。 例如：N = 3，K = 2。2号先出列，然后是1号，最后剩下的是3号。 Input 2个数N和K，表示N个人，数到K出列。(2 &amp;lt;= N, K &amp;lt;= 10^6)   Output 最后剩下的人的编号    解法一：思路：建立一个有N个元素的循">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -235,7 +204,7 @@ Output
 <p>令f[i]表示i个人玩游戏报m退出最后胜利者的编号，最后的结果自然是f[n]</p>
 <p>递推公式<br>f[1]=0;<br>f[i]=(f[i-1]+m)%i; (i&gt;1)</p>
 <p>有了这个公式，我们要做的就是从1-n顺序算出f[i]的数值，最后结果是f[n]。因为实际生活中编号总是从1开始，我们输出f[n]+1    </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">long</span> N = cin.nextLong();</div><div class="line">        <span class="keyword">long</span> K = cin.nextLong();</div><div class="line">        System.out.println(fun(N,K)+<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">fun</span><span class="params">(<span class="keyword">long</span> N,<span class="keyword">long</span> K)</span></span>&#123;</div><div class="line">        <span class="keyword">long</span> res = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=N;i++)&#123;</div><div class="line">            res = (res+K)%i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">long</span> N = cin.nextLong();</span><br><span class="line">        <span class="keyword">long</span> K = cin.nextLong();</span><br><span class="line">        System.out.println(fun(N,K)+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">fun</span><span class="params">(<span class="keyword">long</span> N,<span class="keyword">long</span> K)</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=N;i++)&#123;</span><br><span class="line">            res = (res+K)%i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -506,11 +475,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,11 +491,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,15 +515,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">

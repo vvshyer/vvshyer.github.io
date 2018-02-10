@@ -9,11 +9,13 @@
   <title>数学基础之欧拉函数 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1136 欧拉函数对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s totient function、φ函数、欧拉商数等。例如：φ(8) = 4（Phi(8) = 4），因为1,3,5,7均和8互质。1234567891011121314151617181920212223242526package com.main;import j">
+<meta name="keywords" content="数学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数学基础之欧拉函数">
 <meta property="og:url" content="https://sunhuayan.tech/2017/03/21/数学基础之欧拉函数/index.html">
 <meta property="og:site_name" content="MineMine">
 <meta property="og:description" content="1136 欧拉函数对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s totient function、φ函数、欧拉商数等。例如：φ(8) = 4（Phi(8) = 4），因为1,3,5,7均和8互质。1234567891011121314151617181920212223242526package com.main;import j">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-03-21T05:54:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数学基础之欧拉函数">
@@ -181,7 +183,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1136-欧拉函数"><a href="#1136-欧拉函数" class="headerlink" title="1136 欧拉函数"></a>1136 欧拉函数</h1><h4 id="对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s-totient-function、φ函数、欧拉商数等。例如：φ-8-4（Phi-8-4），因为1-3-5-7均和8互质。"><a href="#对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s-totient-function、φ函数、欧拉商数等。例如：φ-8-4（Phi-8-4），因为1-3-5-7均和8互质。" class="headerlink" title="对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s totient function、φ函数、欧拉商数等。例如：φ(8) = 4（Phi(8) = 4），因为1,3,5,7均和8互质。"></a>对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s totient function、φ函数、欧拉商数等。例如：φ(8) = 4（Phi(8) = 4），因为1,3,5,7均和8互质。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.main;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">euler</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> res = n, i;</div><div class="line">        <span class="keyword">for</span> (i = <span class="number">2</span>; i * i &lt;= n; i++)&#123;</div><div class="line">            <span class="keyword">if</span> (n%i == <span class="number">0</span>)&#123;</div><div class="line">                res = res/i*(i-<span class="number">1</span>);</div><div class="line">                <span class="keyword">while</span> (n % i == <span class="number">0</span>)</div><div class="line">                    n = n/i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (n != <span class="number">1</span>)</div><div class="line">            res = res/n*(n-<span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        <span class="keyword">int</span> n = cin.nextInt();</div><div class="line">        System.out.println(euler(n));</div><div class="line">        cin.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h1 id="1136-欧拉函数"><a href="#1136-欧拉函数" class="headerlink" title="1136 欧拉函数"></a>1136 欧拉函数</h1><h4 id="对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s-totient-function、φ函数、欧拉商数等。例如：φ-8-4（Phi-8-4），因为1-3-5-7均和8互质。"><a href="#对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s-totient-function、φ函数、欧拉商数等。例如：φ-8-4（Phi-8-4），因为1-3-5-7均和8互质。" class="headerlink" title="对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s totient function、φ函数、欧拉商数等。例如：φ(8) = 4（Phi(8) = 4），因为1,3,5,7均和8互质。"></a>对正整数n，欧拉函数是少于或等于n的数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为Euler’s totient function、φ函数、欧拉商数等。例如：φ(8) = 4（Phi(8) = 4），因为1,3,5,7均和8互质。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.main;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">euler</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = n, i;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">2</span>; i * i &lt;= n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (n%i == <span class="number">0</span>)&#123;</span><br><span class="line">                res = res/i*(i-<span class="number">1</span>);</span><br><span class="line">                <span class="keyword">while</span> (n % i == <span class="number">0</span>)</span><br><span class="line">                    n = n/i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n != <span class="number">1</span>)</span><br><span class="line">            res = res/n*(n-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> n = cin.nextInt();</span><br><span class="line">        System.out.println(euler(n));</span><br><span class="line">        cin.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -452,11 +454,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,11 +470,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,15 +494,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">

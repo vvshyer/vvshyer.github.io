@@ -8,19 +8,18 @@
   <link rel="dns-prefetch" href="https://sunhuayan.tech">
   <title>用Gradle构建Spring Boot项目 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。
-创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
+  <meta name="description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。 创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
+<meta name="keywords" content="Gradle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用Gradle构建Spring Boot项目">
 <meta property="og:url" content="https://sunhuayan.tech/2017/08/16/用Gradle构建Spring Boot项目/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。
-创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
-<meta property="og:updated_time" content="2017-08-21T06:59:07.402Z">
+<meta property="og:description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。 创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-21T06:59:07.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Gradle构建Spring Boot项目">
-<meta name="twitter:description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。
-创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
+<meta name="twitter:description" content="相比起Maven的XML配置方式，Gradle提供了一套简明的DSL用于构建Java项目，使我们就像编写程序一样编写项目构建脚本。本文将从无到有创建一个用Gradle构建的Spring Boot项目，并在此过程中讲到Gradle的一些典型用法。 创建Gradle工程Gradle采用了与Maven相同的目录组织结构，你可以通过Spring Initializr网站创建Spring Boot工程。但是">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -307,7 +306,7 @@ public class HelloWorld {
         `
 </code></pre><p>然后运行：</p>
 <pre><code>./gradlew bootRun
-</code></pre><p>在浏览器或者Postman中打开<em><a href="http://localhost:8080/gradle-spring-boot/helloworld" target="_blank" rel="external">http://localhost:8080/gradle-spring-boot/helloworld</a></em>，便可以看到久违的”Hello World！”了。</p>
+</code></pre><p>在浏览器或者Postman中打开<em><a href="http://localhost:8080/gradle-spring-boot/helloworld" target="_blank" rel="noopener">http://localhost:8080/gradle-spring-boot/helloworld</a></em>，便可以看到久违的”Hello World！”了。</p>
 <h1 id="生成IDE工程文件"><a href="#生成IDE工程文件" class="headerlink" title="生成IDE工程文件"></a>生成IDE工程文件</h1><p>我曾经看到不少人在Eclipse或者IntelliJ IDEA中导入Maven/Gradle工程，甚至在IDE中使用嵌入Tomcat容器。我并不推荐这么做，这些严重依赖于GUI操作的功能其实是很笨拙、很脆弱的。以嵌入Tomcat容器为例，它要求项目中所有人都在自己的IDE中手动地对Tomcat进行配置，而手动的过程总是容易出错的。在持续交付中有个原则是“凡是能够自动化的，都应该自动化”，这里的自动化说白了其实就是代码化。</p>
 <p>因此，在使用Gradle时，笔者更推崇的一种方式是通过Gradle的IDE插件一键式地生成IDE工程文件，然后在IDE中直接打开这样的工程文件。这样的好处一是非常简单，二是所有人都使用了相同的IDE配置。</p>
 <p>在Gradle中配置IntelliJ IDEA插件，只需在build.gradle中配置：</p>
@@ -368,7 +367,7 @@ configurations {
 <pre><code>apiTest.mustRunAfter test
 build.dependsOn apiTest
 </code></pre><p>第一行的意思是API测试必须运行在单元测试之后，第二行的意思是将API测试包含在build任务中。</p>
-<p><a href="http://www.cnblogs.com/davenkin/p/gradle-spring-boot.html" target="_blank" rel="external">原文链接</a></p>
+<p><a href="http://www.cnblogs.com/davenkin/p/gradle-spring-boot.html" target="_blank" rel="noopener">原文链接</a></p>
 
       
 
@@ -640,11 +639,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,11 +655,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,15 +679,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">

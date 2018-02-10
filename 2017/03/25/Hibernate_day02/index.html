@@ -8,61 +8,21 @@
   <link rel="dns-prefetch" href="https://sunhuayan.tech">
   <title>Hibernate框架02 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Hibernate框架第二天
-课程回顾：Hibernate框架的第一天
-1. Hibernate框架的概述：ORM
-2. 框架的入门的程序
-    * 编写映射的配置文件
-    * 编写核心的配置文件
-    * 编写程序
-
-3. 配置的文件
-4. 使用的接口和方法
-
-今天内容
-1. Hibernate持久化对象的状态
-2. Hibernate的一级缓存
-3. Hibernate操作持久化对象的">
+  <meta name="description" content="Hibernate框架第二天 课程回顾：Hibernate框架的第一天 1. Hibernate框架的概述：ORM 2. 框架的入门的程序     * 编写映射的配置文件     * 编写核心的配置文件     * 编写程序  3. 配置的文件 4. 使用的接口和方法  今天内容 1. Hibernate持久化对象的状态 2. Hibernate的一级缓存 3. Hibernate操作持久化对象的">
+<meta name="keywords" content="Hibernate">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hibernate框架02">
 <meta property="og:url" content="https://sunhuayan.tech/2017/03/25/Hibernate_day02/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="Hibernate框架第二天
-课程回顾：Hibernate框架的第一天
-1. Hibernate框架的概述：ORM
-2. 框架的入门的程序
-    * 编写映射的配置文件
-    * 编写核心的配置文件
-    * 编写程序
-
-3. 配置的文件
-4. 使用的接口和方法
-
-今天内容
-1. Hibernate持久化对象的状态
-2. Hibernate的一级缓存
-3. Hibernate操作持久化对象的">
+<meta property="og:description" content="Hibernate框架第二天 课程回顾：Hibernate框架的第一天 1. Hibernate框架的概述：ORM 2. 框架的入门的程序     * 编写映射的配置文件     * 编写核心的配置文件     * 编写程序  3. 配置的文件 4. 使用的接口和方法  今天内容 1. Hibernate持久化对象的状态 2. Hibernate的一级缓存 3. Hibernate操作持久化对象的">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://sunhuayan.tech/assets/hibernate02/01-三个状态转换.bmp">
 <meta property="og:image" content="https://sunhuayan.tech/assets/hibernate02/02-Session的快照机制.bmp">
 <meta property="og:image" content="https://sunhuayan.tech/assets/hibernate02/03-丢失更新.bmp">
 <meta property="og:updated_time" content="2017-03-30T13:42:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hibernate框架02">
-<meta name="twitter:description" content="Hibernate框架第二天
-课程回顾：Hibernate框架的第一天
-1. Hibernate框架的概述：ORM
-2. 框架的入门的程序
-    * 编写映射的配置文件
-    * 编写核心的配置文件
-    * 编写程序
-
-3. 配置的文件
-4. 使用的接口和方法
-
-今天内容
-1. Hibernate持久化对象的状态
-2. Hibernate的一级缓存
-3. Hibernate操作持久化对象的">
+<meta name="twitter:description" content="Hibernate框架第二天 课程回顾：Hibernate框架的第一天 1. Hibernate框架的概述：ORM 2. 框架的入门的程序     * 编写映射的配置文件     * 编写核心的配置文件     * 编写程序  3. 配置的文件 4. 使用的接口和方法  今天内容 1. Hibernate持久化对象的状态 2. Hibernate的一级缓存 3. Hibernate操作持久化对象的">
 <meta name="twitter:image" content="https://sunhuayan.tech/assets/hibernate02/01-三个状态转换.bmp">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
@@ -745,11 +705,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -761,11 +721,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -785,15 +745,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">

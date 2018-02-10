@@ -8,25 +8,18 @@
   <link rel="dns-prefetch" href="https://sunhuayan.tech">
   <title>算法之背包问题 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1085 背包问题在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1,W2……Wn（Wi为整数）。求背包能够容纳的最大价值。
-Input
-第1行，2个整数，N和V中间用空格隔开。N为物品的数量，V为背包的容量。(1 &amp;lt;= N &amp;lt;= 100，1 &amp;lt;= V &amp;lt;= 10000)
-第2 - N + 1行，每行2个整数，">
+  <meta name="description" content="1085 背包问题在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1,W2……Wn（Wi为整数）。求背包能够容纳的最大价值。 Input 第1行，2个整数，N和V中间用空格隔开。N为物品的数量，V为背包的容量。(1 &amp;lt;= N &amp;lt;= 100，1 &amp;lt;= V &amp;lt;= 10000) 第2 - N + 1行，每行2个整数，">
+<meta name="keywords" content="算法 | 数学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法之背包问题">
 <meta property="og:url" content="https://sunhuayan.tech/2017/03/16/算法之背包问题/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="1085 背包问题在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1,W2……Wn（Wi为整数）。求背包能够容纳的最大价值。
-Input
-第1行，2个整数，N和V中间用空格隔开。N为物品的数量，V为背包的容量。(1 &amp;lt;= N &amp;lt;= 100，1 &amp;lt;= V &amp;lt;= 10000)
-第2 - N + 1行，每行2个整数，">
+<meta property="og:description" content="1085 背包问题在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1,W2……Wn（Wi为整数）。求背包能够容纳的最大价值。 Input 第1行，2个整数，N和V中间用空格隔开。N为物品的数量，V为背包的容量。(1 &amp;lt;= N &amp;lt;= 100，1 &amp;lt;= V &amp;lt;= 10000) 第2 - N + 1行，每行2个整数，">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-03-16T14:21:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法之背包问题">
-<meta name="twitter:description" content="1085 背包问题在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1,W2……Wn（Wi为整数）。求背包能够容纳的最大价值。
-Input
-第1行，2个整数，N和V中间用空格隔开。N为物品的数量，V为背包的容量。(1 &amp;lt;= N &amp;lt;= 100，1 &amp;lt;= V &amp;lt;= 10000)
-第2 - N + 1行，每行2个整数，">
+<meta name="twitter:description" content="1085 背包问题在N件物品取出若干件放在容量为V的背包里，每件物品的体积为C1，C2……Cn（Ci为整数），与之相对应的价值为W1,W2……Wn（Wi为整数）。求背包能够容纳的最大价值。 Input 第1行，2个整数，N和V中间用空格隔开。N为物品的数量，V为背包的容量。(1 &amp;lt;= N &amp;lt;= 100，1 &amp;lt;= V &amp;lt;= 10000) 第2 - N + 1行，每行2个整数，">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -205,16 +198,16 @@ Input
 <p>用自问题定义状态：即</p>
 <pre><code>F[i,v] = max{F[i-1,v],F[i-1,v-Ci] + Wi}   
 </code></pre><p>这个方程非常重要，基本上所有跟背包相关的问题的方程都是由他衍生出来的。所以有必要将它仔细解释一下：“将前i件物品放入容量为v的背包中“这个字问题，若只考虑第i件物品的策略，那么就可以转化为一个只和前i-1件物品相关的问题。如果不放第i件物品，那么问题就转换为“前i-1件物品放入容量为v的背包中“，价值为F[i-1,v]；如果放第i件物品，那么问题就转换为“前i-1件物品放入剩下的容量为v-Ci的背包中，此时能获得的最大价值就是F[i-1,v-Ci]再加上通过放入第i件物品获得的价值Wi。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">F[0,0..V] ← 0</div><div class="line">for i←1 to N	for v←Ci to V		F[i,v] ← max&#123;F[i−1,v], F[i−1,v−Ci] + Wi&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">F[0,0..V] ← 0</span><br><span class="line">for i←1 to N	for v←Ci to V		F[i,v] ← max&#123;F[i−1,v], F[i−1,v−Ci] + Wi&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="优化空间复杂度"><a href="#优化空间复杂度" class="headerlink" title="优化空间复杂度"></a>优化空间复杂度</h5><p>以上方法的时间和空间复杂度均为O(VN)，其中时间复杂度应该不能再优化了，但空间复杂度却可以优化到O(V)。</p>
 <p>先考虑上面讲的基本思路如何实现，肯定是有一个主循环i ← 1…N，每次算出二维数组F[i,0…V]的所有值。那么，如果只用一个数组F[0…V]，能不能保证第i次循环结束后F[v]中表示的就是我们定义的状态F[i,v]呢？F[i,v]是由F[i-1,v]和F[i-1,v-Ci]两个字问题递推而来，能否保证在推F[i,v]时能够取用F[i-1,v]和F[i-1,v-Ci]的值呢？</p>
 <p>事实上，这要求在每次主循环中我们以 v ← V…0 的递减顺序计算F[v]，这样才能保证计算F[v]时F[v - Ci]保存的事状态F[i-1,v-Ci]的值。伪代码如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F[0..V] ← 0for i←1 to N	for v←V to Ci		F[v] ← max&#123;F[v], F[v−Ci] + Wi&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F[0..V] ← 0for i←1 to N	for v←V to Ci		F[v] ← max&#123;F[v], F[v−Ci] + Wi&#125;</span><br></pre></td></tr></table></figure>
 <p>其中的 F[v] ← max{F[v], F[v−Ci] + Wi} 一句，恰就对应于我们原来的转移方程，因为现在的F[v-Ci]就相当于原来的F[i-1,v-Ci]。如果将v的循环顺序从上面的逆序改成顺序的话，那么则成了F[i,v]由F[i,v-Ci]推导得到，与题意不符。</p>
 <p>事实上，使用以为数组解01背包问题在后面多次用到，以后不再说明。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def ZeroOnePack(F,C,W)</div><div class="line">	for v ← V to C		F[v] ← max(F[v], F[v−C] + W)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def ZeroOnePack(F,C,W)</span><br><span class="line">	for v ← V to C		F[v] ← max(F[v], F[v−C] + W)</span><br></pre></td></tr></table></figure>
 <p>有了这个，01背包问题的伪代码可以这么写：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F [0..V ] ← 0for i ← 1 to N	ZeroOnePack(F, Ci, Wi)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F [0..V ] ← 0for i ← 1 to N	ZeroOnePack(F, Ci, Wi)</span><br></pre></td></tr></table></figure>
 <h5 id="初始化的细节问题"><a href="#初始化的细节问题" class="headerlink" title="初始化的细节问题"></a>初始化的细节问题</h5><p>我们看到的求最优解的背包问题题目中，事实上有两种不太相同的问法。有的题目 要求“恰好装满背包”时的最优解，有的题目则并没有要求必须把背包装满。一种区别这两种问法的实现方法是在初始化的时候有所不同。</p>
 <p>如果是第一种问法，要求恰好装满背包，那么在初始化时除了 F[0] 为 0，其它 F [1..V ] 均设为 −∞，这样就可以保证最终得到的 F [V ] 是一种恰好装满背包的最优解。</p>
 <p>如果并没有要求必须把背包装满，而是只希望价格尽量大，初始化时应该将 F [0..V ] 全部设为 0。</p>
@@ -499,11 +492,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -515,11 +508,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -539,15 +532,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">

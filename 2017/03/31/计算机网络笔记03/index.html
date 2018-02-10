@@ -8,47 +8,19 @@
   <link rel="dns-prefetch" href="https://sunhuayan.tech">
   <title>计算机网络笔记03 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第三章 数据链路层3.1  数据链路层的基本概念链路：一条无源的点到点的物理线路段，中间没有其他任何交换结点。
-数据链路：把实现这些协议的硬件和软件加到链路上，就构成数据链路。
-帧：在数据链路层传输的数据单位。
-数据链路层的主要功能
-链路管理
-帧定界
-流量控制
-差错控制
-将数据和控制信息区分开
-透明传输
-寻址3.2  停止等待协议3.2.1 完全理想化的数据传输3.2.2 具有最简单流量控制的数据">
+  <meta name="description" content="第三章 数据链路层3.1  数据链路层的基本概念链路：一条无源的点到点的物理线路段，中间没有其他任何交换结点。 数据链路：把实现这些协议的硬件和软件加到链路上，就构成数据链路。 帧：在数据链路层传输的数据单位。 数据链路层的主要功能 链路管理 帧定界 流量控制 差错控制 将数据和控制信息区分开 透明传输 寻址3.2  停止等待协议3.2.1 完全理想化的数据传输3.2.2 具有最简单流量控制的数据">
+<meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络笔记03">
 <meta property="og:url" content="https://sunhuayan.tech/2017/03/31/计算机网络笔记03/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="第三章 数据链路层3.1  数据链路层的基本概念链路：一条无源的点到点的物理线路段，中间没有其他任何交换结点。
-数据链路：把实现这些协议的硬件和软件加到链路上，就构成数据链路。
-帧：在数据链路层传输的数据单位。
-数据链路层的主要功能
-链路管理
-帧定界
-流量控制
-差错控制
-将数据和控制信息区分开
-透明传输
-寻址3.2  停止等待协议3.2.1 完全理想化的数据传输3.2.2 具有最简单流量控制的数据">
+<meta property="og:description" content="第三章 数据链路层3.1  数据链路层的基本概念链路：一条无源的点到点的物理线路段，中间没有其他任何交换结点。 数据链路：把实现这些协议的硬件和软件加到链路上，就构成数据链路。 帧：在数据链路层传输的数据单位。 数据链路层的主要功能 链路管理 帧定界 流量控制 差错控制 将数据和控制信息区分开 透明传输 寻址3.2  停止等待协议3.2.1 完全理想化的数据传输3.2.2 具有最简单流量控制的数据">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://sunhuayan.tech/assets/network/ch3p03.png">
 <meta property="og:updated_time" content="2017-03-31T12:41:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络笔记03">
-<meta name="twitter:description" content="第三章 数据链路层3.1  数据链路层的基本概念链路：一条无源的点到点的物理线路段，中间没有其他任何交换结点。
-数据链路：把实现这些协议的硬件和软件加到链路上，就构成数据链路。
-帧：在数据链路层传输的数据单位。
-数据链路层的主要功能
-链路管理
-帧定界
-流量控制
-差错控制
-将数据和控制信息区分开
-透明传输
-寻址3.2  停止等待协议3.2.1 完全理想化的数据传输3.2.2 具有最简单流量控制的数据">
+<meta name="twitter:description" content="第三章 数据链路层3.1  数据链路层的基本概念链路：一条无源的点到点的物理线路段，中间没有其他任何交换结点。 数据链路：把实现这些协议的硬件和软件加到链路上，就构成数据链路。 帧：在数据链路层传输的数据单位。 数据链路层的主要功能 链路管理 帧定界 流量控制 差错控制 将数据和控制信息区分开 透明传输 寻址3.2  停止等待协议3.2.1 完全理想化的数据传输3.2.2 具有最简单流量控制的数据">
 <meta name="twitter:image" content="https://sunhuayan.tech/assets/network/ch3p03.png">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
@@ -223,11 +195,11 @@
 <li>差错控制</li>
 <li>将数据和控制信息区分开</li>
 <li>透明传输</li>
-<li>寻址<h2 id="3-2-停止等待协议"><a href="#3-2-停止等待协议" class="headerlink" title="3.2  停止等待协议"></a>3.2  停止等待协议</h2><h3 id="3-2-1-完全理想化的数据传输"><a href="#3-2-1-完全理想化的数据传输" class="headerlink" title="3.2.1 完全理想化的数据传输"></a>3.2.1 完全理想化的数据传输</h3><h3 id="3-2-2-具有最简单流量控制的数据链路层协议"><a href="#3-2-2-具有最简单流量控制的数据链路层协议" class="headerlink" title="3.2.2 具有最简单流量控制的数据链路层协议"></a>3.2.2 具有最简单流量控制的数据链路层协议</h3><h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">	在发送结点：</div><div class="line">	1.从主机取一个数据帧</div><div class="line">	2.将数据帧送到数据链路层的发送缓存</div><div class="line">	3.将发送缓存中的数据帧发送出去</div><div class="line">	4.等待</div><div class="line">	5.若收到由接收结点发过来的信息（格式内容事先商定），则从主机取一个新的数据帧，然后转道到2</div><div class="line">	</div><div class="line">	在接收结点：</div><div class="line">	1.等待</div><div class="line">	2.若收到由发送结点发过来的数据帧，则将其放入数据链路层的接收缓存</div><div class="line">	3。将接收缓存中的数据帧上交主机</div><div class="line">	4.向发送结点发一信息，表示数据帧已经上交给主机</div><div class="line">	5.转到1</div><div class="line">```### 3.2.3 实用的停止等待协议</div><div class="line">![](/assets/network/ch3p01.png)</div><div class="line"></div><div class="line">重传时间：略大于“从发完数据帧到收到确认帧所需的平均时间”</div><div class="line"></div><div class="line">解决重复帧的问题：</div><div class="line">	* 使每一个数据帧带上不同的发送序号，每发送一个新的数据帧就把它的发送序号加1</div><div class="line">	* 若结点B收到发送序号相同的数据帧，就表明出现了重复帧。这时应丢弃重复帧，因为已经收到过同样的数据帧并且也交给了主机B</div><div class="line">	* 但此时结点B还必须向A发送确认帧ACK，因为B已经知道A还没收到上一次发过去的确认帧ACK</div><div class="line"></div><div class="line">帧的编号问题：</div><div class="line">	* 对于停止等待协议，由于每发送一个数据帧就停止等待，因此一个比特编号就够了。（表示0和1两种不同的序号）</div><div class="line"></div><div class="line">数据链路层的停止等待协议采用了有效的检错重传机制，对网络层提供*可靠传输*的服务</div><div class="line">### 3.2.4 循环冗余检验的原理</div><div class="line">![](/assets/network/ch3p02.png)</div><div class="line"></div><div class="line">帧检验序列FCS：在数据后面添加上的冗余码称为帧检验序列FCS</div><div class="line">### 3.2.5 停止等待协议的算法</div><div class="line">* 收发双方实行停止等待</div><div class="line">* V(S):发送序号状态变量</div><div class="line">* V(R):接收序号状态变量</div><div class="line">* N(S):帧的序号</div><div class="line">* 序号只占1bit</div></pre></td></tr></table></figure>
+<li>寻址<h2 id="3-2-停止等待协议"><a href="#3-2-停止等待协议" class="headerlink" title="3.2  停止等待协议"></a>3.2  停止等待协议</h2><h3 id="3-2-1-完全理想化的数据传输"><a href="#3-2-1-完全理想化的数据传输" class="headerlink" title="3.2.1 完全理想化的数据传输"></a>3.2.1 完全理想化的数据传输</h3><h3 id="3-2-2-具有最简单流量控制的数据链路层协议"><a href="#3-2-2-具有最简单流量控制的数据链路层协议" class="headerlink" title="3.2.2 具有最简单流量控制的数据链路层协议"></a>3.2.2 具有最简单流量控制的数据链路层协议</h3><h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">	在发送结点：</span><br><span class="line">	1.从主机取一个数据帧</span><br><span class="line">	2.将数据帧送到数据链路层的发送缓存</span><br><span class="line">	3.将发送缓存中的数据帧发送出去</span><br><span class="line">	4.等待</span><br><span class="line">	5.若收到由接收结点发过来的信息（格式内容事先商定），则从主机取一个新的数据帧，然后转道到2</span><br><span class="line">	</span><br><span class="line">	在接收结点：</span><br><span class="line">	1.等待</span><br><span class="line">	2.若收到由发送结点发过来的数据帧，则将其放入数据链路层的接收缓存</span><br><span class="line">	3。将接收缓存中的数据帧上交主机</span><br><span class="line">	4.向发送结点发一信息，表示数据帧已经上交给主机</span><br><span class="line">	5.转到1</span><br><span class="line">```### 3.2.3 实用的停止等待协议</span><br><span class="line">![](/assets/network/ch3p01.png)</span><br><span class="line"></span><br><span class="line">重传时间：略大于“从发完数据帧到收到确认帧所需的平均时间”</span><br><span class="line"></span><br><span class="line">解决重复帧的问题：</span><br><span class="line">	* 使每一个数据帧带上不同的发送序号，每发送一个新的数据帧就把它的发送序号加1</span><br><span class="line">	* 若结点B收到发送序号相同的数据帧，就表明出现了重复帧。这时应丢弃重复帧，因为已经收到过同样的数据帧并且也交给了主机B</span><br><span class="line">	* 但此时结点B还必须向A发送确认帧ACK，因为B已经知道A还没收到上一次发过去的确认帧ACK</span><br><span class="line"></span><br><span class="line">帧的编号问题：</span><br><span class="line">	* 对于停止等待协议，由于每发送一个数据帧就停止等待，因此一个比特编号就够了。（表示0和1两种不同的序号）</span><br><span class="line"></span><br><span class="line">数据链路层的停止等待协议采用了有效的检错重传机制，对网络层提供*可靠传输*的服务</span><br><span class="line">### 3.2.4 循环冗余检验的原理</span><br><span class="line">![](/assets/network/ch3p02.png)</span><br><span class="line"></span><br><span class="line">帧检验序列FCS：在数据后面添加上的冗余码称为帧检验序列FCS</span><br><span class="line">### 3.2.5 停止等待协议的算法</span><br><span class="line">* 收发双方实行停止等待</span><br><span class="line">* V(S):发送序号状态变量</span><br><span class="line">* V(R):接收序号状态变量</span><br><span class="line">* N(S):帧的序号</span><br><span class="line">* 序号只占1bit</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>在发送结点：<br>(1)  从主机取一个数据帧，送交发送缓存。<br>(2)  V(S)←0。<br>(3)  N(S)←V(S)。<br>(4)  将发送缓存中的数据帧发送出去。<br>(5)  设置超时计时器。<br>(6)  等待。    {等待以下三个事件中最先出现的一个}<br>(7)  ACK收到确认帧 ，<br>         从主机取一个新的数据帧，放入发送缓存；<br>           V(S)←[1-V(S)]，转到 (3)。<br>(8)  收到否认帧NAK，<br>         丢弃这个确认帧，转到(4)。<br>(9)  若超时计时器时间到，则转到(4)。</p>
-<p>在接收结点：<br>(1)  V(R)←0。<br>(2)  等待。<br>(3)  收到一个数据帧；<br>         若 CRC校验无误<br>             若 N(S) = V(R)，则执行(4)；<br>             否则丢弃此数据帧，然后转到(6)。<br>          否则丢弃此数据帧，发送NAK，然后转到(2)。<br>(4)  将收到的数据帧中的数据部分送交上层软件<br>        （也就是数据链路层模型中的主机）。<br>(5)  V(R)←[1-V(R)]。<br>(6)  发送确认帧ACK，转到(2)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>在接收结点：<br>(1)  V(R)←0。<br>(2)  等待。<br>(3)  收到一个数据帧；<br>         若 CRC校验无误<br>             若 N(S) = V(R)，则执行(4)；<br>             否则丢弃此数据帧，然后转到(6)。<br>          否则丢弃此数据帧，发送NAK，然后转到(2)。<br>(4)  将收到的数据帧中的数据部分送交上层软件<br>        （也就是数据链路层模型中的主机）。<br>(5)  V(R)←[1-V(R)]。<br>(6)  发送确认帧ACK，转到(2)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 <p>(1)   从主机取一个数据帧，送交发送缓存。<br>(2)   V(S)←0。<br>(3)   N(S)←V(S)。<br>(4)  将发送缓存中的数据帧发送出去。<br>(5)  设置超时计时器。<br>(6)   等待。<br>(7)  收到确认帧 ACKn，<br>      若 n = 1 – V(s)，则：<br>           从主机取一个新的数据帧，放入发送缓存；<br>           V(S)←[1  V(S)]，转到 (3)。<br>      否则，丢弃这个确认帧，转到(6)。<br>(8)  若超时计时器时间到，则转到(4)。</p>
 <p>(1)  V(R)←0。<br>(2)  等待。<br>(3)  收到一个数据帧；<br>          若 CRC校验无误<br>             若 N(S) = V(R)，则执行(4)；<br>             否则丢弃此数据帧，然后转到(6)。<br>          否则丢弃此数据帧，然后转到(2)。<br>(4)  将收到的数据帧中的数据部分送交上层软件<br>(5)  V(R)←[1  V(R)]。<br>(6)  n←V(R)；<br>      发送确认帧 ACKn，转到(2)。<br>```</p>
 <h5 id="停止等待协议ARQ的优点缺点"><a href="#停止等待协议ARQ的优点缺点" class="headerlink" title="停止等待协议ARQ的优点缺点"></a>停止等待协议ARQ的优点缺点</h5><ul>
@@ -510,11 +482,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -526,11 +498,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,15 +522,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -8,46 +8,18 @@
   <link rel="dns-prefetch" href="https://sunhuayan.tech">
   <title>算法之回文串 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1088 最长回文字串回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。
-Input
-输入Str（Str的长度 &amp;lt;= 1000)
-
-
-Output
-输出最长回文子串的长度L。
-
-
-
-从中心向两边扩展12345678910111213141516171819202122232425262728293031323334">
+  <meta name="description" content="1088 最长回文字串回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。 Input 输入Str（Str的长度 &amp;lt;= 1000)   Output 输出最长回文子串的长度L。    从中心向两边扩展12345678910111213141516171819202122232425262728293031323334">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法之回文串">
 <meta property="og:url" content="https://sunhuayan.tech/2017/03/16/算法之最长回文串/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="1088 最长回文字串回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。
-Input
-输入Str（Str的长度 &amp;lt;= 1000)
-
-
-Output
-输出最长回文子串的长度L。
-
-
-
-从中心向两边扩展12345678910111213141516171819202122232425262728293031323334">
+<meta property="og:description" content="1088 最长回文字串回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。 Input 输入Str（Str的长度 &amp;lt;= 1000)   Output 输出最长回文子串的长度L。    从中心向两边扩展12345678910111213141516171819202122232425262728293031323334">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-03-16T08:35:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法之回文串">
-<meta name="twitter:description" content="1088 最长回文字串回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。
-Input
-输入Str（Str的长度 &amp;lt;= 1000)
-
-
-Output
-输出最长回文子串的长度L。
-
-
-
-从中心向两边扩展12345678910111213141516171819202122232425262728293031323334">
+<meta name="twitter:description" content="1088 最长回文字串回文串是指aba、abba、cccbccc、aaaa这种左右对称的字符串。输入一个字符串Str，输出Str里最长回文子串的长度。 Input 输入Str（Str的长度 &amp;lt;= 1000)   Output 输出最长回文子串的长度L。    从中心向两边扩展12345678910111213141516171819202122232425262728293031323334">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -221,7 +193,7 @@ Output
 </ul>
 </li>
 </ul>
-<h4 id="从中心向两边扩展"><a href="#从中心向两边扩展" class="headerlink" title="从中心向两边扩展"></a>从中心向两边扩展</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span>[] arr = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1001</span>];</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        String str = cin.nextLine();</div><div class="line">        arr = str.toCharArray();</div><div class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length();i++)&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; (i-j)&gt;=<span class="number">0</span> &amp;&amp; (i+j)&lt;str.length();j++) &#123;</div><div class="line">                <span class="keyword">if</span> (arr[i - j] != arr[i + j]) &#123;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">int</span> tmp = <span class="number">2</span> * j + <span class="number">1</span>;</div><div class="line">                <span class="keyword">if</span> (tmp &gt;= res) &#123;</div><div class="line">                    res = tmp;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; (i-j)&gt;=<span class="number">0</span> &amp;&amp; (i+j+<span class="number">1</span>)&lt;str.length();j++) &#123;</div><div class="line">                <span class="keyword">if</span> (arr[i - j] != arr[i + j + <span class="number">1</span>]) &#123;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">int</span> tmp = <span class="number">2</span> * j + <span class="number">2</span>;</div><div class="line">                <span class="keyword">if</span> (tmp &gt;= res) &#123;</div><div class="line">                    res = tmp;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(res);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="从中心向两边扩展"><a href="#从中心向两边扩展" class="headerlink" title="从中心向两边扩展"></a>从中心向两边扩展</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span>[] arr = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1001</span>];</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner cin = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = cin.nextLine();</span><br><span class="line">        arr = str.toCharArray();</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length();i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; (i-j)&gt;=<span class="number">0</span> &amp;&amp; (i+j)&lt;str.length();j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[i - j] != arr[i + j]) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> tmp = <span class="number">2</span> * j + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (tmp &gt;= res) &#123;</span><br><span class="line">                    res = tmp;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; (i-j)&gt;=<span class="number">0</span> &amp;&amp; (i+j+<span class="number">1</span>)&lt;str.length();j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[i - j] != arr[i + j + <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> tmp = <span class="number">2</span> * j + <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">if</span> (tmp &gt;= res) &#123;</span><br><span class="line">                    res = tmp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -336,11 +308,11 @@ Output
   
 <nav id="article-nav">
   
-    <a href="/2017/03/16/CCF之201612-3权限查询/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/03/16/Hibernate_day01/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          CCF之201612-3权限查询
+          Hibernate框架01
         
       </div>
     </a>
@@ -493,11 +465,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,11 +481,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,15 +505,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">

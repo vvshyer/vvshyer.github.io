@@ -8,37 +8,18 @@
   <link rel="dns-prefetch" href="https://sunhuayan.tech">
   <title>OC学习之语法 | MineMine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="类的定义
-123@interface SimpleClass:NSObject类 @end
-
-类的属性申明
-1234@interface Person:NSObject@property NSString *firstName;@property NSSTring *lastName; @end
-
-类的属性申明
-123@property NSNumber *yearOfBirth;@propert">
+  <meta name="description" content="类的定义 123@interface SimpleClass:NSObject类 @end  类的属性申明 1234@interface Person:NSObject@property NSString *firstName;@property NSSTring *lastName; @end  类的属性申明 123@property NSNumber *yearOfBirth;@propert">
+<meta name="keywords" content="iOS MAC Object-C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OC学习之语法">
 <meta property="og:url" content="https://sunhuayan.tech/2017/02/28/OC学习之语法/index.html">
 <meta property="og:site_name" content="MineMine">
-<meta property="og:description" content="类的定义
-123@interface SimpleClass:NSObject类 @end
-
-类的属性申明
-1234@interface Person:NSObject@property NSString *firstName;@property NSSTring *lastName; @end
-
-类的属性申明
-123@property NSNumber *yearOfBirth;@propert">
+<meta property="og:description" content="类的定义 123@interface SimpleClass:NSObject类 @end  类的属性申明 1234@interface Person:NSObject@property NSString *firstName;@property NSSTring *lastName; @end  类的属性申明 123@property NSNumber *yearOfBirth;@propert">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-03-02T12:22:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC学习之语法">
-<meta name="twitter:description" content="类的定义
-123@interface SimpleClass:NSObject类 @end
-
-类的属性申明
-1234@interface Person:NSObject@property NSString *firstName;@property NSSTring *lastName; @end
-
-类的属性申明
-123@property NSNumber *yearOfBirth;@propert">
+<meta name="twitter:description" content="类的定义 123@interface SimpleClass:NSObject类 @end  类的属性申明 1234@interface Person:NSObject@property NSString *firstName;@property NSSTring *lastName; @end  类的属性申明 123@property NSNumber *yearOfBirth;@propert">
   
     <link rel="alternative" href="/atom.xml" title="MineMine" type="application/atom+xml">
   
@@ -203,22 +184,22 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>类的定义</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SimpleClass</span>:<span class="title">NSObject</span></span></div><div class="line">类 </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SimpleClass</span>:<span class="title">NSObject</span></span></span><br><span class="line">类 </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p>类的属性申明</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>:<span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSSTring</span> *lastName; </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>:<span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *firstName;</span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSSTring</span> *lastName; </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p>类的属性申明</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> <span class="built_in">NSNumber</span> *yearOfBirth;</div><div class="line"><span class="keyword">@property</span> <span class="keyword">int</span> yearOfBirth;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>) <span class="built_in">NSString</span> *firstName;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> <span class="built_in">NSNumber</span> *yearOfBirth;</span><br><span class="line"><span class="keyword">@property</span> <span class="keyword">int</span> yearOfBirth;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>) <span class="built_in">NSString</span> *firstName;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>减号方法（普通方法又称对象方法）申明</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>:<span class="title">NSObject</span></span></div><div class="line">-(<span class="keyword">void</span>)someMethod;</div><div class="line">-(<span class="keyword">void</span>)someMethodWithValue:(SomeType)value;</div><div class="line">-(<span class="keyword">void</span>)someMethodWithFirstValue:(SomeType)info1 </div><div class="line">secondValue:(AnotherType)info2;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>:<span class="title">NSObject</span></span></span><br><span class="line">-(<span class="keyword">void</span>)someMethod;</span><br><span class="line">-(<span class="keyword">void</span>)someMethodWithValue:(SomeType)value;</span><br><span class="line">-(<span class="keyword">void</span>)someMethodWithFirstValue:(SomeType)info1 </span><br><span class="line">secondValue:(AnotherType)info2;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p>加号方法（类方法又称静态方法）申明</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSString</span>:<span class="title">NSObject</span></span></div><div class="line">+(<span class="keyword">id</span>)string;</div><div class="line">+(<span class="keyword">id</span>)stringWithString:(<span class="built_in">NSString</span> *)aString;</div><div class="line">+(<span class="keyword">id</span>)stringWithFormat:(<span class="built_in">NSString</span> *)format,...;</div><div class="line">+(<span class="keyword">id</span>)stringWithContentsOfFile:(<span class="built_in">NSString</span> *)path  encoding:(<span class="built_in">NSStringEncoding</span>)enc error:(<span class="built_in">NSError</span> **)errod;</div><div class="line">+(<span class="keyword">id</span>)stringWithCString:(<span class="keyword">const</span> <span class="keyword">char</span> *)cString encoding:(<span class="built_in">NSStringEncoding</span>)enc;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSString</span>:<span class="title">NSObject</span></span></span><br><span class="line">+(<span class="keyword">id</span>)string;</span><br><span class="line">+(<span class="keyword">id</span>)stringWithString:(<span class="built_in">NSString</span> *)aString;</span><br><span class="line">+(<span class="keyword">id</span>)stringWithFormat:(<span class="built_in">NSString</span> *)format,...;</span><br><span class="line">+(<span class="keyword">id</span>)stringWithContentsOfFile:(<span class="built_in">NSString</span> *)path  encoding:(<span class="built_in">NSStringEncoding</span>)enc error:(<span class="built_in">NSError</span> **)errod;</span><br><span class="line">+(<span class="keyword">id</span>)stringWithCString:(<span class="keyword">const</span> <span class="keyword">char</span> *)cString encoding:(<span class="built_in">NSStringEncoding</span>)enc;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p>类的实现</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"XYZPerson.h"</span></span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XYZPersion</span></span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"XYZPerson.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XYZPersion</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <hr>
 
       
@@ -491,11 +472,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,11 +488,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,15 +512,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">
