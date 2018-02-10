@@ -162,6 +162,126 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Oracle学习之JDBC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/22/Oracle学习之JDBC/">Oracle学习之JDBC</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/22/Oracle学习之JDBC/" class="archive-article-date">
+  	<time datetime="2015-01-22T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-JDBC："><a href="#1-JDBC：" class="headerlink" title="1.JDBC："></a>1.JDBC：</h1><pre><code>Java Database Connectivity
+在java中访问各种关系型数据库的一些API
+</code></pre><h1 id="2-JDBC所在的包："><a href="#2-JDBC所在的包：" class="headerlink" title="2.JDBC所在的包："></a>2.JDBC所在的包：</h1><pre><code>Java.sql.*;
+</code></pre><h1 id="3-常用的类和接口："><a href="#3-常用的类和接口：" class="headerlink" title="3.常用的类和接口："></a>3.常用的类和接口：</h1><pre><code>DriverManager    程序驱动管理器（类）
+Connection    代表数据库连接（接口）
+Statement    声明，可以用来发送sql语句（接口）
+            Boolean excute
+            ResultSet excuteQuery
+            Int executeUpdate
+            Int[] executeUpdate
+resultSet    结果集（接口），代表查询结果
+</code></pre><h1 id="4-利用JDBC访问数据库的原理："><a href="#4-利用JDBC访问数据库的原理：" class="headerlink" title="4.利用JDBC访问数据库的原理："></a>4.利用JDBC访问数据库的原理：</h1><pre><code>//连接数据库，并向dept表中插一条记录：
+        //1.加载驱动（按需访问）
+            Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);
+        //2.获得连接
+        String url=&quot;jdbc:oracle:thin:@localhost:1521:orcl&quot;;
+        String userName=&quot;c##scott&quot;;
+        String password=&quot;tiger&quot;;
+        Connection conn =
+         DriverManager.getConnection(url,userName,password);
+                System.out.println(&quot;连接成功&quot;);
+        ;//代表连接
+        //3.获得声明
+        Statement st = null;//声明
+               //创建一个与conn关联的声明
+            st = conn.createStatement();
+            //4.发送sql
+            st.execute(&quot;insert into dept values(45,&apos;开发部&apos;,&apos;哈尔滨&apos;)&quot;);
+         //5.关闭资源
+        st.close();
+        conn.close();
+</code></pre><h1 id="5-Statement的三个常用方法的区别："><a href="#5-Statement的三个常用方法的区别：" class="headerlink" title="5.Statement的三个常用方法的区别："></a>5.Statement的三个常用方法的区别：</h1><pre><code>boolean execute：可以执行任何sql语句，如果此sql语句有查询结果，返回true，否则，false
+ResultSet getResultSet：获得查询结果集
+int executeUpdate：执行DML和DDL，返回影响的记录的条数，如果是DDL，返回0
+ResultSet executeQuery：专门执行select语句的方法，返回查询结果集
+</code></pre><h1 id="6-ResultSet的用法："><a href="#6-ResultSet的用法：" class="headerlink" title="6.ResultSet的用法："></a>6.ResultSet的用法：</h1><pre><code>代表查询语句的结果集；
+    两个重要的方法
+    .next()：移动记录的指针
+    .getXXX()：获取当前行的某个字段的值
+    rs = st.executeQuery(&quot;select * from dept&quot;);
+                //遍历结果集
+                //是否存在下一条记录
+                while(rs.next()){
+                    //取每一个字段值
+                    int deptno = rs.getInt(1);
+                    String dname = rs.getString(&quot;dname&quot;);
+                    String loc = rs.getString(&quot;loc&quot;);
+                    System.out.println(deptno+&quot;\t&quot;+dname+&quot;\t&quot;+loc);
+    }
+</code></pre><h1 id="7-DAO"><a href="#7-DAO" class="headerlink" title="7.DAO:"></a>7.DAO:</h1><pre><code>Data Access Object;
+对数据操作的封装
+DeptDao{
+    insert(Dept dept);
+    update(Dept dept);
+}
+VO:Value Object
+    java中我们使用的类
+    数据库中我们使用的表
+</code></pre><h1 id="8-PreparedStatement："><a href="#8-PreparedStatement：" class="headerlink" title="8.PreparedStatement："></a>8.PreparedStatement：</h1><pre><code>这是Statement的子接口，是预编译的Statement，与Statement相比，PreparedStatement在多次执行同一类语句性能更好；同时可以解决sql注入的问题
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/22/Oracle学习之JDBC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Oracle学习之E-R图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1078,11 +1198,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1091,6 +1211,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1118,11 +1242,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">

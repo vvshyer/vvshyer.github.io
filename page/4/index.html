@@ -162,6 +162,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-机试笔记04查找" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/10/机试笔记04查找/">机试笔记04查找</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/10/机试笔记04查找/" class="archive-article-date">
+  	<time datetime="2017-03-10T13:07:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="输入N个学生的信息进行查询"><a href="#输入N个学生的信息进行查询" class="headerlink" title="输入N个学生的信息进行查询"></a>输入N个学生的信息进行查询</h1><ul>
+<li>二分查找</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//存在一个升序有序的数组buf,其大小为size,目标数字为target int base = 0 , top = size; //初始情况与二分查找一致</span><span class="keyword">while</span> (base &lt;= top) &#123; <span class="comment">//二分循环条件与二分查找一致</span><span class="keyword">int</span> mid = (base + top) / <span class="number">2</span>;<span class="keyword">if</span> (buf[mid] &lt;= target) base = mid + <span class="number">1</span>; <span class="comment">//符合前一部分数字规定 else top = mid - 1; //否则</span>&#125;</div><div class="line"><span class="keyword">int</span> ans = top;<span class="comment">//最后，top即位我们要求的数字数组下标，buf[top]为数字本省</span></div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">struct</span> Student &#123;</div><div class="line">    <span class="keyword">char</span> no[<span class="number">100</span>];</div><div class="line">    <span class="keyword">char</span> name[<span class="number">100</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">char</span> sex[<span class="number">5</span>];</div><div class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Student &amp; A) <span class="keyword">const</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">strcmp</span>(no, A.no) &lt; <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;buf[<span class="number">1000</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n) != EOF) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%s%s%s%d"</span>,buf[i].no,buf[i].name,buf[i].sex,</div><div class="line">                  &amp;buf[i].age);</div><div class="line">        &#125;<span class="comment">//输入</span></div><div class="line">        sort(buf, buf+n);</div><div class="line">        <span class="keyword">int</span> t;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;t);</div><div class="line">        <span class="keyword">while</span> (t-- != <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">int</span> ans = <span class="number">-1</span>;</div><div class="line">            <span class="keyword">char</span> x[<span class="number">30</span>];</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%s"</span>,x);</div><div class="line">            <span class="keyword">int</span> top = n<span class="number">-1</span>, base = <span class="number">0</span>;</div><div class="line">            <span class="keyword">while</span> (top &gt;= base) &#123;</div><div class="line">                <span class="keyword">int</span> mid = (top + base)/<span class="number">2</span>;</div><div class="line">                <span class="keyword">int</span> tmp = <span class="built_in">strcmp</span>(buf[mid].no, x);</div><div class="line">                <span class="keyword">if</span> (tmp == <span class="number">0</span>) &#123;</div><div class="line">                    ans = mid;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(tmp &gt;<span class="number">0</span>)</div><div class="line">                    top = mid - <span class="number">1</span>;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    base = mid + <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (ans == <span class="number">-1</span>) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"No Answer!\n"</span>);</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"%s %s %s %d\n"</span>,buf[ans].no,buf[ans].name,buf[ans].sex,buf[ans].age);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/10/机试笔记04查找/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-机试笔记03Hash的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -963,126 +1028,6 @@
 
 
   
-    <article id="post-Oracle学习之JDBC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/22/Oracle学习之JDBC/">Oracle学习之JDBC</a>
-    </h1>
-  
-
-        
-        <a href="/2015/01/22/Oracle学习之JDBC/" class="archive-article-date">
-  	<time datetime="2015-01-22T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-JDBC："><a href="#1-JDBC：" class="headerlink" title="1.JDBC："></a>1.JDBC：</h1><pre><code>Java Database Connectivity
-在java中访问各种关系型数据库的一些API
-</code></pre><h1 id="2-JDBC所在的包："><a href="#2-JDBC所在的包：" class="headerlink" title="2.JDBC所在的包："></a>2.JDBC所在的包：</h1><pre><code>Java.sql.*;
-</code></pre><h1 id="3-常用的类和接口："><a href="#3-常用的类和接口：" class="headerlink" title="3.常用的类和接口："></a>3.常用的类和接口：</h1><pre><code>DriverManager    程序驱动管理器（类）
-Connection    代表数据库连接（接口）
-Statement    声明，可以用来发送sql语句（接口）
-            Boolean excute
-            ResultSet excuteQuery
-            Int executeUpdate
-            Int[] executeUpdate
-resultSet    结果集（接口），代表查询结果
-</code></pre><h1 id="4-利用JDBC访问数据库的原理："><a href="#4-利用JDBC访问数据库的原理：" class="headerlink" title="4.利用JDBC访问数据库的原理："></a>4.利用JDBC访问数据库的原理：</h1><pre><code>//连接数据库，并向dept表中插一条记录：
-        //1.加载驱动（按需访问）
-            Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);
-        //2.获得连接
-        String url=&quot;jdbc:oracle:thin:@localhost:1521:orcl&quot;;
-        String userName=&quot;c##scott&quot;;
-        String password=&quot;tiger&quot;;
-        Connection conn =
-         DriverManager.getConnection(url,userName,password);
-                System.out.println(&quot;连接成功&quot;);
-        ;//代表连接
-        //3.获得声明
-        Statement st = null;//声明
-               //创建一个与conn关联的声明
-            st = conn.createStatement();
-            //4.发送sql
-            st.execute(&quot;insert into dept values(45,&apos;开发部&apos;,&apos;哈尔滨&apos;)&quot;);
-         //5.关闭资源
-        st.close();
-        conn.close();
-</code></pre><h1 id="5-Statement的三个常用方法的区别："><a href="#5-Statement的三个常用方法的区别：" class="headerlink" title="5.Statement的三个常用方法的区别："></a>5.Statement的三个常用方法的区别：</h1><pre><code>boolean execute：可以执行任何sql语句，如果此sql语句有查询结果，返回true，否则，false
-ResultSet getResultSet：获得查询结果集
-int executeUpdate：执行DML和DDL，返回影响的记录的条数，如果是DDL，返回0
-ResultSet executeQuery：专门执行select语句的方法，返回查询结果集
-</code></pre><h1 id="6-ResultSet的用法："><a href="#6-ResultSet的用法：" class="headerlink" title="6.ResultSet的用法："></a>6.ResultSet的用法：</h1><pre><code>代表查询语句的结果集；
-    两个重要的方法
-    .next()：移动记录的指针
-    .getXXX()：获取当前行的某个字段的值
-    rs = st.executeQuery(&quot;select * from dept&quot;);
-                //遍历结果集
-                //是否存在下一条记录
-                while(rs.next()){
-                    //取每一个字段值
-                    int deptno = rs.getInt(1);
-                    String dname = rs.getString(&quot;dname&quot;);
-                    String loc = rs.getString(&quot;loc&quot;);
-                    System.out.println(deptno+&quot;\t&quot;+dname+&quot;\t&quot;+loc);
-    }
-</code></pre><h1 id="7-DAO"><a href="#7-DAO" class="headerlink" title="7.DAO:"></a>7.DAO:</h1><pre><code>Data Access Object;
-对数据操作的封装
-DeptDao{
-    insert(Dept dept);
-    update(Dept dept);
-}
-VO:Value Object
-    java中我们使用的类
-    数据库中我们使用的表
-</code></pre><h1 id="8-PreparedStatement："><a href="#8-PreparedStatement：" class="headerlink" title="8.PreparedStatement："></a>8.PreparedStatement：</h1><pre><code>这是Statement的子接口，是预编译的Statement，与Statement相比，PreparedStatement在多次执行同一类语句性能更好；同时可以解决sql注入的问题
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/01/22/Oracle学习之JDBC/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1200,11 +1145,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hibernate</a>
+                <a href="javascript:void(0)" class="js-tag color4">CCF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1213,6 +1158,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1240,11 +1189,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">
