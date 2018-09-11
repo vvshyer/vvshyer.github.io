@@ -163,125 +163,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-机试笔记06Java在ACM中的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/11/机试笔记06Java在ACM中的应用/">机试笔记06Java在ACM中的应用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/11/机试笔记06Java在ACM中的应用/" class="archive-article-date">
-  	<time datetime="2017-03-11T13:00:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Chapter-I"><a href="#Chapter-I" class="headerlink" title="Chapter I."></a>Chapter I.</h1><h3 id="Java的优缺点各种书上都有，这里只说说用Java做ACM-ICPC的特点："><a href="#Java的优缺点各种书上都有，这里只说说用Java做ACM-ICPC的特点：" class="headerlink" title="Java的优缺点各种书上都有，这里只说说用Java做ACM-ICPC的特点："></a>Java的优缺点各种书上都有，这里只说说用Java做ACM-ICPC的特点：</h3><ul>
-<li>最明显的好处是，学会Java，可以参加Java Challenge</li>
-<li>对于熟悉C/C++的程序员来说，Java并不难学，找本书，一两周业余时间就可以搞定了。当然，这里只是指一般编程，想熟悉所有的Java库还是需要些时间的。 </li>
-<li>在一般比赛中，Java程序会有额外的时间和空间，而实际上经过实验，在执行计算密集任务的时候Java并不比C/C++慢多少，只是IO操作较慢而已。 </li>
-<li>Java简单而功能强大，有些东西用Java实现起来更为方便，比如高精度。 </li>
-<li>用Java不易犯细微的错误，比如C/C++中的指针，“if (n = m) … ” 等 </li>
-<li>目前来看Eclipse已成基本配置，写Java程序反而比C/C++更方便调试。在具体竞赛时也算多一种选择。 </li>
-<li>学会Java对以后工作有好处。现在国外很多地方会Java的人比会C/C++的人多。 </li>
-<li>会Java可以使你看起来更像偶蹄类动物（牛）      hoho~ </li>
-</ul>
-<h1 id="Chapter-II"><a href="#Chapter-II" class="headerlink" title="Chapter II."></a>Chapter II.</h1><h3 id="下面说一下ACM-ICPC队员初用Java编程所遇到的一些问题："><a href="#下面说一下ACM-ICPC队员初用Java编程所遇到的一些问题：" class="headerlink" title="下面说一下ACM-ICPC队员初用Java编程所遇到的一些问题："></a>下面说一下ACM-ICPC队员初用Java编程所遇到的一些问题：</h3><h6 id="基本输入输出："><a href="#基本输入输出：" class="headerlink" title="基本输入输出："></a>基本输入输出：</h6><ul>
-<li>JDK 1.5.0 新增的Scanner类为输入提供了良好的基础，简直就是为ACM-ICPC而设的。 </li>
-<li>一般用法为： </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.* </span><br><span class="line"><span class="keyword">import</span> java.util.* </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span></span><br><span class="line"><span class="function">      </span>&#123; </span><br><span class="line">          Scanner cin = <span class="keyword">new</span> Scanner(<span class="keyword">new</span> BufferedInputStream(System.in)); </span><br><span class="line">          ... </span><br><span class="line">      &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">* 读一个整数： <span class="keyword">int</span> n = cin.nextInt(); </span><br><span class="line">* 读一个字符串：String s = cin.next(); </span><br><span class="line">* 读一个浮点数：<span class="keyword">double</span> t = cin.nextDouble();</span><br><span class="line">* 读一整行：String s = cin.nextLine(); </span><br><span class="line">* 判断是否有下一个输入可以用 cin.hasNext() 或 cin.hasNextInt() 或 cin.hasNextDouble() 等，具体见 TOJ <span class="number">1001</span> 例程。 </span><br><span class="line"> </span><br><span class="line">* 输出一般可以直接用 System.out.print() 和 System.out.println()，前者不输出换行，而后者输出。 </span><br><span class="line">比如：System.out.println(n);    <span class="comment">// n 为 int 型 </span></span><br><span class="line">同一行输出多个整数可以用</span><br><span class="line"></span><br><span class="line">```Java </span><br><span class="line">      System.out.println(<span class="keyword">new</span> Integer(n).toString() + <span class="string">" "</span> + <span class="keyword">new</span> Integer(m).toString());</span><br></pre></td></tr></table></figure>
-<ul>
-<li>也可重新定义： </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PrintWriter cout = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out)); </span><br><span class="line">cout.println(n);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>对于输出浮点数保留几位小数的问题，可以使用DecimalFormat类， </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.*; </span><br><span class="line">DecimalFormat f = <span class="keyword">new</span> DecimalFormat(<span class="string">"#.00#"</span>); </span><br><span class="line">DecimalFormat g = <span class="keyword">new</span> DecimalFormat(<span class="string">"0.000"</span>); </span><br><span class="line"><span class="keyword">double</span> a = <span class="number">123.45678</span>, b = <span class="number">0.12</span>; </span><br><span class="line">System.out.println(f.format(a)); </span><br><span class="line">System.out.println(f.format(b)); </span><br><span class="line">System.out.println(g.format(b)); </span><br><span class="line"><span class="comment">//这里0指一位数字，#指除0以外的数字。</span></span><br></pre></td></tr></table></figure>
-<h6 id="大数字"><a href="#大数字" class="headerlink" title="大数字"></a>大数字</h6><ul>
-<li>BigInteger 和 BigDecimal 是在java.math包中已有的类，前者表示整数，后者表示浮点数 </li>
-<li>用法：<br>不能直接用符号如+、-来使用大数字，例如： </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">import</span> java.math.*)    <span class="comment">// 需要引入 java.math 包 </span></span><br><span class="line"></span><br><span class="line">BigInteger a = BigInteger.valueOf(<span class="number">100</span>); </span><br><span class="line">BigInteger b = BigInteger.valueOf(<span class="number">50</span>); </span><br><span class="line">BigInteger c = a.add(b)    <span class="comment">// c = a + b;</span></span><br></pre></td></tr></table></figure>
-<p>主要有以下方法可以使用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BigInteger <span class="title">add</span><span class="params">(BigInteger other)</span> </span></span><br><span class="line"><span class="function">BigInteger <span class="title">subtract</span><span class="params">(BigInteger other)</span> </span></span><br><span class="line"><span class="function">BigInteger <span class="title">multiply</span><span class="params">(BigInteger other)</span> </span></span><br><span class="line"><span class="function">BigInteger <span class="title">divide</span><span class="params">(BigInteger other)</span> </span></span><br><span class="line"><span class="function">BigInteger <span class="title">mod</span><span class="params">(BigInteger other)</span> </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(BigInteger other)</span> </span></span><br><span class="line"><span class="function"><span class="keyword">static</span> BigInteger <span class="title">valueOf</span><span class="params">(<span class="keyword">long</span> x)</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//输出大数字时直接使用 System.out.println(a) 即可。</span></span></span><br></pre></td></tr></table></figure>
-<h6 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h6><ul>
-<li>String 类用来存储字符串，可以用charAt方法来取出其中某一字节，计数从0开始： </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"Hello"</span>;      <span class="comment">// a.charAt(1) = ’e’</span></span><br></pre></td></tr></table></figure>
-<p>用substring方法可得到子串，如上例 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(a.substring(<span class="number">0</span>, <span class="number">4</span>))      <span class="comment">// output "Hell"</span></span><br></pre></td></tr></table></figure>
-<p>注意第2个参数位置上的字符不包括进来。这样做使得 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.substring(a, b) 总是有 b-a个字符。</span><br></pre></td></tr></table></figure>
-<p>字符串连接可以直接用 + 号，如 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"Hello"</span>; </span><br><span class="line">String b = <span class="string">"world"</span>; </span><br><span class="line">System.out.println(a + <span class="string">", "</span> + b + <span class="string">"!"</span>);      <span class="comment">// output "Hello, world!"</span></span><br></pre></td></tr></table></figure>
-<p>如想直接将字符串中的某字节改变，可以使用另外的StringBuffer类。 </p>
-<h6 id="调用递归（或其他动态方法）"><a href="#调用递归（或其他动态方法）" class="headerlink" title="调用递归（或其他动态方法）"></a>调用递归（或其他动态方法）</h6><p>在主类中 main 方法必须是 public static void 的，在 main 中调用非static类时会有警告信息，<br>可以先建立对象，然后通过对象调用方法： </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">      ... </span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> a)</span> </span></span><br><span class="line"><span class="function">      </span>&#123; </span><br><span class="line">          <span class="keyword">if</span> (...) <span class="keyword">return</span>; </span><br><span class="line">          ... </span><br><span class="line">          dfs(a+<span class="number">1</span>); </span><br><span class="line">      &#125; </span><br><span class="line">     </span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span></span><br><span class="line"><span class="function">      </span>&#123; </span><br><span class="line">          ... </span><br><span class="line">          Main e = <span class="keyword">new</span> Main(); </span><br><span class="line">          e.dfs(<span class="number">0</span>); </span><br><span class="line">          ... </span><br><span class="line">      &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="其他注意的事项"><a href="#其他注意的事项" class="headerlink" title="其他注意的事项"></a>其他注意的事项</h6><ul>
-<li><p>Java是面向对象的语言，思考方法需要变换一下，里面的函数统称为方法，不要搞错。 </p>
-</li>
-<li><p>Java 里的数组有些变动，多维数组的内部其实都是指针，所以Java不支持fill多维数组。 </p>
-</li>
-<li>数组定义后必须初始化，如 </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>];</span><br></pre></td></tr></table></figure>
-<ul>
-<li>布尔类型为 boolean，只有true和false二值，在 if (…) / while (…) 等语句的条件中必须为boolean类型。 </li>
-<li><p>在C/C++中的 if (n % 2) … 在Java中无法编译通过。 </p>
-</li>
-<li><p>下面在java.util包里Arrays类的几个方法可替代C/C++里的memset、qsort/sort 和 bsearch: </p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.fill() </span><br><span class="line">Arrays.sort() </span><br><span class="line">Arrays.binarySearch()</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">研究生之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/11/机试笔记06Java在ACM中的应用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
     <article id="post-机试笔记05贪心算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1084,6 +965,76 @@
 
 
   
+    <article id="post-搭建FTP文件服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/22/搭建FTP文件服务/">搭建FTP文件服务</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/22/搭建FTP文件服务/" class="archive-article-date">
+  	<time datetime="2017-01-22T06:39:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-安装并启动FTP服务"><a href="#1-安装并启动FTP服务" class="headerlink" title="1.安装并启动FTP服务"></a>1.安装并启动FTP服务</h1><h2 id="安装VSFTPD"><a href="#安装VSFTPD" class="headerlink" title="安装VSFTPD"></a>安装VSFTPD</h2><p>使用yum安装vsftpd:<br><code>yum install vsftpd -y</code></p>
+<h2 id="启动VSFTPD"><a href="#启动VSFTPD" class="headerlink" title="启动VSFTPD"></a>启动VSFTPD</h2><p>安装完成后，启动FTP服务：<br><code>service vsftpd start</code><br>启动后，可以看到系统已经监听了21端口：<br><code>netstat -nltp | grep 21</code><br>此时，访问ftp://ip可浏览机器上的/var/ftp目录。</p>
+<h1 id="2-配置FTP权限"><a href="#2-配置FTP权限" class="headerlink" title="2.配置FTP权限"></a>2.配置FTP权限</h1><p>目前FTP服务登录允许匿名登录，也无法区分用户访问，我们需要配置FTP访问权限。</p>
+<h2 id="了解VSFTP配置"><a href="#了解VSFTP配置" class="headerlink" title="了解VSFTP配置"></a>了解VSFTP配置</h2><p>vsftpd 的配置目录为 /etc/vsftpd，包含下列的配置文件：</p>
+<ul>
+<li><code>vsftpd.conf</code> 为主要配置文件</li>
+<li><code>ftpusers</code> 配置禁止访问 FTP 服务器的用户列表</li>
+<li><code>user_list</code> 配置用户访问控制<br>阅读上述配置以了解更多信息。如果您准备好了，点击下一步开始修改配置来设置权限。<h2 id="阻止匿名访问和切换根目录"><a href="#阻止匿名访问和切换根目录" class="headerlink" title="阻止匿名访问和切换根目录"></a>阻止匿名访问和切换根目录</h2>匿名访问和切换根目录都会给服务器带来安全风险，我们把这两个功能关闭。编辑 /etc/vsftpd/vsftpd.conf，找到下面两处配置并修改：<br><code># 禁用匿名用户</code><br><code>anonymous_enable=NO</code><br><code># 禁止切换根目录</code><br><code>chroot_local_user=YES</code><br>编辑完成后，按 Ctrl + S 保存配置，重新启动 FTP 服务，如：<br><code>service vsftpd restart</code><h2 id="创建FTP用户"><a href="#创建FTP用户" class="headerlink" title="创建FTP用户"></a>创建FTP用户</h2>创建一个用户 ftpuser:<br><code>useradd ftpuser</code><br>为用户 ftpuser 设置密码:<br><code>echo &quot;NaOii3Qs | passwd ftpuser —stdin</code><h2 id="限制该用户仅能通过-FTP-访问"><a href="#限制该用户仅能通过-FTP-访问" class="headerlink" title="限制该用户仅能通过 FTP 访问"></a>限制该用户仅能通过 FTP 访问</h2>限制用户 ftpuser 只能通过 FTP 访问服务器，而不能直接登录服务器：<br><code>usermod -s /sbin/nologin ftpuser</code><h2 id="为用户分配主目录"><a href="#为用户分配主目录" class="headerlink" title="为用户分配主目录"></a>为用户分配主目录</h2>为用户 ftpuser 创建主目录并约定：<br>/data/ftp 为主目录, 该目录不可上传文件<br>/data/ftp/pub 文件只能上传到该目录下<br><code>mkdir -p /data/ftp/pub</code><br>创建登录欢迎文件 :<br><code>echo &quot;Welcome to use FTP service.&quot; &gt; /data/ftp/welcome.txt</code><br>设置访问权限：<br><code>chmod a-w /data/ftp &amp;&amp; chmod 777 -R /data/ftp/pub</code><br>设置为用户的主目录：<br><code>usermod -d /data/ftp ftpuser</code></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">FTP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/22/搭建FTP文件服务/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1217,11 +1168,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
