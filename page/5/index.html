@@ -163,6 +163,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-搭建FTP文件服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/22/搭建FTP文件服务/">搭建FTP文件服务</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/22/搭建FTP文件服务/" class="archive-article-date">
+  	<time datetime="2017-01-22T06:39:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-安装并启动FTP服务"><a href="#1-安装并启动FTP服务" class="headerlink" title="1.安装并启动FTP服务"></a>1.安装并启动FTP服务</h1><h2 id="安装VSFTPD"><a href="#安装VSFTPD" class="headerlink" title="安装VSFTPD"></a>安装VSFTPD</h2><p>使用yum安装vsftpd:<br><code>yum install vsftpd -y</code></p>
+<h2 id="启动VSFTPD"><a href="#启动VSFTPD" class="headerlink" title="启动VSFTPD"></a>启动VSFTPD</h2><p>安装完成后，启动FTP服务：<br><code>service vsftpd start</code><br>启动后，可以看到系统已经监听了21端口：<br><code>netstat -nltp | grep 21</code><br>此时，访问ftp://ip可浏览机器上的/var/ftp目录。</p>
+<h1 id="2-配置FTP权限"><a href="#2-配置FTP权限" class="headerlink" title="2.配置FTP权限"></a>2.配置FTP权限</h1><p>目前FTP服务登录允许匿名登录，也无法区分用户访问，我们需要配置FTP访问权限。</p>
+<h2 id="了解VSFTP配置"><a href="#了解VSFTP配置" class="headerlink" title="了解VSFTP配置"></a>了解VSFTP配置</h2><p>vsftpd 的配置目录为 /etc/vsftpd，包含下列的配置文件：</p>
+<ul>
+<li><code>vsftpd.conf</code> 为主要配置文件</li>
+<li><code>ftpusers</code> 配置禁止访问 FTP 服务器的用户列表</li>
+<li><code>user_list</code> 配置用户访问控制<br>阅读上述配置以了解更多信息。如果您准备好了，点击下一步开始修改配置来设置权限。<h2 id="阻止匿名访问和切换根目录"><a href="#阻止匿名访问和切换根目录" class="headerlink" title="阻止匿名访问和切换根目录"></a>阻止匿名访问和切换根目录</h2>匿名访问和切换根目录都会给服务器带来安全风险，我们把这两个功能关闭。编辑 /etc/vsftpd/vsftpd.conf，找到下面两处配置并修改：<br><code># 禁用匿名用户</code><br><code>anonymous_enable=NO</code><br><code># 禁止切换根目录</code><br><code>chroot_local_user=YES</code><br>编辑完成后，按 Ctrl + S 保存配置，重新启动 FTP 服务，如：<br><code>service vsftpd restart</code><h2 id="创建FTP用户"><a href="#创建FTP用户" class="headerlink" title="创建FTP用户"></a>创建FTP用户</h2>创建一个用户 ftpuser:<br><code>useradd ftpuser</code><br>为用户 ftpuser 设置密码:<br><code>echo &quot;NaOii3Qs | passwd ftpuser —stdin</code><h2 id="限制该用户仅能通过-FTP-访问"><a href="#限制该用户仅能通过-FTP-访问" class="headerlink" title="限制该用户仅能通过 FTP 访问"></a>限制该用户仅能通过 FTP 访问</h2>限制用户 ftpuser 只能通过 FTP 访问服务器，而不能直接登录服务器：<br><code>usermod -s /sbin/nologin ftpuser</code><h2 id="为用户分配主目录"><a href="#为用户分配主目录" class="headerlink" title="为用户分配主目录"></a>为用户分配主目录</h2>为用户 ftpuser 创建主目录并约定：<br>/data/ftp 为主目录, 该目录不可上传文件<br>/data/ftp/pub 文件只能上传到该目录下<br><code>mkdir -p /data/ftp/pub</code><br>创建登录欢迎文件 :<br><code>echo &quot;Welcome to use FTP service.&quot; &gt; /data/ftp/welcome.txt</code><br>设置访问权限：<br><code>chmod a-w /data/ftp &amp;&amp; chmod 777 -R /data/ftp/pub</code><br>设置为用户的主目录：<br><code>usermod -d /data/ftp ftpuser</code></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">FTP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/22/搭建FTP文件服务/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-算法学习之堆" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1326,6 +1396,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">软件工程</a>
               </li>
             
             <div class="clearfix"></div>
