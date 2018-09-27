@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.44.11.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.45.31.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.42.08.png">
-<meta property="og:updated_time" content="2018-09-27T12:36:53.087Z">
+<meta property="og:updated_time" content="2018-09-27T12:45:59.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阅读《Learning Convolutional Neural Networks for Graphs》笔记">
 <meta name="twitter:description" content="本文是ICML 2016上关于CNN在Graph上的应用。 CNN处理的数据是Euclidean Data。所谓的Euclidean Data指的是类似于grids, sequences…这样的数据，例如图像就可以看作是2D的grid数据，语音信号就可以看做是1D的grid数据。但是现实的处理问题当中还存在大量的Non-Euclidean Data，如社交网络(Social Network)数据、">
@@ -203,16 +203,21 @@
 </ol>
 </blockquote>
 <p>图1展示的是普通的CNN进行卷积的过程。一张4x4大小的图像，可以表示为具有4个nodes的graph，其中每一个node包括一个和卷积核一样大小的领域(neighborhood field)。由此得到对于这种图像的卷积实际上就是对这4个node组成的graph的领域的卷积。那么，对于一个一般性的graph数据，同样只需要选出其中的nodes，并且求解得到其相关的的固定大小(和卷积核一样大小)的领域便可以使用CNN卷积得到图的特征表示。</p>
-<p><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.03.32.png" alt="图1" title="图1"></p>
+<p><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.03.32.png" alt="图1"><br>图1</p>
 <p>注意，图中(b)当中表示的是(a)当中的一个node的领域，这个感知野按照空间位置从左到右，从上到下的顺序映射为一个卷积核一样大小的vector，然后在进行卷积。</p>
 <p>算法如下：</p>
-<p><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.08.08.png" alt="图2" title="图2"></p>
-<h3 id="1-图当中顶点的选择Node-Sequence-Selection"><a href="#1-图当中顶点的选择Node-Sequence-Selection" class="headerlink" title="1. 图当中顶点的选择Node Sequence Selection"></a>1. 图当中顶点的选择Node Sequence Selection</h3><p>对于输入的graph，需要确定一个宽度w，即选择的nodes的个数，也就是感知野的个数。如何进行Nodes的选择？paper中说是根据graph当中的node的排序label进行选择，主要采取的方法是:centraliy，即中心化方法。个人的理解为越处于中心位置的点越重要。这里的中心位置不是空间上的概念，应该是度量一个点的关系中的重要性的概念。如图3当中的两个图实际上表示的是同一个图，对其中红色标明的两个不同的nodes我们来比较他们的中心位置关系。比较的过程当中，我们计算该node和其余所有nodes的距离关系。我们假设相邻的两个node之间的距离都是1。<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.27.41.png" alt="图3 图当中的两个nodes" title="图3 图当中的两个nodes"><br>那么对于图3当中的左图的红色node，和它直接相连的node有4个，因此距离+4；再稍微远一点的也就是和它相邻点相邻的有3个，距离+6;依次再相邻的有3个+9；最后还剩下一个最远的+4；因此我们知道该node的总的距离为23。同理我们得到右边的node的距离为3+8+6+8=25。那么很明显node的选择的时候左边的node会被先选出来。当然，这只是一种node的排序和选择的方法，其存在的问题也是非常明显的。Paper并没有在这次的工作当中做详细的说明。</p>
+<p><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.08.08.png" alt="图2"><br>图2</p>
+<h3 id="1-图当中顶点的选择Node-Sequence-Selection"><a href="#1-图当中顶点的选择Node-Sequence-Selection" class="headerlink" title="1. 图当中顶点的选择Node Sequence Selection"></a>1. 图当中顶点的选择Node Sequence Selection</h3><p>对于输入的graph，需要确定一个宽度w，即选择的nodes的个数，也就是感知野的个数。如何进行Nodes的选择？paper中说是根据graph当中的node的排序label进行选择，主要采取的方法是:centraliy，即中心化方法。个人的理解为越处于中心位置的点越重要。这里的中心位置不是空间上的概念，应该是度量一个点的关系中的重要性的概念。如图3当中的两个图实际上表示的是同一个图，对其中红色标明的两个不同的nodes我们来比较他们的中心位置关系。比较的过程当中，我们计算该node和其余所有nodes的距离关系。我们假设相邻的两个node之间的距离都是1。<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.27.41.png" alt="图3 图当中的两个nodes"><br>图3 图当中的两个nodes</p>
+<p>那么对于图3当中的左图的红色node，和它直接相连的node有4个，因此距离+4；再稍微远一点的也就是和它相邻点相邻的有3个，距离+6;依次再相邻的有3个+9；最后还剩下一个最远的+4；因此我们知道该node的总的距离为23。同理我们得到右边的node的距离为3+8+6+8=25。那么很明显node的选择的时候左边的node会被先选出来。当然，这只是一种node的排序和选择的方法，其存在的问题也是非常明显的。Paper并没有在这次的工作当中做详细的说明。</p>
 <h3 id="2-找到node的领域-Neighborhood-Assembly"><a href="#2-找到node的领域-Neighborhood-Assembly" class="headerlink" title="2. 找到node的领域 Neighborhood Assembly"></a>2. 找到node的领域 Neighborhood Assembly</h3><p>接下来对选出来的每一个node确定一个感知野receptive filed以便进行卷积操作。但是，在这之前，首先找到每一个node的邻域区域（neighborhood filed），然后再从当中确定感知野当中的nodes。假设感知野的大小为k，那么对于每一个Node很明显都会存在两种情况：邻域nodes不够k个，或者是邻域点多了。<br>如图2中选出的是6个nodes，对于每一个node，首先找到其直接相邻的nodes（被称作是1-neighborhood），如果还不够再增加间接相邻的nodes。那么对于1-neighborhood就已经足够的情况，先全部放在候选的区域当中，在下一步当中通过规范化来做最终的选择。</p>
-<h3 id="3-图规范化过程-Graph-Normalization"><a href="#3-图规范化过程-Graph-Normalization" class="headerlink" title="3. 图规范化过程 Graph Normalization"></a>3. 图规范化过程 Graph Normalization</h3><p>假设上一步Neighborhood Assemble过程当中一个node得到一个领域nodes总共有N个。那么N的个数可能和k不相等的。因此，normalize的过程就是要对他们打上排序标签进行选择，并且按照该顺序映射到向量当中。<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.33.22.png" alt="图4 求解node的receptive field" title="图4 求解node的receptive field"><br>如果这个node的邻域nodes的个数不足的话，直接全部选上，不够补上哑节点（dummy nodes），但还是需要排序；如果数目N超过则需要按着排序截断后面的节点。如图4所示表示从选node到求解出receptive filed的整个过程。Normalize进行排序之后就能够映射到一个vector当中了。因此，这一步最重要的是对nodes进行排序。<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.35.36.png" alt="图5" title="图5"><br>如图5所示，表示对任意一个node求解它的receptive filed的过程。这里的卷积核的大小为4，因此最终要选出来4个node，包括这个node本身。因此，需要给这些nodes打上标签（labeling）。当然存在很多的方式，那么怎样的打标签方式才是最好的呢？如图4所示，其实从这7个nodes当中选出4个nodes会形成一个含有4个nodes的graph的集合。paper的作者认为：在某种标签下，随机从集合当中选择两个图，计算他们在vector空间的图的距离和在graph空间图的距离的差异的期望，如果这个期望越小那么就表明这个标签越好！具体的表示如下：<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.37.47.png" alt="图6" title="图6"><br>得到最好的标签之后，就能够按着顺序将node映射到一个有序的vector当中，也就得到了这个node的receptive field，如图4最右边所示。</p>
-<h3 id="4-卷积网络结构-Convolutional-Architecture"><a href="#4-卷积网络结构-Convolutional-Architecture" class="headerlink" title="4. 卷积网络结构 Convolutional Architecture"></a>4. 卷积网络结构 Convolutional Architecture</h3><p>文章使用的是一个2层的卷积神经网络，将输入转化为一个向量vector之后便可以用来进行卷积操作了。具体的操作如图7，8，9所示<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.44.11.png" alt="图7" title="图7"></p>
-<p><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.45.31.png" alt="图8" title="图8"></p>
-<p><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.42.08.png" alt="图9" title="图9"><br>首先最底层的灰色块为网络的输入，每一个块表示的是一个node的感知野(receptive field)区域，也是前面求解得到的4个nodes。其中an表示的是每一个node的数据中的一个维度(node如果是彩色图像那就是3维；如果是文字，可能是一个词向量……这里表明数据的维度为n)。粉色的表示卷积核，核的大小为4，但是宽度要和数据维度一样。因此，和每一个node卷季后得到一个值。卷积的步长(stride)为4，表明每一次卷积1个node，stride=4下一次刚好跨到下一个node。(备注：图1当中,(a)当中的stride=1，但是转化为（b）当中的结构后stride=9)。卷积核的个数为M，表明卷积后得到的特征图的通道数为M，因此最终得到的结果为V1……VM，也就是图的特征表示。有了它便可以进行分类或者是回归的任务了。</p>
+<h3 id="3-图规范化过程-Graph-Normalization"><a href="#3-图规范化过程-Graph-Normalization" class="headerlink" title="3. 图规范化过程 Graph Normalization"></a>3. 图规范化过程 Graph Normalization</h3><p>假设上一步Neighborhood Assemble过程当中一个node得到一个领域nodes总共有N个。那么N的个数可能和k不相等的。因此，normalize的过程就是要对他们打上排序标签进行选择，并且按照该顺序映射到向量当中。<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.33.22.png" alt="图4 求解node的receptive field"><br>图4 求解node的receptive field</p>
+<p>如果这个node的邻域nodes的个数不足的话，直接全部选上，不够补上哑节点（dummy nodes），但还是需要排序；如果数目N超过则需要按着排序截断后面的节点。如图4所示表示从选node到求解出receptive filed的整个过程。Normalize进行排序之后就能够映射到一个vector当中了。因此，这一步最重要的是对nodes进行排序。<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.35.36.png" alt="图5"><br>图5</p>
+<p>如图5所示，表示对任意一个node求解它的receptive filed的过程。这里的卷积核的大小为4，因此最终要选出来4个node，包括这个node本身。因此，需要给这些nodes打上标签（labeling）。当然存在很多的方式，那么怎样的打标签方式才是最好的呢？如图4所示，其实从这7个nodes当中选出4个nodes会形成一个含有4个nodes的graph的集合。paper的作者认为：在某种标签下，随机从集合当中选择两个图，计算他们在vector空间的图的距离和在graph空间图的距离的差异的期望，如果这个期望越小那么就表明这个标签越好！具体的表示如下：<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.37.47.png" alt="图6" title="图6"><br>图6</p>
+<p>得到最好的标签之后，就能够按着顺序将node映射到一个有序的vector当中，也就得到了这个node的receptive field，如图4最右边所示。</p>
+<h3 id="4-卷积网络结构-Convolutional-Architecture"><a href="#4-卷积网络结构-Convolutional-Architecture" class="headerlink" title="4. 卷积网络结构 Convolutional Architecture"></a>4. 卷积网络结构 Convolutional Architecture</h3><p>文章使用的是一个2层的卷积神经网络，将输入转化为一个向量vector之后便可以用来进行卷积操作了。具体的操作如图7，8，9所示<br><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.44.11.png" alt="图7" title="图7"><br>图7</p>
+<p><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.45.31.png" alt="图8" title="图8"><br>图8</p>
+<p><img src="https://raw.githubusercontent.com/vvshyer/images/master/2018-09-27%2019.42.08.png" alt="图9" title="图9"><br>图9</p>
+<p>首先最底层的灰色块为网络的输入，每一个块表示的是一个node的感知野(receptive field)区域，也是前面求解得到的4个nodes。其中an表示的是每一个node的数据中的一个维度(node如果是彩色图像那就是3维；如果是文字，可能是一个词向量……这里表明数据的维度为n)。粉色的表示卷积核，核的大小为4，但是宽度要和数据维度一样。因此，和每一个node卷季后得到一个值。卷积的步长(stride)为4，表明每一次卷积1个node，stride=4下一次刚好跨到下一个node。(备注：图1当中,(a)当中的stride=1，但是转化为（b）当中的结构后stride=9)。卷积核的个数为M，表明卷积后得到的特征图的通道数为M，因此最终得到的结果为V1……VM，也就是图的特征表示。有了它便可以进行分类或者是回归的任务了。</p>
 
       
 
@@ -493,11 +498,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
+                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
+                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,11 +510,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数学</a>
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +526,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Gradle</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,11 +542,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Deep Learning</a>
+                <a href="javascript:void(0)" class="js-tag color5">软件工程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">软件工程</a>
+                <a href="javascript:void(0)" class="js-tag color4">Deep Learning</a>
               </li>
             
             <div class="clearfix"></div>
