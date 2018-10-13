@@ -163,6 +163,118 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Oracle学习之DML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/14/Oracle学习之DML/">Oracle学习之DML</a>
+    </h1>
+  
+
+        
+        <a href="/2015/01/14/Oracle学习之DML/" class="archive-article-date">
+  	<time datetime="2015-01-14T13:24:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-01-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-dml"><a href="#1-dml" class="headerlink" title="1.dml"></a>1.dml</h1><pre><code>数据操作语言：
+    对表中的记录进行操作
+Insert    插入
+Update    修改更新
+Delete    删除
+Select    选择
+</code></pre><h1 id="2-insert"><a href="#2-insert" class="headerlink" title="2.insert:"></a>2.insert:</h1><pre><code>1.插入一整条记录：
+    Insert into 表名 values(数据)；
+2.指定字段：
+    Insert into 表名(列名) values();
+3.一次性插入多条记录：
+    Insert into 表名(列名) select语句;
+</code></pre><h1 id="3-update-修改"><a href="#3-update-修改" class="headerlink" title="3.update: 修改"></a>3.update: 修改</h1><pre><code>Update 表名 set 列名=新值[,列名2=新值,…][where 条件];
+</code></pre><h1 id="4-delete-删除"><a href="#4-delete-删除" class="headerlink" title="4.delete: 删除"></a>4.delete: 删除</h1><pre><code>Delete from 表名 [where 条件];
+</code></pre><h1 id="5-select-选择"><a href="#5-select-选择" class="headerlink" title="5.select: 选择"></a>5.select: 选择</h1><pre><code>Select *|distinct 列名1,…. 表达式 from 表名或视图名 [where 条件] 
+[group by 分组条件 [having 分组后条件]]
+[order by 排序字段 asc|desc];
+</code></pre><h1 id="6-列别名的问题"><a href="#6-列别名的问题" class="headerlink" title="6.列别名的问题:"></a>6.列别名的问题:</h1><pre><code>如果在查询中需要给列重新设置一个别名，可以使用&lt;as 列别名&gt;的方式，as 可以省略，
+如果别名中出现空格，整个别名应该用双引号引起;
+Select sal*15 as &quot;salary of year&quot; from emp;
+</code></pre><h1 id="7-to-char函数"><a href="#7-to-char函数" class="headerlink" title="7.to_char函数"></a>7.to_char函数</h1><pre><code>将日期转换为字符的函数
+    To_char(日期值,&apos;格式&apos;);
+    例如：
+    To_char(hiredate,&apos;YYYY-MM-dd&apos;);
+</code></pre><h1 id="8-oralce中的连接字符串运算符使用"><a href="#8-oralce中的连接字符串运算符使用" class="headerlink" title="8.oralce中的连接字符串运算符使用||."></a>8.oralce中的连接字符串运算符使用||.</h1><h1 id="9-常用查询条件："><a href="#9-常用查询条件：" class="headerlink" title="9.常用查询条件："></a>9.常用查询条件：</h1><pre><code>查询条件    谓词
+比较    =，&gt;，&lt;，&gt;=，&lt;=，!=，&lt;&gt;，not+上述比较运算符
+确定范围    Between and，not between and
+确定集合    In，not in
+字符匹配    Like，not like
+空    Is null， is not null
+多重条件    And，or
+</code></pre><h1 id="10-in-的使用："><a href="#10-in-的使用：" class="headerlink" title="10.in 的使用："></a>10.in 的使用：</h1><pre><code>In:可以确定一个不连续的范围：
+Select * from emp where job in(&quot;MANAGER&apos;,&apos;CLERK&apos;);
+Not in:不在一个范围：
+Select * from emp where job not in(&quot;MANAGER&apos;,&apos;CLERK&apos;);
+</code></pre><h1 id="11-like的使用："><a href="#11-like的使用：" class="headerlink" title="11.like的使用："></a>11.like的使用：</h1><pre><code>模糊查询：
+    通配符：
+    _：任意一个字符；
+    %：任意多个字符（0到多）；
+    Select * from emp where ename like &apos;%A%&apos;;
+</code></pre><h1 id="12-对于null的比较："><a href="#12-对于null的比较：" class="headerlink" title="12.对于null的比较："></a>12.对于null的比较：</h1><pre><code>null代表空，只能通过特殊的运算符进行比较
+    Is null 或 is not null
+如果通过=null进行比较，永远返回false
+</code></pre><h1 id="13-聚集函数："><a href="#13-聚集函数：" class="headerlink" title="13.聚集函数："></a>13.聚集函数：</h1><pre><code>增强检索功能
+函数    功能
+Count([Distinct|ALL]*)    统计记录个数
+Count([Distinct|ALL]&lt;列名&gt;)    统计一列中值的个数
+SUM([Distinct|ALL]&lt;列名&gt;)    计算一列的总和(必须为数值型)
+AVG([Distinct|ALL]&lt;列名&gt;)    计算一列的平均值(必须为数值型)
+MAX([Distinct|ALL]&lt;列名&gt;)    计算一列的最大值(必须为数值型)
+MIN([Distinct|ALL]&lt;列名&gt;)    计算一列的最小值(必须为数值型)
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/01/14/Oracle学习之DML/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Oracle学习之Oracle基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -471,15 +583,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">CS231n</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,11 +623,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法 | 数学</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color4">Deep Learning</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,7 +639,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Deep Learning</a>
+                <a href="javascript:void(0)" class="js-tag color5">基本技能</a>
               </li>
             
             <div class="clearfix"></div>
